@@ -4,10 +4,10 @@
 namespace Mpwar\DataProcessor\Domain\Service;
 
 
-use Mpwar\DataProcessor\Domain\Entity\RawDocument;
+use Mpwar\DataProcessor\Domain\Entity\EnrichedDocument;
 
 interface EnrichmentDocumentService
 {
 
-    public function execute(RawDocument $rawDocument);
+    public function execute(EnrichedDocument $document);
 }

@@ -7,6 +7,7 @@ use Mpwar\DataProcessor\Application\Service\DataProcessor;
 use Mpwar\DataProcessor\Domain\Repository\EnrichedDocumentsRepository;
 use Mpwar\DataProcessor\Domain\Repository\RawDocumentsRepository;
 use Mpwar\DataProcessor\Domain\Service\EnrichmentDocumentService;
+use Mpwar\DataProcessor\Domain\Service\RawDocumentParser;
 use Mpwar\DataProcessor\Test\Infrastructure\Stub\EnrichedDocumentStub;
 use Mpwar\DataProcessor\Test\Infrastructure\Stub\RawDocumentsCollectionStub;
 use Mpwar\DataProcessor\Test\Infrastructure\UnitTestCase;
@@ -15,6 +16,8 @@ class DataProcessorTest extends UnitTestCase
 {
     /** @var  Mock|RawDocumentsRepository */
     private $rawDocumentsRepository;
+    /** @var  Mock|RawDocumentParser */
+    private $rawDocumentParser;
     /** @var  Mock|EnrichmentDocumentService */
     private $enrichmentDocumentService;
     /** @var  Mock|EnrichedDocumentsRepository */
@@ -25,10 +28,12 @@ class DataProcessorTest extends UnitTestCase
     public function setUp()
     {
         $this->rawDocumentsRepository = $this->mock(RawDocumentsRepository::class);
+        $this->rawDocumentParser = $this->mock(RawDocumentParser::class);
         $this->enrichmentDocumentService = $this->mock(EnrichmentDocumentService::class);
         $this->enrichedDocumentsRepository = $this->mock(EnrichedDocumentsRepository::class);
         $this->dataProcessor = new DataProcessor(
             $this->rawDocumentsRepository,
+            $this->rawDocumentParser,
             $this->enrichmentDocumentService,
             $this->enrichedDocumentsRepository
         );
@@ -48,16 +53,28 @@ class DataProcessorTest extends UnitTestCase
             ->withNoArgs()
             ->andReturn($rawDocumentsCollection);
 
-        $this->enrichmentDocumentService
+        $this->rawDocumentParser
             ->shouldReceive('execute')
             ->once()
             ->with($rawDocumentsCollection[0])
             ->andReturn($enrichedDocument);
 
-        $this->enrichmentDocumentService
+        $this->rawDocumentParser
             ->shouldReceive('execute')
             ->once()
             ->with($rawDocumentsCollection[1])
+            ->andReturn($anotherEnrichedDocument);
+
+        $this->enrichmentDocumentService
+            ->shouldReceive('execute')
+            ->once()
+            ->with($enrichedDocument)
+            ->andReturn($enrichedDocument);
+
+        $this->enrichmentDocumentService
+            ->shouldReceive('execute')
+            ->once()
+            ->with($anotherEnrichedDocument)
             ->andReturn($anotherEnrichedDocument);
 
         $this->enrichedDocumentsRepository
