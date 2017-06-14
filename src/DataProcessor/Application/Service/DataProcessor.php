@@ -26,7 +26,7 @@ class DataProcessor
         $this->enrichedDocumentsRepository = $enrichedDocumentsRepository;
     }
 
-    public function execute()
+    public function execute(): void
     {
         $rawDocumentsCollection = $this->rawDocumentsRepository->all();
 

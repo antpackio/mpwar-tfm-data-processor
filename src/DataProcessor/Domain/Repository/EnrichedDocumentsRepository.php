@@ -8,5 +8,5 @@ use Mpwar\DataProcessor\Domain\Entity\EnrichedDocument;
 interface EnrichedDocumentsRepository
 {
 
-    public function save(EnrichedDocument $enrichedDocument);
+    public function save(EnrichedDocument $enrichedDocument): void;
 }

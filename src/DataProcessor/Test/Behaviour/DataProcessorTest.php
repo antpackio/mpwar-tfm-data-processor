@@ -4,6 +4,8 @@ namespace Mpwar\DataProcessor\Test\Behaviour;
 
 use Mockery\Mock;
 use Mpwar\DataProcessor\Application\Service\DataProcessor;
+use Mpwar\DataProcessor\Domain\Entity\EnrichedDocument;
+use Mpwar\DataProcessor\Domain\Entity\RawDocument;
 use Mpwar\DataProcessor\Domain\Repository\EnrichedDocumentsRepository;
 use Mpwar\DataProcessor\Domain\Repository\RawDocumentsRepository;
 use Mpwar\DataProcessor\Domain\Service\EnrichmentDocumentService;
@@ -44,8 +46,6 @@ class DataProcessorTest extends UnitTestCase
     public function itShould()
     {
         $rawDocumentsCollection = RawDocumentsCollectionStub::withTwoDocuments();
-        $enrichedDocument = EnrichedDocumentStub::random();
-        $anotherEnrichedDocument = EnrichedDocumentStub::random();
 
         $this->rawDocumentsRepository
             ->shouldReceive('all')
@@ -55,38 +55,20 @@ class DataProcessorTest extends UnitTestCase
 
         $this->rawDocumentParser
             ->shouldReceive('execute')
-            ->once()
-            ->with($rawDocumentsCollection[0])
-            ->andReturn($enrichedDocument);
-
-        $this->rawDocumentParser
-            ->shouldReceive('execute')
-            ->once()
-            ->with($rawDocumentsCollection[1])
-            ->andReturn($anotherEnrichedDocument);
+            ->twice()
+            ->with(RawDocument::class)
+            ->andReturn(EnrichedDocumentStub::random());
 
         $this->enrichmentDocumentService
             ->shouldReceive('execute')
-            ->once()
-            ->with($enrichedDocument)
-            ->andReturn($enrichedDocument);
-
-        $this->enrichmentDocumentService
-            ->shouldReceive('execute')
-            ->once()
-            ->with($anotherEnrichedDocument)
-            ->andReturn($anotherEnrichedDocument);
+            ->twice()
+            ->with(EnrichedDocument::class)
+            ->andReturn(EnrichedDocumentStub::random());
 
         $this->enrichedDocumentsRepository
             ->shouldReceive('save')
-            ->once()
-            ->with($enrichedDocument)
-            ->andReturnNull();
-
-        $this->enrichedDocumentsRepository
-            ->shouldReceive('save')
-            ->once()
-            ->with($anotherEnrichedDocument)
+            ->twice()
+            ->with(EnrichedDocument::class)
             ->andReturnNull();
 
         $this->assertNull($this->dataProcessor->execute());
