@@ -9,11 +9,13 @@ class RawDocumentStub extends Stub
     public static function random()
     {
 
-        return self::create();
+        return self::create(
+            RawDocumentIdStub::random()
+        );
     }
 
-    public static function create()
+    public static function create($id)
     {
-        return new RawDocument();
+        return new RawDocument($id);
     }
 }

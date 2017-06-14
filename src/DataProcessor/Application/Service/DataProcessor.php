@@ -31,6 +31,9 @@ class DataProcessor
         $rawDocumentsCollection = $this->rawDocumentsRepository->all();
 
         foreach ($rawDocumentsCollection as $rawDocument) {
+            if ($this->enrichedDocumentsRepository->hasRawDocumentId($rawDocument->id()) !== null) {
+                continue;
+            }
             $enrichedDocument = $this->rawDocumentParser->execute($rawDocument);
             $enrichedDocument = $this->enrichmentDocumentService->execute($enrichedDocument);
             $this->enrichedDocumentsRepository->save($enrichedDocument);

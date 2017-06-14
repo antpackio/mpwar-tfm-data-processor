@@ -53,6 +53,18 @@ class DataProcessorTest extends UnitTestCase
             ->withNoArgs()
             ->andReturn($rawDocumentsCollection);
 
+        $this->enrichedDocumentsRepository
+            ->shouldReceive('hasRawDocumentId')
+            ->once()
+            ->with($rawDocumentsCollection[0]->id())
+            ->andReturn(null);
+
+        $this->enrichedDocumentsRepository
+            ->shouldReceive('hasRawDocumentId')
+            ->once()
+            ->with($rawDocumentsCollection[1]->id())
+            ->andReturn(null);
+        
         $this->rawDocumentParser
             ->shouldReceive('execute')
             ->twice()
