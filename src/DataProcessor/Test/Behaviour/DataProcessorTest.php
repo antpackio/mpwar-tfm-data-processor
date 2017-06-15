@@ -9,7 +9,7 @@ use Mpwar\DataProcessor\Domain\Entity\RawDocument;
 use Mpwar\DataProcessor\Domain\Repository\EnrichedDocumentsRepository;
 use Mpwar\DataProcessor\Domain\Repository\RawDocumentsRepository;
 use Mpwar\DataProcessor\Domain\Service\EnrichmentDocumentService;
-use Mpwar\DataProcessor\Domain\Service\RawDocumentParser;
+use Mpwar\DataProcessor\Domain\Service\RawDocumentParserService;
 use Mpwar\DataProcessor\Test\Infrastructure\Stub\EnrichedDocumentStub;
 use Mpwar\DataProcessor\Test\Infrastructure\Stub\RawDocumentsCollectionStub;
 use Mpwar\DataProcessor\Test\Infrastructure\UnitTestCase;
@@ -18,7 +18,7 @@ class DataProcessorTest extends UnitTestCase
 {
     /** @var  Mock|RawDocumentsRepository */
     private $rawDocumentsRepository;
-    /** @var  Mock|RawDocumentParser */
+    /** @var  Mock|RawDocumentParserService */
     private $rawDocumentParser;
     /** @var  Mock|EnrichmentDocumentService */
     private $enrichmentDocumentService;
@@ -30,7 +30,7 @@ class DataProcessorTest extends UnitTestCase
     public function setUp()
     {
         $this->rawDocumentsRepository = $this->mock(RawDocumentsRepository::class);
-        $this->rawDocumentParser = $this->mock(RawDocumentParser::class);
+        $this->rawDocumentParser = $this->mock(RawDocumentParserService::class);
         $this->enrichmentDocumentService = $this->mock(EnrichmentDocumentService::class);
         $this->enrichedDocumentsRepository = $this->mock(EnrichedDocumentsRepository::class);
         $this->dataProcessor = new DataProcessor(

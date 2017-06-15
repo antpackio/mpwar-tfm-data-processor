@@ -18,13 +18,8 @@ class RawDocumentSource
         $this->value = $source;
     }
 
-
-    /**
-     * @return string
-     */
     public function value(): string
     {
         return $this->value;
     }
-
 }

@@ -25,6 +25,6 @@ class EnrichedDocumentStub extends Stub
 
     public static function fromRawDocument(RawDocument $rawDocument)
     {
-       return self::create($rawDocument->id(), $rawDocument->source());
+        return self::create($rawDocument->id(), $rawDocument->source());
     }
 }

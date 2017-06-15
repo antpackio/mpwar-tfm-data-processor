@@ -2,10 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a8c93ecf-a80b-451d-811a-2fbf63ee7420" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/composer.lock" afterPath="$PROJECT_DIR$/composer.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/DataProcessor/Domain/Entity/EnrichedDocument.php" afterPath="$PROJECT_DIR$/src/DataProcessor/Domain/Entity/EnrichedDocument.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/DataProcessor/Domain/Entity/RawDocument.php" afterPath="$PROJECT_DIR$/src/DataProcessor/Domain/Entity/RawDocument.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/DataProcessor/Domain/Service/ConcreteRawDocumentParserService.php" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/DataProcessor/Domain/Service/ConcreteRawDocumentParser.php" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/DataProcessor/Domain/Service/RawDocumentParser.php" afterPath="$PROJECT_DIR$/src/DataProcessor/Domain/Service/RawDocumentParserService.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/mpwar-tfm-data-processor.iml" afterPath="$PROJECT_DIR$/.idea/mpwar-tfm-data-processor.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/DataProcessor/Application/Service/DataProcessor.php" afterPath="$PROJECT_DIR$/src/DataProcessor/Application/Service/DataProcessor.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/DataProcessor/Domain/ValueObject/RawDocumentSource.php" afterPath="$PROJECT_DIR$/src/DataProcessor/Domain/ValueObject/RawDocumentSource.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/DataProcessor/Test/Behaviour/DataProcessorTest.php" afterPath="$PROJECT_DIR$/src/DataProcessor/Test/Behaviour/DataProcessorTest.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/DataProcessor/Test/Behaviour/RawDocumentParserTest.php" afterPath="$PROJECT_DIR$/src/DataProcessor/Test/Behaviour/RawDocumentParserTest.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/DataProcessor/Test/Infrastructure/Stub/EnrichedDocumentStub.php" afterPath="$PROJECT_DIR$/src/DataProcessor/Test/Infrastructure/Stub/EnrichedDocumentStub.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/DataProcessor/Test/Infrastructure/Stub/RawDocumentSourceStub.php" afterPath="$PROJECT_DIR$/src/DataProcessor/Test/Infrastructure/Stub/RawDocumentSourceStub.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/DataProcessor/Test/Infrastructure/Stub/RawDocumentStub.php" afterPath="$PROJECT_DIR$/src/DataProcessor/Test/Infrastructure/Stub/RawDocumentStub.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -30,14 +37,12 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="RawDocumentParserTest.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/DataProcessor/Test/Behaviour/RawDocumentParserTest.php">
+      <file leaf-file-name="RawDocumentSource.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/DataProcessor/Domain/ValueObject/RawDocumentSource.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="719">
-              <caret line="38" column="1" lean-forward="true" selection-start-line="38" selection-start-column="1" selection-end-line="38" selection-end-column="1" />
-              <folding>
-                <element signature="e#138#203#0#PHP" expanded="true" />
-              </folding>
+            <state relative-caret-position="432">
+              <caret line="23" column="5" lean-forward="false" selection-start-line="23" selection-start-column="5" selection-end-line="23" selection-end-column="5" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -45,51 +50,21 @@
       <file leaf-file-name="DataProcessorTest.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/DataProcessor/Test/Behaviour/DataProcessorTest.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="509">
-              <caret line="79" column="42" lean-forward="true" selection-start-line="79" selection-start-column="42" selection-end-line="79" selection-end-column="42" />
+            <state relative-caret-position="527">
+              <caret line="53" column="49" lean-forward="true" selection-start-line="49" selection-start-column="7" selection-end-line="53" selection-end-column="49" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RawDocumentStub.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/DataProcessor/Test/Infrastructure/Stub/RawDocumentStub.php">
+      <file leaf-file-name="RawDocumentParserTest.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/DataProcessor/Test/Behaviour/RawDocumentParserTest.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="744">
-              <caret line="31" column="1" lean-forward="true" selection-start-line="31" selection-start-column="1" selection-end-line="31" selection-end-column="1" />
+            <state relative-caret-position="696">
+              <caret line="45" column="54" lean-forward="false" selection-start-line="45" selection-start-column="54" selection-end-line="45" selection-end-column="54" />
               <folding>
-                <element signature="e#64#114#0#PHP" expanded="true" />
+                <element signature="e#138#207#0#PHP" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RawDocumentSourceStub.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/DataProcessor/Test/Infrastructure/Stub/RawDocumentSourceStub.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="528">
-              <caret line="27" column="6" lean-forward="false" selection-start-line="27" selection-start-column="6" selection-end-line="27" selection-end-column="6" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RawDocumentsCollectionStub.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/DataProcessor/Test/Infrastructure/Stub/RawDocumentsCollectionStub.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RawDocumentParser.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/DataProcessor/Domain/Service/RawDocumentParser.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="216">
-              <caret line="10" column="1" lean-forward="true" selection-start-line="10" selection-start-column="1" selection-end-line="10" selection-end-column="1" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -98,7 +73,7 @@
         <entry file="file://$PROJECT_DIR$/src/DataProcessor/Test/Infrastructure/Stub/EnrichedDocumentStub.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="648">
-              <caret line="27" column="13" lean-forward="false" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
+              <caret line="27" column="14" lean-forward="false" selection-start-line="27" selection-start-column="14" selection-end-line="27" selection-end-column="14" />
               <folding>
                 <element signature="e#64#119#0#PHP" expanded="true" />
               </folding>
@@ -116,26 +91,56 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="EnrichedDocument.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/DataProcessor/Domain/Entity/EnrichedDocument.php">
+      <file leaf-file-name="RawDocumentsCollectionStub.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/DataProcessor/Test/Infrastructure/Stub/RawDocumentsCollectionStub.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="12" column="83" lean-forward="false" selection-start-line="12" selection-start-column="66" selection-end-line="12" selection-end-column="83" />
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RawDocumentSourceStub.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/DataProcessor/Test/Infrastructure/Stub/RawDocumentSourceStub.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="657">
+              <caret line="35" column="17" lean-forward="false" selection-start-line="35" selection-start-column="17" selection-end-line="35" selection-end-column="17" />
               <folding>
-                <element signature="e#53#110#0#PHP" expanded="true" />
+                <element signature="e#148#220#0#PHP" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RawDocument.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/DataProcessor/Domain/Entity/RawDocument.php">
+      <file leaf-file-name="RawDocumentStub.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/DataProcessor/Test/Infrastructure/Stub/RawDocumentStub.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="15" column="32" lean-forward="true" selection-start-line="15" selection-start-column="32" selection-end-line="15" selection-end-column="32" />
+            <state relative-caret-position="465">
+              <caret line="28" column="42" lean-forward="false" selection-start-line="28" selection-start-column="35" selection-end-line="28" selection-end-column="42" />
               <folding>
-                <element signature="e#53#110#0#PHP" expanded="true" />
+                <element signature="e#64#114#0#PHP" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Stub.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/DataProcessor/Test/Infrastructure/Stub/Stub.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UnitTestCase.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/DataProcessor/Test/Infrastructure/UnitTestCase.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -148,14 +153,19 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/DataProcessor/Domain/ValueObject/RawDocumentSource.php" />
         <option value="$PROJECT_DIR$/src/DataProcessor/Domain/Entity/RawDocument.php" />
-        <option value="$PROJECT_DIR$/src/DataProcessor/Test/Infrastructure/Stub/RawDocumentSourceStub.php" />
-        <option value="$PROJECT_DIR$/src/DataProcessor/Test/Infrastructure/Stub/RawDocumentStub.php" />
         <option value="$PROJECT_DIR$/src/DataProcessor/Domain/Entity/EnrichedDocument.php" />
+        <option value="$PROJECT_DIR$/src/DataProcessor/Domain/ValueObject/RawDocumentSource.php" />
+        <option value="$PROJECT_DIR$/src/DataProcessor/Test/Infrastructure/Stub/RawDocumentStub.php" />
+        <option value="$PROJECT_DIR$/src/DataProcessor/Domain/Service/Parser.php" />
+        <option value="$PROJECT_DIR$/src/DataProcessor/Domain/Service/TwitterParser.php" />
         <option value="$PROJECT_DIR$/src/DataProcessor/Domain/Service/ConcreteRawDocumentParser.php" />
-        <option value="$PROJECT_DIR$/src/DataProcessor/Test/Infrastructure/Stub/EnrichedDocumentStub.php" />
+        <option value="$PROJECT_DIR$/src/DataProcessor/Domain/Exception/NotSupportedSourceException.php" />
+        <option value="$PROJECT_DIR$/src/DataProcessor/Domain/Service/ConcreteRawDocumentParserService.php" />
+        <option value="$PROJECT_DIR$/src/DataProcessor/Domain/Service/EnrichmentDocumentService.php" />
         <option value="$PROJECT_DIR$/src/DataProcessor/Test/Behaviour/RawDocumentParserTest.php" />
+        <option value="$PROJECT_DIR$/src/DataProcessor/Test/Infrastructure/Stub/EnrichedDocumentStub.php" />
+        <option value="$PROJECT_DIR$/src/DataProcessor/Test/Infrastructure/Stub/RawDocumentSourceStub.php" />
       </list>
     </option>
   </component>
@@ -384,6 +394,32 @@
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="Exception" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mpwar-tfm-data-processor" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mpwar-tfm-data-processor" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DataProcessor" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Domain" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="Entity" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
@@ -421,7 +457,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Font" />
+    <property name="settings.editor.selected.configurable" value="web-ide.project.structure" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
@@ -511,12 +547,12 @@
       <option name="presentableId" value="Default" />
       <updated>1497541712981</updated>
       <workItem from="1497541716568" duration="120000" />
-      <workItem from="1497541868249" duration="2852000" />
+      <workItem from="1497541868249" duration="6755000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2972000" />
+    <option name="totallyTimeSpent" value="6875000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -563,37 +599,41 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/DataProcessor/Application/Service/DataProcessor.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="620">
-          <caret line="36" column="42" lean-forward="true" selection-start-line="36" selection-start-column="42" selection-end-line="36" selection-end-column="42" />
+        <state relative-caret-position="633">
+          <caret line="37" column="93" lean-forward="true" selection-start-line="37" selection-start-column="13" selection-end-line="37" selection-end-column="93" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/DataProcessor/Domain/ValueObject/RawDocumentsCollection.php">
+    <entry file="file://$PROJECT_DIR$/src/DataProcessor/Domain/Entity/EnrichedDocument.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-10">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="360">
+          <caret line="15" column="32" lean-forward="false" selection-start-line="15" selection-start-column="32" selection-end-line="15" selection-end-column="32" />
+          <folding>
+            <element signature="e#53#110#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/DataProcessor/Domain/ValueObject/RawDocumentId.php">
+    <entry file="file://$PROJECT_DIR$/src/DataProcessor/Domain/Entity/RawDocument.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-10">
-          <caret line="15" column="9" lean-forward="false" selection-start-line="15" selection-start-column="9" selection-end-line="15" selection-end-column="9" />
-          <folding />
+        <state relative-caret-position="48">
+          <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="44" />
+          <folding>
+            <element signature="e#53#110#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/DataProcessor/Domain/ValueObject/RawDocumentSource.php">
+    <entry file="file://$PROJECT_DIR$/src/DataProcessor/Domain/Exception/NotSupportedSourceException.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-10">
-          <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+        <state relative-caret-position="216">
+          <caret line="9" column="1" lean-forward="false" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/DataProcessor/Test/Infrastructure/Stub/Stub.php">
+    <entry file="file://$PROJECT_DIR$/src/DataProcessor/Domain/Repository/EnrichedDocumentsRepository.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -609,40 +649,108 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/DataProcessor/Domain/Service/ConcreteRawDocumentParser.php">
+    <entry file="file://$PROJECT_DIR$/src/DataProcessor/Domain/Service/ConcreteRawDocumentParserService.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="20" column="5" lean-forward="true" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="5" />
+        <state relative-caret-position="551">
+          <caret line="41" column="4" lean-forward="false" selection-start-line="41" selection-start-column="4" selection-end-line="41" selection-end-column="4" />
+          <folding>
+            <element signature="e#138#193#0#PHP" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DataProcessor/Domain/Service/EnrichmentDocumentService.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DataProcessor/Domain/Service/Parser.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="16" column="70" lean-forward="false" selection-start-line="16" selection-start-column="70" selection-end-line="16" selection-end-column="70" />
           <folding>
             <element signature="e#138#193#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/DataProcessor/Test/Behaviour/DataProcessorTest.php">
+    <entry file="file://$PROJECT_DIR$/src/DataProcessor/Domain/Service/RawDocumentParserService.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="509">
-          <caret line="79" column="42" lean-forward="true" selection-start-line="79" selection-start-column="42" selection-end-line="79" selection-end-column="42" />
+        <state relative-caret-position="216">
+          <caret line="10" column="1" lean-forward="false" selection-start-line="10" selection-start-column="1" selection-end-line="10" selection-end-column="1" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/DataProcessor/Domain/Entity/RawDocument.php">
+    <entry file="file://$PROJECT_DIR$/src/DataProcessor/Domain/Service/TwitterParser.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="15" column="32" lean-forward="true" selection-start-line="15" selection-start-column="32" selection-end-line="15" selection-end-column="32" />
+        <state relative-caret-position="336">
+          <caret line="19" column="78" lean-forward="false" selection-start-line="19" selection-start-column="78" selection-end-line="19" selection-end-column="78" />
           <folding>
-            <element signature="e#53#110#0#PHP" expanded="true" />
+            <element signature="e#138#193#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/DataProcessor/Domain/Entity/EnrichedDocument.php">
+    <entry file="file://$PROJECT_DIR$/src/DataProcessor/Domain/ValueObject/Collection.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="12" column="83" lean-forward="false" selection-start-line="12" selection-start-column="66" selection-end-line="12" selection-end-column="83" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DataProcessor/Domain/ValueObject/RawDocumentId.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="273">
+          <caret line="15" column="9" lean-forward="false" selection-start-line="15" selection-start-column="9" selection-end-line="15" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DataProcessor/Domain/ValueObject/RawDocumentsCollection.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DataProcessor/Domain/ValueObject/RawDocumentSource.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="432">
+          <caret line="23" column="5" lean-forward="false" selection-start-line="23" selection-start-column="5" selection-end-line="23" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DataProcessor/Test/Behaviour/DataProcessorTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="527">
+          <caret line="53" column="49" lean-forward="true" selection-start-line="49" selection-start-column="7" selection-end-line="53" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DataProcessor/Test/Behaviour/RawDocumentParserTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="696">
+          <caret line="45" column="54" lean-forward="false" selection-start-line="45" selection-start-column="54" selection-end-line="45" selection-end-column="54" />
           <folding>
-            <element signature="e#53#110#0#PHP" expanded="true" />
+            <element signature="e#138#207#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DataProcessor/Test/Infrastructure/Stub/EnrichedDocumentStub.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="648">
+          <caret line="27" column="14" lean-forward="false" selection-start-line="27" selection-start-column="14" selection-end-line="27" selection-end-column="14" />
+          <folding>
+            <element signature="e#64#119#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -655,34 +763,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/DataProcessor/Test/Infrastructure/Stub/EnrichedDocumentStub.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="648">
-          <caret line="27" column="13" lean-forward="false" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
-          <folding>
-            <element signature="e#64#119#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/DataProcessor/Test/Infrastructure/Stub/RawDocumentStub.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="744">
-          <caret line="31" column="1" lean-forward="true" selection-start-line="31" selection-start-column="1" selection-end-line="31" selection-end-column="1" />
-          <folding>
-            <element signature="e#64#114#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/DataProcessor/Test/Infrastructure/Stub/RawDocumentSourceStub.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="528">
-          <caret line="27" column="6" lean-forward="false" selection-start-line="27" selection-start-column="6" selection-end-line="27" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/DataProcessor/Test/Infrastructure/Stub/RawDocumentsCollectionStub.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -691,21 +771,39 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/DataProcessor/Domain/Service/RawDocumentParser.php">
+    <entry file="file://$PROJECT_DIR$/src/DataProcessor/Test/Infrastructure/Stub/RawDocumentSourceStub.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="10" column="1" lean-forward="true" selection-start-line="10" selection-start-column="1" selection-end-line="10" selection-end-column="1" />
+        <state relative-caret-position="657">
+          <caret line="35" column="17" lean-forward="false" selection-start-line="35" selection-start-column="17" selection-end-line="35" selection-end-column="17" />
+          <folding>
+            <element signature="e#148#220#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DataProcessor/Test/Infrastructure/Stub/RawDocumentStub.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="465">
+          <caret line="28" column="42" lean-forward="false" selection-start-line="28" selection-start-column="35" selection-end-line="28" selection-end-column="42" />
+          <folding>
+            <element signature="e#64#114#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DataProcessor/Test/Infrastructure/Stub/Stub.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/DataProcessor/Test/Behaviour/RawDocumentParserTest.php">
+    <entry file="file://$PROJECT_DIR$/src/DataProcessor/Test/Infrastructure/UnitTestCase.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="719">
-          <caret line="38" column="1" lean-forward="true" selection-start-line="38" selection-start-column="1" selection-end-line="38" selection-end-column="1" />
-          <folding>
-            <element signature="e#138#203#0#PHP" expanded="true" />
-          </folding>
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>

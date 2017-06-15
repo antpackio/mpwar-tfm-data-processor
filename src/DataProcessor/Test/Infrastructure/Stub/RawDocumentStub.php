@@ -29,4 +29,13 @@ class RawDocumentStub extends Stub
             RawDocumentSourceStub::twitter()
         );
     }
+
+    public static function withInvalidSource()
+    {
+
+        return self::create(
+            RawDocumentIdStub::random(),
+            RawDocumentSourceStub::invalid()
+        );
+    }
 }
