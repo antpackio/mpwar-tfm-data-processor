@@ -1,13 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Carles
- * Date: 21/06/2017
- * Time: 19:14
- */
 
 namespace Mpwar\DataProcessor\Test\Infrastructure\Stub;
-
 
 use Mpwar\DataProcessor\Domain\ValueObject\EnrichedDocumentContent;
 
@@ -18,9 +11,9 @@ class EnrichedDocumentContentStub extends Stub
         return self::create(self::factory()->text());
     }
 
-    public static function create(String $source)
+    public static function create(String $content)
     {
-        return new EnrichedDocumentContent($source);
+        return new EnrichedDocumentContent($content);
     }
 
 }

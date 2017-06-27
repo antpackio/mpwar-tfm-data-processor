@@ -3,34 +3,68 @@
 namespace Mpwar\DataProcessor\Domain\Entity;
 
 use Mpwar\DataProcessor\Domain\ValueObject\EnrichedDocumentContent;
+use Mpwar\DataProcessor\Domain\ValueObject\EnrichedDocumentCreatedAt;
+use Mpwar\DataProcessor\Domain\ValueObject\RawDocumentContent;
 use Mpwar\DataProcessor\Domain\ValueObject\RawDocumentId;
+use Mpwar\DataProcessor\Domain\ValueObject\RawDocumentKeyword;
 use Mpwar\DataProcessor\Domain\ValueObject\RawDocumentSource;
 
 class EnrichedDocument
 {
-    private $rawDocumentId;
-    private $source;
+    private $rawDocument;
     private $content;
+    private $createdAt;
 
-    public function __construct(RawDocumentId $rawDocumentId, RawDocumentSource $source, EnrichedDocumentContent $content)
+    private function __construct(
+        RawDocument $rawDocument
+    ) {
+        $this->rawDocument = $rawDocument;
+        $this->content = null;
+        $this->createdAt = null;
+    }
+
+    public static function fromRawDocument(RawDocument $rawDocument): self
     {
-        $this->rawDocumentId = $rawDocumentId;
-        $this->source = $source;
-        $this->content = $content;
+        return new self($rawDocument);
     }
 
     public function source(): RawDocumentSource
     {
-        return $this->source;
+        return $this->rawDocument->source();
     }
 
-    public function content(): EnrichedDocumentContent
+    public function content(): ?EnrichedDocumentContent
     {
         return $this->content;
     }
 
+    public function createdAt(): ?EnrichedDocumentCreatedAt
+    {
+        return $this->createdAt;
+    }
+
+    public function keyword(): RawDocumentKeyword
+    {
+        return $this->rawDocument->keyword();
+    }
+
     public function rawDocumentId(): RawDocumentId
     {
-        return $this->rawDocumentId;
+        return $this->rawDocument->id();
+    }
+
+    public function setContent(EnrichedDocumentContent $content)
+    {
+        $this->content = $content;
+    }
+
+    public function setCreatedAt(EnrichedDocumentCreatedAt $createdAt)
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    public function rawDocumentContent(): RawDocumentContent
+    {
+        return $this->rawDocument->content();
     }
 }

@@ -2,26 +2,27 @@
 
 namespace Mpwar\DataProcessor\Application\Service;
 
+use Mpwar\DataProcessor\Domain\Entity\EnrichedDocument;
 use Mpwar\DataProcessor\Domain\Repository\EnrichedDocumentsRepository;
 use Mpwar\DataProcessor\Domain\Repository\RawDocumentsRepository;
 use Mpwar\DataProcessor\Domain\Service\EnrichmentDocumentService;
-use Mpwar\DataProcessor\Domain\Service\RawDocumentParserService;
+use Mpwar\DataProcessor\Domain\Service\ParserService;
 
 class DataProcessor
 {
     private $rawDocumentsRepository;
     private $enrichmentDocumentService;
     private $enrichedDocumentsRepository;
-    private $rawDocumentParser;
+    private $parserService;
 
     public function __construct(
         RawDocumentsRepository $rawDocumentsRepository,
-        RawDocumentParserService $rawDocumentParser,
+        ParserService $parserService,
         EnrichmentDocumentService $enrichmentDocumentService,
         EnrichedDocumentsRepository $enrichedDocumentsRepository
     ) {
         $this->rawDocumentsRepository = $rawDocumentsRepository;
-        $this->rawDocumentParser = $rawDocumentParser;
+        $this->parserService = $parserService;
         $this->enrichmentDocumentService = $enrichmentDocumentService;
         $this->enrichedDocumentsRepository = $enrichedDocumentsRepository;
     }
@@ -34,7 +35,8 @@ class DataProcessor
             if ($this->enrichedDocumentsRepository->hasRawDocumentId($rawDocument->id()) !== null) {
                 continue;
             }
-            $enrichedDocument = $this->rawDocumentParser->execute($rawDocument);
+            $enrichedDocument = EnrichedDocument::fromRawDocument($rawDocument);
+            $enrichedDocument = $this->parserService->execute($enrichedDocument);
             $enrichedDocument = $this->enrichmentDocumentService->execute($enrichedDocument);
             $this->enrichedDocumentsRepository->save($enrichedDocument);
         }

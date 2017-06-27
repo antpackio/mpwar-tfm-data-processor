@@ -1,57 +1,58 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Carles
- * Date: 15/06/2017
- * Time: 19:34
- */
 
 namespace Mpwar\DataProcessor\Domain\Service;
 
-
 use Mpwar\DataProcessor\Domain\Entity\EnrichedDocument;
-use Mpwar\DataProcessor\Domain\Entity\RawDocument;
 use Mpwar\DataProcessor\Domain\Exception\EmptyRawDocumentException;
 use Mpwar\DataProcessor\Domain\Exception\NotSupportedSourceException;
 use Mpwar\DataProcessor\Domain\ValueObject\EnrichedDocumentContent;
+use Mpwar\DataProcessor\Domain\ValueObject\EnrichedDocumentCreatedAt;
+use Mpwar\DataProcessor\Domain\ValueObject\RawDocumentContent;
 
 class TwitterParser implements Parser
 {
 
     const SOURCE = "twitter";
 
-    public function parse(RawDocument $rawDocument): EnrichedDocument
+    public function parse(EnrichedDocument $enrichedDocument): EnrichedDocument
     {
-        $this->checkIfSourceIsTwitter($rawDocument);
+        $this->checkIfSourceIsTwitter($enrichedDocument);
+        $this->checkIfEmptyContent($enrichedDocument->rawDocumentContent());
 
-        $this->checkIfEmptyContent($rawDocument);
+        $rawDocumentContentDecoded = json_decode(
+            $enrichedDocument->rawDocumentContent()->value(),
+            true
+        );
+        $content = new EnrichedDocumentContent(
+            $rawDocumentContentDecoded["text"]
+        );
+        $enrichedDocument->setContent($content);
+        $createdAt = new EnrichedDocumentCreatedAt(
+            $rawDocumentContentDecoded["created_at"]
+        );
+        $enrichedDocument->setCreatedAt($createdAt);
 
-        $rawDocumentContentDecoded = json_decode($rawDocument->content()->value(),true);
-        $content = $rawDocumentContentDecoded["text"];
-
-        $content = New EnrichedDocumentContent($content);
-
-        return new EnrichedDocument($rawDocument->id(), $rawDocument->source(), $content);
+        return $enrichedDocument;
     }
 
     /**
-     * @param RawDocument $rawDocument
+     * @param EnrichedDocument $enrichedDocument
      * @throws NotSupportedSourceException
      */
-    private function checkIfSourceIsTwitter(RawDocument $rawDocument): void
+    private function checkIfSourceIsTwitter(EnrichedDocument $enrichedDocument): void
     {
-        if ($rawDocument->source()->value() !== self::SOURCE) {
+        if ($enrichedDocument->source()->value() !== self::SOURCE) {
             throw new NotSupportedSourceException();
         }
     }
 
     /**
-     * @param RawDocument $rawDocument
+     * @param RawDocumentContent $rawDocumentContent
      * @throws EmptyRawDocumentException
      */
-    private function checkIfEmptyContent(RawDocument $rawDocument): void
+    private function checkIfEmptyContent(RawDocumentContent $rawDocumentContent): void
     {
-        if (empty($rawDocument->content()->value())) {
+        if (empty($rawDocumentContent->value())) {
             throw new EmptyRawDocumentException();
         }
     }

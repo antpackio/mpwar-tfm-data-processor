@@ -2,6 +2,6 @@
 
 namespace Mpwar\DataProcessor\Domain\ValueObject;
 
-class RawDocumentSource extends StringValueObject
+class RawDocumentKeyword extends StringValueObject
 {
 }

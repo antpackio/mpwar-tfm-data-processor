@@ -5,6 +5,7 @@ namespace Mpwar\DataProcessor\Test\Infrastructure\Stub;
 use Mpwar\DataProcessor\Domain\Entity\RawDocument;
 use Mpwar\DataProcessor\Domain\ValueObject\RawDocumentContent;
 use Mpwar\DataProcessor\Domain\ValueObject\RawDocumentId;
+use Mpwar\DataProcessor\Domain\ValueObject\RawDocumentKeyword;
 use Mpwar\DataProcessor\Domain\ValueObject\RawDocumentSource;
 
 class RawDocumentStub extends Stub
@@ -15,13 +16,14 @@ class RawDocumentStub extends Stub
         return self::create(
             RawDocumentIdStub::random(),
             RawDocumentSourceStub::random(),
+            RawDocumentKeywordStub::random(),
             RawDocumentContentStub::random()
         );
     }
 
-    public static function create(RawDocumentId $id, RawDocumentSource $source, RawDocumentContent $content)
+    public static function create(RawDocumentId $id, RawDocumentSource $source, RawDocumentKeyword $keyword, RawDocumentContent $content)
     {
-        return new RawDocument($id, $source, $content);
+        return new RawDocument($id, $source, $keyword, $content);
     }
 
     public static function randomFromTwitter()
@@ -29,6 +31,7 @@ class RawDocumentStub extends Stub
         return self::create(
             RawDocumentIdStub::random(),
             RawDocumentSourceStub::twitter(),
+            RawDocumentKeywordStub::random(),
             RawDocumentContentStub::random()
         );
     }
@@ -39,6 +42,7 @@ class RawDocumentStub extends Stub
         return self::create(
             RawDocumentIdStub::random(),
             RawDocumentSourceStub::invalid(),
+            RawDocumentKeywordStub::random(),
             RawDocumentContentStub::random()
         );
     }
@@ -48,6 +52,7 @@ class RawDocumentStub extends Stub
         return self::create(
             RawDocumentIdStub::random(),
             RawDocumentSourceStub::twitter(),
+            RawDocumentKeywordStub::random(),
             RawDocumentContentStub::empty()
         );
     }
@@ -57,11 +62,18 @@ class RawDocumentStub extends Stub
         return self::create(
             RawDocumentIdStub::random(),
             RawDocumentSourceStub::twitter(),
+            RawDocumentKeywordStub::random(),
             RawDocumentContentStub::create($content)
         );
     }
 
     public static function validFromTwitter()
     {
+        return self::create(
+            RawDocumentIdStub::random(),
+            RawDocumentSourceStub::twitter(),
+            RawDocumentKeywordStub::random(),
+            RawDocumentContentStub::validFromTwitter()
+        );
     }
 }
