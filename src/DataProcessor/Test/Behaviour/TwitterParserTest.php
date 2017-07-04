@@ -3,11 +3,15 @@
 namespace DataProcessor\Test\Behaviour;
 
 use Mpwar\DataProcessor\Domain\Exception\EmptyRawDocumentException;
+use Mpwar\DataProcessor\Domain\Exception\NonWellFormedTweetException;
 use Mpwar\DataProcessor\Domain\Exception\NotSupportedSourceException;
 use Mpwar\DataProcessor\Domain\Service\TwitterParser;
-use Mpwar\DataProcessor\Test\Infrastructure\Stub\EnrichedDocumentContentStub;
 use Mpwar\DataProcessor\Test\Infrastructure\Stub\EnrichedDocumentCreatedAtStub;
 use Mpwar\DataProcessor\Test\Infrastructure\Stub\EnrichedDocumentStub;
+use Mpwar\DataProcessor\Test\Infrastructure\Stub\RawDocumentContentStub;
+use Mpwar\DataProcessor\Test\Infrastructure\Stub\RawDocumentIdStub;
+use Mpwar\DataProcessor\Test\Infrastructure\Stub\RawDocumentKeywordStub;
+use Mpwar\DataProcessor\Test\Infrastructure\Stub\RawDocumentSourceStub;
 use Mpwar\DataProcessor\Test\Infrastructure\Stub\RawDocumentStub;
 use Mpwar\DataProcessor\Test\Infrastructure\UnitTestCase;
 
@@ -44,19 +48,26 @@ class TwitterParserTest extends UnitTestCase
     }
 
     /** @test */
+    public function itShouldThrowAnExceptionIfInvalidTweetStructure()
+    {
+        $rawDocument = RawDocumentStub::invalidStructureFromTwitter();
+        $enrichedDocument = EnrichedDocumentStub::create($rawDocument);
+
+        $this->expectException(NonWellFormedTweetException::class);
+        $this->parser->parse($enrichedDocument);
+    }
+
+    /** @test */
     public function itShouldIdentifyProperlyContent()
     {
         $rawDocument = RawDocumentStub::validFromTwitter();
-        $customContent = EnrichedDocumentContentStub::create(
-            'Aggressive Ponytail #freebandnames'
-        );
         $enrichedDocument = EnrichedDocumentStub::create(
             $rawDocument
         );
 
         $returnedEnrichedDocument = $this->parser->parse($enrichedDocument);
         $this->assertEquals(
-            $customContent->value(),
+            'Aggressive Ponytail #freebandnames',
             $returnedEnrichedDocument->content()->value()
         );
     }
@@ -64,7 +75,7 @@ class TwitterParserTest extends UnitTestCase
     /**
     * @test
     */
-    public function isShouldIdentifyProperlyCreationDate()
+    public function itShouldIdentifyProperlyCreationDate()
     {
         $rawDocument = RawDocumentStub::validFromTwitter();
         $customCreatedAt = EnrichedDocumentCreatedAtStub::create(
@@ -78,6 +89,101 @@ class TwitterParserTest extends UnitTestCase
         $this->assertEquals(
             $customCreatedAt->value(),
             $returnedEnrichedDocument->createdAt()->value()
+        );
+    }
+
+    /**
+    * @test
+    */
+    public function itShouldIdentifyProperlyAuthor()
+    {
+        $rawDocument = RawDocumentStub::validFromTwitter();
+        $enrichedDocument = EnrichedDocumentStub::create(
+            $rawDocument
+        );
+
+        $returnedEnrichedDocument = $this->parser->parse($enrichedDocument);
+        $this->assertEquals(
+            'Sean Cummings',
+            $returnedEnrichedDocument->author()->value()
+        );
+    }
+
+    /**
+    * @test
+    */
+    public function itShouldIdentifyProperlyAuthorLocation()
+    {
+        $rawDocument = RawDocumentStub::validFromTwitter();
+        $enrichedDocument = EnrichedDocumentStub::create(
+            $rawDocument
+        );
+
+        $returnedEnrichedDocument = $this->parser->parse($enrichedDocument);
+        $this->assertEquals(
+            'LA, CA',
+            $returnedEnrichedDocument->authorLocation()->value()
+        );
+    }
+
+    /**
+    * @test
+    */
+    public function itShouldSetUndefinedAuthorLocation()
+    {
+        $rawDocument = RawDocumentStub::create(
+            RawDocumentIdStub::random(),
+            RawDocumentSourceStub::twitter(),
+            RawDocumentKeywordStub::random(),
+            RawDocumentContentStub::validFromTwitterWithNullUserLocation()
+        );
+        $enrichedDocument = EnrichedDocumentStub::create(
+            $rawDocument
+        );
+
+        $returnedEnrichedDocument = $this->parser->parse($enrichedDocument);
+        $this->assertEquals(
+            'undefined',
+            $returnedEnrichedDocument->authorLocation()->value()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function itShouldIdentifyProperlyLanguage()
+    {
+        $rawDocument = RawDocumentStub::validFromTwitter();
+        $enrichedDocument = EnrichedDocumentStub::create(
+            $rawDocument
+        );
+
+        $returnedEnrichedDocument = $this->parser->parse($enrichedDocument);
+        $this->assertEquals(
+            'en',
+            $returnedEnrichedDocument->language()->value()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function itShouldKeepNullLanguageIfTweetLanguageIsNull()
+    {
+        $rawDocument = RawDocumentStub::create(
+            RawDocumentIdStub::random(),
+            RawDocumentSourceStub::twitter(),
+            RawDocumentKeywordStub::random(),
+            RawDocumentContentStub::validFromTwitterWithNullLanguage()
+        );
+        $enrichedDocument = EnrichedDocumentStub::create(
+            $rawDocument
+        );
+
+        $returnedEnrichedDocument = $this->parser->parse($enrichedDocument);
+        $this->assertEquals(
+            null,
+            $returnedEnrichedDocument->language()
         );
     }
 }

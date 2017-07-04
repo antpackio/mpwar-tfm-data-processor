@@ -1,13 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Carles
- * Date: 15/06/2017
- * Time: 17:56
- */
 
 namespace Mpwar\DataProcessor\Test\Behaviour;
-
 
 use Mpwar\DataProcessor\Test\Infrastructure\Stub\EnrichedDocumentStub;
 use Mpwar\DataProcessor\Test\Infrastructure\Stub\TweetContent;
@@ -18,18 +11,18 @@ use Mpwar\DataProcessor\Domain\Service\ParserService;
 use Mpwar\DataProcessor\Test\Infrastructure\Stub\RawDocumentStub;
 use Mpwar\DataProcessor\Test\Infrastructure\UnitTestCase;
 
-class ConcreteRawDocumentParserServiceTest extends UnitTestCase
+class ConcreteParserServiceTest extends UnitTestCase
 {
     use TweetContent;
     /**
      * @var ParserService
      */
-    private $rawDocumentParser;
+    private $parserService;
 
     public function setUp()
     {
         parent::setUp();
-        $this->rawDocumentParser = new ConcreteParserService();
+        $this->parserService = new ConcreteParserService();
     }
 
     /** @test */
@@ -37,7 +30,7 @@ class ConcreteRawDocumentParserServiceTest extends UnitTestCase
     {
         $rawDocumentFromTwitter = RawDocumentStub::validFromTwitter();
         $enrichedDocument = EnrichedDocumentStub::create($rawDocumentFromTwitter);
-        $this->assertInstanceOf(EnrichedDocument::class, $this->rawDocumentParser->execute($enrichedDocument));
+        $this->assertInstanceOf(EnrichedDocument::class, $this->parserService->execute($enrichedDocument));
     }
 
     /** @test */
@@ -46,6 +39,6 @@ class ConcreteRawDocumentParserServiceTest extends UnitTestCase
         $invalidRawDocument = RawDocumentStub::withInvalidSource();
         $enrichedDocument = EnrichedDocumentStub::create($invalidRawDocument);
         $this->expectException(NotSupportedSourceException::class);
-        $this->rawDocumentParser->execute($enrichedDocument);
+        $this->parserService->execute($enrichedDocument);
     }
 }

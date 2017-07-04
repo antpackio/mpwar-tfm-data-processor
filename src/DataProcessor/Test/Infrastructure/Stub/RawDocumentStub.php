@@ -76,4 +76,14 @@ class RawDocumentStub extends Stub
             RawDocumentContentStub::validFromTwitter()
         );
     }
+
+    public static function invalidStructureFromTwitter()
+    {
+        return self::create(
+            RawDocumentIdStub::random(),
+            RawDocumentSourceStub::twitter(),
+            RawDocumentKeywordStub::random(),
+            RawDocumentContentStub::nonWellFormedTweet()
+        );
+    }
 }

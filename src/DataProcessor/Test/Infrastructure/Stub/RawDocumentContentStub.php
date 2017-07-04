@@ -25,7 +25,25 @@ class RawDocumentContentStub extends Stub
     public static function validFromTwitter()
     {
         return self::create(
-            "{
+            self::tweetString()
+        );
+    }
+
+    public static function validFromTwitterWithNullAuthor()
+    {
+        $content = json_decode(self::tweetString(), true);
+        $content['user']['name'] = null;
+        return self::create(
+            json_encode($content)
+        );
+    }
+
+    /**
+     * @return string
+     */
+    private static function tweetString(): string
+    {
+        return "{
               \"coordinates\": null,
               \"favorited\": false,
               \"truncated\": false,
@@ -124,8 +142,42 @@ class RawDocumentContentStub extends Stub
               \"in_reply_to_screen_name\": null,
               \"source\": \"Twitter for Mac\",
               \"in_reply_to_status_id\": null
-            }"
+            }";
+    }
+
+    public static function validFromTwitterWithNullCreatedAt()
+    {
+        $content = json_decode(self::tweetString(), true);
+        $content['created_at'] = null;
+        return self::create(
+            json_encode($content)
         );
     }
 
+    public static function nonWellFormedTweet()
+    {
+        $content = json_decode(self::tweetString(), true);
+        unset($content['user'], $content['text'], $content['created_at']);
+        return self::create(
+            json_encode($content)
+        );
+    }
+
+    public static function validFromTwitterWithNullUserLocation()
+    {
+        $content = json_decode(self::tweetString(), true);
+        $content['user']['location'] = null;
+        return self::create(
+            json_encode($content)
+        );
+    }
+
+    public static function validFromTwitterWithNullLanguage()
+    {
+        $content = json_decode(self::tweetString(), true);
+        $content['metadata']['iso_language_code'] = null;
+        return self::create(
+            json_encode($content)
+        );
+    }
 }
