@@ -9,7 +9,7 @@
 namespace Mpwar\DataProcessor\Test\Infrastructure\Stub;
 
 
-use Mpwar\DataProcessor\Domain\Service\ConcreteParserService;
+use Mpwar\DataProcessor\Domain\Parser\ConcreteParserService;
 use Mpwar\DataProcessor\Domain\ValueObject\RawDocumentSource;
 
 class RawDocumentSourceStub extends Stub

@@ -13,10 +13,10 @@ abstract class Collection implements Countable, ArrayAccess, Iterator
 
     public function __construct(...$items)
     {
+        $this->items = [];
         foreach ($items as $item) {
-            $this->validateType($item, $this->typeOfCollection());
+            $this->add($item);
         }
-        $this->items = $items;
     }
 
     private function validateType($item, $type)
@@ -157,5 +157,11 @@ abstract class Collection implements Countable, ArrayAccess, Iterator
     public function rewind()
     {
         reset($this->items);
+    }
+
+    public function add($item)
+    {
+        $this->validateType($item, $this->typeOfCollection());
+        $this->items[] = $item;
     }
 }

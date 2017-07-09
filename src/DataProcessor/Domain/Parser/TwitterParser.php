@@ -1,16 +1,16 @@
 <?php
 
-namespace Mpwar\DataProcessor\Domain\Service;
+namespace Mpwar\DataProcessor\Domain\Parser;
 
-use Mpwar\DataProcessor\Domain\Entity\EnrichedDocument;
+use Mpwar\DataProcessor\Domain\EnrichedDocument\EnrichedDocument;
 use Mpwar\DataProcessor\Domain\Exception\EmptyRawDocumentException;
 use Mpwar\DataProcessor\Domain\Exception\NonWellFormedTweetException;
 use Mpwar\DataProcessor\Domain\Exception\NotSupportedSourceException;
-use Mpwar\DataProcessor\Domain\ValueObject\EnrichedDocumentAuthor;
-use Mpwar\DataProcessor\Domain\ValueObject\EnrichedDocumentAuthorLocation;
-use Mpwar\DataProcessor\Domain\ValueObject\EnrichedDocumentContent;
-use Mpwar\DataProcessor\Domain\ValueObject\EnrichedDocumentCreatedAt;
-use Mpwar\DataProcessor\Domain\ValueObject\EnrichedDocumentLanguage;
+use Mpwar\DataProcessor\Domain\EnrichedDocument\Author;
+use Mpwar\DataProcessor\Domain\EnrichedDocument\AuthorLocation;
+use Mpwar\DataProcessor\Domain\EnrichedDocument\Content;
+use Mpwar\DataProcessor\Domain\EnrichedDocument\CreatedAt;
+use Mpwar\DataProcessor\Domain\EnrichedDocument\Language;
 use Mpwar\DataProcessor\Domain\ValueObject\RawDocumentContent;
 
 class TwitterParser implements Parser
@@ -31,28 +31,28 @@ class TwitterParser implements Parser
         $this->checkWellFormedTweet($rawDocumentContentDecoded);
 
         $enrichedDocument->setContent(
-            new EnrichedDocumentContent(
+            new Content(
                 $rawDocumentContentDecoded["text"]
             )
         );
         $enrichedDocument->setCreatedAt(
-            new EnrichedDocumentCreatedAt(
+            new CreatedAt(
                 $rawDocumentContentDecoded["created_at"]
             )
         );
         $enrichedDocument->setAuthor(
-            new EnrichedDocumentAuthor(
+            new Author(
                 $rawDocumentContentDecoded['user']['name'] ?: 'undefined'
             )
         );
         $enrichedDocument->setAuthorLocation(
-            new EnrichedDocumentAuthorLocation(
+            new AuthorLocation(
                 $rawDocumentContentDecoded['user']['location'] ?: 'undefined'
             )
         );
         if ($rawDocumentContentDecoded['metadata']['iso_language_code']) {
             $enrichedDocument->setLanguage(
-                new EnrichedDocumentLanguage(
+                new Language(
                     $rawDocumentContentDecoded['metadata']['iso_language_code']
                 )
             );

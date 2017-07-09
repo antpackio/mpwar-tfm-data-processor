@@ -1,8 +1,8 @@
 <?php
 
-namespace Mpwar\DataProcessor\Domain\Service;
+namespace Mpwar\DataProcessor\Domain\Parser;
 
-use Mpwar\DataProcessor\Domain\Entity\EnrichedDocument;
+use Mpwar\DataProcessor\Domain\EnrichedDocument\EnrichedDocument;
 
 interface ParserService
 {

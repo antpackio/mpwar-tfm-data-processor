@@ -1,10 +1,10 @@
 <?php
 
-namespace Mpwar\DataProcessor\Domain\ValueObject;
+namespace Mpwar\DataProcessor\Domain\EnrichedDocument;
 
 use Carbon\Carbon;
 
-class EnrichedDocumentCreatedAt
+class CreatedAt
 {
     private $value;
 

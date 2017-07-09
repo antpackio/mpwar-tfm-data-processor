@@ -2,11 +2,11 @@
 
 namespace Mpwar\DataProcessor\Application\Service;
 
-use Mpwar\DataProcessor\Domain\Entity\EnrichedDocument;
+use Mpwar\DataProcessor\Domain\EnrichedDocument\EnrichedDocument;
 use Mpwar\DataProcessor\Domain\Repository\EnrichedDocumentsRepository;
 use Mpwar\DataProcessor\Domain\Repository\RawDocumentsRepository;
-use Mpwar\DataProcessor\Domain\Service\EnrichmentDocumentService;
-use Mpwar\DataProcessor\Domain\Service\ParserService;
+use Mpwar\DataProcessor\Domain\EnrichedDocument\EnrichmentDocumentService;
+use Mpwar\DataProcessor\Domain\Parser\ParserService;
 
 class DataProcessor
 {

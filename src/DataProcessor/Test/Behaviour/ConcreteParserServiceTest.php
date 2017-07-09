@@ -4,10 +4,10 @@ namespace Mpwar\DataProcessor\Test\Behaviour;
 
 use Mpwar\DataProcessor\Test\Infrastructure\Stub\EnrichedDocumentStub;
 use Mpwar\DataProcessor\Test\Infrastructure\Stub\TweetContent;
-use Mpwar\DataProcessor\Domain\Entity\EnrichedDocument;
+use Mpwar\DataProcessor\Domain\EnrichedDocument\EnrichedDocument;
 use Mpwar\DataProcessor\Domain\Exception\NotSupportedSourceException;
-use Mpwar\DataProcessor\Domain\Service\ConcreteParserService;
-use Mpwar\DataProcessor\Domain\Service\ParserService;
+use Mpwar\DataProcessor\Domain\Parser\ConcreteParserService;
+use Mpwar\DataProcessor\Domain\Parser\ParserService;
 use Mpwar\DataProcessor\Test\Infrastructure\Stub\RawDocumentStub;
 use Mpwar\DataProcessor\Test\Infrastructure\UnitTestCase;
 

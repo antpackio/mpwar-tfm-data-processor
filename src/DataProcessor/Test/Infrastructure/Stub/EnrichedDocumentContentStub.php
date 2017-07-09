@@ -2,7 +2,7 @@
 
 namespace Mpwar\DataProcessor\Test\Infrastructure\Stub;
 
-use Mpwar\DataProcessor\Domain\ValueObject\EnrichedDocumentContent;
+use Mpwar\DataProcessor\Domain\EnrichedDocument\Content;
 
 class EnrichedDocumentContentStub extends Stub
 {
@@ -13,7 +13,7 @@ class EnrichedDocumentContentStub extends Stub
 
     public static function create(String $content)
     {
-        return new EnrichedDocumentContent($content);
+        return new Content($content);
     }
 
 }

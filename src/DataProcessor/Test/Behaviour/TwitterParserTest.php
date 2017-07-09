@@ -5,7 +5,7 @@ namespace DataProcessor\Test\Behaviour;
 use Mpwar\DataProcessor\Domain\Exception\EmptyRawDocumentException;
 use Mpwar\DataProcessor\Domain\Exception\NonWellFormedTweetException;
 use Mpwar\DataProcessor\Domain\Exception\NotSupportedSourceException;
-use Mpwar\DataProcessor\Domain\Service\TwitterParser;
+use Mpwar\DataProcessor\Domain\Parser\TwitterParser;
 use Mpwar\DataProcessor\Test\Infrastructure\Stub\EnrichedDocumentCreatedAtStub;
 use Mpwar\DataProcessor\Test\Infrastructure\Stub\EnrichedDocumentStub;
 use Mpwar\DataProcessor\Test\Infrastructure\Stub\RawDocumentContentStub;

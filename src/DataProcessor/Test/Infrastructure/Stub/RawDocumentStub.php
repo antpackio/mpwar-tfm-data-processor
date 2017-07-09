@@ -86,4 +86,14 @@ class RawDocumentStub extends Stub
             RawDocumentContentStub::nonWellFormedTweet()
         );
     }
+
+    public static function withCustomKeyword($keyword)
+    {
+        return self::create(
+            RawDocumentIdStub::random(),
+            RawDocumentSourceStub::random(),
+            RawDocumentKeywordStub::create($keyword),
+            RawDocumentContentStub::random()
+        );
+    }
 }

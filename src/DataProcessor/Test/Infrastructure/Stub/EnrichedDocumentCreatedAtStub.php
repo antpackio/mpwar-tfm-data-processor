@@ -2,7 +2,7 @@
 
 namespace Mpwar\DataProcessor\Test\Infrastructure\Stub;
 
-use Mpwar\DataProcessor\Domain\ValueObject\EnrichedDocumentCreatedAt;
+use Mpwar\DataProcessor\Domain\EnrichedDocument\CreatedAt;
 
 class EnrichedDocumentCreatedAtStub extends Stub
 {
@@ -12,8 +12,8 @@ class EnrichedDocumentCreatedAtStub extends Stub
         return self::create(self::factory()->date());
     }
 
-    public static function create(string $string): EnrichedDocumentCreatedAt
+    public static function create(string $string): CreatedAt
     {
-        return new EnrichedDocumentCreatedAt($string);
+        return new CreatedAt($string);
     }
 }
