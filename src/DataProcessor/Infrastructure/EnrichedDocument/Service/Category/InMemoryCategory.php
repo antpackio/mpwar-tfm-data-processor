@@ -11,8 +11,6 @@ namespace Mpwar\DataProcessor\Infrastructure\EnrichedDocument\Service\Category;
 
 use Mpwar\DataProcessor\Domain\EnrichedDocument\EnrichedDocument;
 use Mpwar\DataProcessor\Domain\EnrichedDocument\Service\EnrichmentDocumentService;
-use Mpwar\DataProcessor\Infrastructure\EnrichedDocument\Service\Category\Category;
-
 
 class InMemoryCategory implements EnrichmentDocumentService
 {
