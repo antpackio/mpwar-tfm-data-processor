@@ -18,6 +18,8 @@ class TwitterParser implements Parser
 
     const SOURCE = "twitter";
 
+
+
     public function parse(EnrichedDocument $enrichedDocument): EnrichedDocument
     {
         $this->checkIfSourceIsTwitter($enrichedDocument);
@@ -42,12 +44,12 @@ class TwitterParser implements Parser
         );
         $enrichedDocument->setAuthor(
             new Author(
-                $rawDocumentContentDecoded['user']['name'] ?: 'undefined'
+                $rawDocumentContentDecoded['user']['name'] ?: EnrichedDocument::UNDEFINED_TAG
             )
         );
         $enrichedDocument->setAuthorLocation(
             new AuthorLocation(
-                $rawDocumentContentDecoded['user']['location'] ?: 'undefined'
+                $rawDocumentContentDecoded['user']['location'] ?: EnrichedDocument::UNDEFINED_TAG
             )
         );
         if ($rawDocumentContentDecoded['metadata']['iso_language_code']) {

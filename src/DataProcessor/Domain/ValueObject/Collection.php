@@ -9,7 +9,7 @@ use Iterator;
 
 abstract class Collection implements Countable, ArrayAccess, Iterator
 {
-    private $items;
+    protected $items;
 
     public function __construct(...$items)
     {

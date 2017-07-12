@@ -14,4 +14,9 @@ use Mpwar\DataProcessor\Domain\EnrichedDocument\Metadata;
 class Sentiment implements Metadata
 {
     public $value;
+
+    public function value(): \JsonSerializable
+    {
+        return $this->value;
+    }
 }

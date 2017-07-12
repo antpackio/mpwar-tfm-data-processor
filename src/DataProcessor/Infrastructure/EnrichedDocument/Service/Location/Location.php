@@ -2,15 +2,15 @@
 /**
  * Created by PhpStorm.
  * User: Carles
- * Date: 05/07/2017
- * Time: 19:38
+ * Date: 12/07/2017
+ * Time: 18:49
  */
 
-namespace Mpwar\DataProcessor\Infrastructure\EnrichedDocument\Service\Category;
+namespace Mpwar\DataProcessor\Infrastructure\EnrichedDocument\Service\Location;
 
 use Mpwar\DataProcessor\Domain\EnrichedDocument\Metadata;
 
-class Category implements Metadata
+class Location implements Metadata
 {
     public $value;
 

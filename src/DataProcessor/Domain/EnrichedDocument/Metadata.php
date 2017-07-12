@@ -10,5 +10,5 @@ namespace Mpwar\DataProcessor\Domain\EnrichedDocument;
 
 interface Metadata
 {
-
+    public function value() : \JsonSerializable;
 }

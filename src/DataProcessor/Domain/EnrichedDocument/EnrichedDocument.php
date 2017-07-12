@@ -15,6 +15,7 @@ use Mpwar\DataProcessor\Domain\ValueObject\RawDocumentSource;
 
 class EnrichedDocument
 {
+    const UNDEFINED_TAG = 'undefined';
     private $rawDocument;
     private $content;
     private $createdAt;
