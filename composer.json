@@ -16,7 +16,9 @@
         "ramsey/uuid": "^3.6",
         "nesbot/carbon": "^1.22",
         "google/cloud": "^0.33.0",
-        "guzzlehttp/guzzle": "^6.3"
+        "guzzlehttp/guzzle": "^6.3",
+        "silex/silex": "^2.1",
+        "symfony/console": "^3.3"
     },
     "require-dev": {
         "phpunit/phpunit": "^6.2",
