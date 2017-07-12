@@ -5,9 +5,11 @@ namespace Mpwar\DataProcessor\Test\Behaviour;
 use Mockery\Mock;
 use Mpwar\DataProcessor\Application\Service\DataProcessor;
 use Mpwar\DataProcessor\Domain\EnrichedDocument\EnrichedDocument;
+use Mpwar\DataProcessor\Domain\EnrichedDocument\Service\EnrichmentDocumentService;
+use Mpwar\DataProcessor\Domain\Event\EnrichedDocumentWasProcessed;
+use Mpwar\DataProcessor\Domain\MessageBus;
 use Mpwar\DataProcessor\Domain\Repository\EnrichedDocumentsRepository;
 use Mpwar\DataProcessor\Domain\Repository\RawDocumentsRepository;
-use Mpwar\DataProcessor\Domain\EnrichedDocument\EnrichmentDocumentService;
 use Mpwar\DataProcessor\Domain\Parser\ParserService;
 use Mpwar\DataProcessor\Test\Infrastructure\Stub\EnrichedDocumentStub;
 use Mpwar\DataProcessor\Test\Infrastructure\Stub\RawDocumentsCollectionStub;
@@ -23,6 +25,8 @@ class DataProcessorTest extends UnitTestCase
     private $enrichmentDocumentService;
     /** @var  Mock|EnrichedDocumentsRepository */
     private $enrichedDocumentsRepository;
+    /** @var  Mock|MessageBus */
+    private $messageBus;
     /** @var  DataProcessor */
     private $dataProcessor;
 
@@ -32,11 +36,13 @@ class DataProcessorTest extends UnitTestCase
         $this->parserService = $this->mock(ParserService::class);
         $this->enrichmentDocumentService = $this->mock(EnrichmentDocumentService::class);
         $this->enrichedDocumentsRepository = $this->mock(EnrichedDocumentsRepository::class);
+        $this->messageBus = $this->mock(MessageBus::class);
         $this->dataProcessor = new DataProcessor(
             $this->rawDocumentsRepository,
             $this->parserService,
             $this->enrichmentDocumentService,
-            $this->enrichedDocumentsRepository
+            $this->enrichedDocumentsRepository,
+            $this->messageBus
         );
     }
     /**
@@ -81,6 +87,12 @@ class DataProcessorTest extends UnitTestCase
             ->twice()
             ->with(EnrichedDocument::class)
             ->andReturnNull();
+
+        $this->messageBus
+            ->shouldReceive('dispatch')
+            ->twice()
+            ->with('EnrichedDocumentWasProcessed', EnrichedDocumentWasProcessed::class)
+            ->andReturn();
 
         $this->assertNull($this->dataProcessor->execute());
     }

@@ -3,7 +3,6 @@
 namespace Mpwar\DataProcessor\Test\Behaviour;
 
 use Mpwar\DataProcessor\Test\Infrastructure\Stub\EnrichedDocumentStub;
-use Mpwar\DataProcessor\Test\Infrastructure\Stub\TweetContent;
 use Mpwar\DataProcessor\Domain\EnrichedDocument\EnrichedDocument;
 use Mpwar\DataProcessor\Domain\Exception\NotSupportedSourceException;
 use Mpwar\DataProcessor\Domain\Parser\ConcreteParserService;
@@ -13,7 +12,6 @@ use Mpwar\DataProcessor\Test\Infrastructure\UnitTestCase;
 
 class ConcreteParserServiceTest extends UnitTestCase
 {
-    use TweetContent;
     /**
      * @var ParserService
      */
