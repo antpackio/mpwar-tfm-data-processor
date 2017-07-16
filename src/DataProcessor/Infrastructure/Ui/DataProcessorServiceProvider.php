@@ -11,7 +11,11 @@ class DataProcessorServiceProvider implements ServiceProviderInterface
 
     public function register(Container $app)
     {
-        $app['raw_document.repository'] = new \Mpwar\DataProcessor\Infrastructure\Domain\EmptyInMemoryRawDocumentRepository();
+        $app['aws.sqs'] = $app['aws']->createSqs();
+        $app['raw_document.repository'] = new \Mpwar\DataProcessor\Infrastructure\Domain\AmazonSqsRawDocumentRepository(
+            $app['aws.sqs'],
+            $app['mpwar.miner']['queue_url']
+        );
         $app['enriched_document.repository'] = $app['orm.em']->getRepository('Mpwar\DataProcessor\Infrastructure\Domain\EnrichedDocument\DoctrineEnrichedDocument');
         $app['parser.service'] = new \Mpwar\DataProcessor\Domain\Parser\ConcreteParserService();
         $app['enriched_document.enrichment_service'] = new \Mpwar\DataProcessor\Domain\EnrichedDocument\Service\QueueOfEnrichmentDocumentServices(
@@ -22,7 +26,7 @@ class DataProcessorServiceProvider implements ServiceProviderInterface
             ]
         );
         $app['message_bus'] = new AmazonSqsMessageBus(
-            $app['aws']->createSqs(),
+            $app['aws.sqs'],
             $app['mpwar.processor']['queue_url']
         );
 
