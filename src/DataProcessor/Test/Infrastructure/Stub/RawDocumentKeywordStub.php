@@ -8,7 +8,7 @@ class RawDocumentKeywordStub extends Stub
 {
     public static function random()
     {
-        return self::create(self::factory()->text);
+        return self::create(self::factory()->word);
     }
 
     public static function create(string $content)

@@ -3,11 +3,6 @@
 namespace Mpwar\DataProcessor\Domain\EnrichedDocument;
 
 use Mpwar\DataProcessor\Domain\Entity\RawDocument;
-use Mpwar\DataProcessor\Domain\EnrichedDocument\Author;
-use Mpwar\DataProcessor\Domain\EnrichedDocument\AuthorLocation;
-use Mpwar\DataProcessor\Domain\EnrichedDocument\Content;
-use Mpwar\DataProcessor\Domain\EnrichedDocument\CreatedAt;
-use Mpwar\DataProcessor\Domain\EnrichedDocument\Language;
 use Mpwar\DataProcessor\Domain\ValueObject\RawDocumentContent;
 use Mpwar\DataProcessor\Domain\ValueObject\RawDocumentId;
 use Mpwar\DataProcessor\Domain\ValueObject\RawDocumentKeyword;
@@ -16,35 +11,61 @@ use Mpwar\DataProcessor\Domain\ValueObject\RawDocumentSource;
 class EnrichedDocument
 {
     const UNDEFINED_TAG = 'undefined';
-    private $rawDocument;
-    private $content;
-    private $createdAt;
-    private $author;
-    private $authorLocation;
-    private $language;
-    private $metadata;
+    protected $rawDocumentId;
+    protected $rawDocumentContent;
+    protected $content;
+    protected $createdAt;
+    protected $author;
+    protected $authorLocation;
+    protected $language;
+    protected $metadata;
+    protected $keyword;
+    protected $source;
 
-    private function __construct(
-        RawDocument $rawDocument
+    protected function __construct(
+        RawDocumentId $rawDocumentId,
+        RawDocumentContent $rawDocumentContent,
+        RawDocumentKeyword $rawDocumentKeyword,
+        RawDocumentSource $rawDocumentSource,
+        ?Content $content,
+        ?CreatedAt $createdAt,
+        ?Author $author,
+        ?AuthorLocation $authorLocation,
+        ?Language $language,
+        MetadataCollection $metadata
     )
     {
-        $this->rawDocument = $rawDocument;
-        $this->content = null;
-        $this->createdAt = null;
-        $this->author = null;
-        $this->authorLocation = null;
-        $this->language = null;
-        $this->metadata = new MetadataCollection();
+        $this->rawDocumentId = $rawDocumentId;
+        $this->rawDocumentContent = $rawDocumentContent;
+        $this->keyword = $rawDocumentKeyword;
+        $this->source = $rawDocumentSource;
+        $this->content = $content;
+        $this->createdAt = $createdAt;
+        $this->author = $author;
+        $this->authorLocation = $authorLocation;
+        $this->language = $language;
+        $this->metadata = $metadata;
     }
 
     public static function fromRawDocument(RawDocument $rawDocument): self
     {
-        return new self($rawDocument);
+        return new self(
+            $rawDocument->id(),
+            $rawDocument->content(),
+            $rawDocument->keyword(),
+            $rawDocument->source(),
+            null,
+            null,
+            null,
+            null,
+            null,
+            new MetadataCollection()
+        );
     }
 
     public function source(): RawDocumentSource
     {
-        return $this->rawDocument->source();
+        return $this->source;
     }
 
     public function content(): ?Content
@@ -59,12 +80,12 @@ class EnrichedDocument
 
     public function keyword(): RawDocumentKeyword
     {
-        return $this->rawDocument->keyword();
+        return $this->keyword;
     }
 
     public function rawDocumentId(): RawDocumentId
     {
-        return $this->rawDocument->id();
+        return $this->rawDocumentId;
     }
 
     public function setContent(Content $content): void
@@ -79,7 +100,7 @@ class EnrichedDocument
 
     public function rawDocumentContent(): RawDocumentContent
     {
-        return $this->rawDocument->content();
+        return $this->rawDocumentContent;
     }
 
     public function setAuthor(Author $author): void

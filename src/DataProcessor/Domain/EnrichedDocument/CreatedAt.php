@@ -18,6 +18,11 @@ class CreatedAt
         }
     }
 
+    public function format(string $string): string
+    {
+        return $this->value()->format($string);
+    }
+
     public function value(): ?Carbon
     {
         return $this->value;

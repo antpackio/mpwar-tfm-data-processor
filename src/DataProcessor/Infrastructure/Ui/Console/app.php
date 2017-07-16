@@ -9,6 +9,8 @@ foreach ($config as $key => $value) {
     $app[$key] = $value;
 }
 
+$app->register(new \Silex\Provider\DoctrineServiceProvider());
+$app->register(new \Dflydev\Provider\DoctrineOrm\DoctrineOrmServiceProvider());
 $app->register(new \Aws\Silex\AwsServiceProvider());
 $app->register(new \Mpwar\DataProcessor\Infrastructure\Ui\DataProcessorServiceProvider());
 
