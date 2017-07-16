@@ -16,12 +16,12 @@ class GoogleLocation implements EnrichmentDocumentService
 {
     const GOOGLE_GEOCODE = 'https://maps.googleapis.com/maps/api/geocode/json?key=%s&address=%s';
     private $client;
-    private $APIKey;
+    private $apiKey;
 
     public function __construct()
     {
         $this->client = new Client();
-        $this->APIKey = 'AIzaSyAHOWIk4w3rRhAEcaW_n56kS4MztlkMT5k';
+        $this->apiKey = 'AIzaSyAHOWIk4w3rRhAEcaW_n56kS4MztlkMT5k';
     }
 
     public function execute(EnrichedDocument $enrichedDocument): EnrichedDocument
@@ -31,13 +31,14 @@ class GoogleLocation implements EnrichmentDocumentService
                 'GET',
                 sprintf(
                     self::GOOGLE_GEOCODE,
-                    $this->APIkey,
+                    $this->apiKey,
                     $enrichedDocument->authorLocation()->value()
                 )
             );
-            $decodedResponse = json_decode($response, true);
+            $decodedResponse = json_decode($response->getBody()->getContents(), true);
             $location = new Location();
-            $location->value = array_shift($this->filterCountry($decodedResponse));
+            $filteredAddressComponents = $this->filterCountry($decodedResponse);
+            $location->value = array_shift($filteredAddressComponents);
             $enrichedDocument->addMetadata($location);
         }
         return $enrichedDocument;

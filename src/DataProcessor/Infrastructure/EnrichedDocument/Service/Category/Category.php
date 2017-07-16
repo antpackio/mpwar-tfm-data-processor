@@ -14,7 +14,7 @@ class Category implements Metadata
 {
     public $value;
 
-    public function value(): \JsonSerializable
+    public function value()
     {
         return $this->value;
     }

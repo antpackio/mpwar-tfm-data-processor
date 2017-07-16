@@ -22,10 +22,14 @@ class MetadataCollection extends Collection
         return Metadata::class;
     }
 
-    public function filterByType(string $className) : Metadata
+    public function filterByType(string $className) : ?Metadata
     {
-        return array_shift(array_filter($this->items, function ($item) use ($className){
-            return get_class($item) === $className;
-        }));
+        $itemsFiltered = array_filter(
+            $this->items,
+            function ($item) use ($className) {
+                return is_a($item, $className);
+            }
+        );
+        return array_shift($itemsFiltered);
     }
 }

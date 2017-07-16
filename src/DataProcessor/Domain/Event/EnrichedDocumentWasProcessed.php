@@ -24,18 +24,33 @@ class EnrichedDocumentWasProcessed extends DomainEvent implements \JsonSerializa
         $this->document = $enrichedDocument;
     }
 
-    function jsonSerialize()
+    public function jsonSerialize()
     {
+        $metadataCategory = $this->document->metadata()->filterByType(
+            Category::class
+        ) ? $this->document->metadata()->filterByType(
+            Category::class
+        )->value() : EnrichedDocument::UNDEFINED_TAG;
+        $metadataLocation = $this->document->metadata()->filterByType(
+            Location::class
+        ) ? $this->document->metadata()->filterByType(
+            Location::class
+        )->value() : EnrichedDocument::UNDEFINED_TAG;
+        $metadataSentiment = $this->document->metadata()->filterByType(
+            Sentiment::class
+        ) ? $this->document->metadata()->filterByType(
+            Sentiment::class
+        )->value() : EnrichedDocument::UNDEFINED_TAG;
         return [
             'source' => $this->document->source()->value(),
             'keyword' => $this->document->keyword()->value(),
-            'category' =>$this->document->metadata()->filterByType(Category::class)->value(),
+            'category' => $metadataCategory,
             'content' => $this->document->content()->value(),
-            'created_at' => $this->document->createdAt()->value(),
+            'created_at' => $this->document->createdAt()->__toString(),
             'author_name' => $this->document->author()->value(),
-            'author_location' => $this->document->metadata()->filterByType(Location::class)->value()->short_name,
+            'author_location' => $metadataLocation,
             'language' => $this->document->language()->value(),
-            'sentiment' => $this->document->metadata()->filterByType(Sentiment::class)->value()->score
+            'sentiment' => $metadataSentiment
         ];
     }
 }

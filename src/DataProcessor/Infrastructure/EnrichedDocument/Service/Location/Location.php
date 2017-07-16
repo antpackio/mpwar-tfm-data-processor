@@ -14,8 +14,8 @@ class Location implements Metadata
 {
     public $value;
 
-    public function value(): \JsonSerializable
+    public function value()
     {
-        return $this->value;
+        return $this->value['short_name'];
     }
 }

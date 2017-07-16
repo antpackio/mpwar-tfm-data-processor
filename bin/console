@@ -1,0 +1,10 @@
+#!/usr/bin/env php
+<?php
+
+use Symfony\Component\Console\Input\ArgvInput;
+use Symfony\Component\Console\Output\ConsoleOutput;
+
+$app = require __DIR__ . '/../src/DataProcessor/Infrastructure/Ui/Console/app.php';
+$console = require __DIR__ . '/../src/DataProcessor/Infrastructure/Ui/Console/console.php';
+
+exit($console->run(new ArgvInput, new ConsoleOutput));

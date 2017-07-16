@@ -34,12 +34,12 @@ class TwitterParser implements Parser
 
         $enrichedDocument->setContent(
             new Content(
-                $rawDocumentContentDecoded["text"]
+                $rawDocumentContentDecoded['text']
             )
         );
         $enrichedDocument->setCreatedAt(
             new CreatedAt(
-                $rawDocumentContentDecoded["created_at"]
+                $rawDocumentContentDecoded['created_at']
             )
         );
         $enrichedDocument->setAuthor(
