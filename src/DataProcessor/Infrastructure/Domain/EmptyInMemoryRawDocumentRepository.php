@@ -11,7 +11,7 @@ class EmptyInMemoryRawDocumentRepository implements RawDocumentsRepository
 
     public function all(): RawDocumentsCollection
     {
-        echo 'RawDocuments retrieved';
+        echo "RawDocuments retrieved\n";
         return new RawDocumentsCollection(
             RawDocumentStub::validFromTwitter()
         );

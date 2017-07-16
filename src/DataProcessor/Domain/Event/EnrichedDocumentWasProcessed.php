@@ -18,10 +18,12 @@ class EnrichedDocumentWasProcessed extends DomainEvent implements \JsonSerializa
 {
     const NAME = "EnrichedDocumentWasProcessed";
     private $document;
+    private $occurredOn;
 
     public function __construct(EnrichedDocument $enrichedDocument)
     {
         $this->document = $enrichedDocument;
+        $this->occurredOn = new \DateTimeImmutable();
     }
 
     public function jsonSerialize()
@@ -42,15 +44,24 @@ class EnrichedDocumentWasProcessed extends DomainEvent implements \JsonSerializa
             Sentiment::class
         )->value() : EnrichedDocument::UNDEFINED_TAG;
         return [
-            'source' => $this->document->source()->value(),
-            'keyword' => $this->document->keyword()->value(),
-            'category' => $metadataCategory,
-            'content' => $this->document->content()->value(),
-            'created_at' => $this->document->createdAt()->__toString(),
-            'author_name' => $this->document->author()->value(),
-            'author_location' => $metadataLocation,
-            'language' => $this->document->language()->value(),
-            'sentiment' => $metadataSentiment
+            'eventName' => self::NAME,
+            'occurredOn' => $this->occurredOn()->format(DATE_ATOM),
+            'enrichedDocument' => [
+                'source' => $this->document->source()->value(),
+                'keyword' => $this->document->keyword()->value(),
+                'category' => $metadataCategory,
+                'content' => $this->document->content()->value(),
+                'created_at' => $this->document->createdAt()->__toString(),
+                'author_name' => $this->document->author()->value(),
+                'author_location' => $metadataLocation,
+                'language' => $this->document->language()->value(),
+                'sentiment' => $metadataSentiment
+            ]
         ];
+    }
+
+    public function occurredOn(): \DateTimeImmutable
+    {
+        return $this->occurredOn;
     }
 }

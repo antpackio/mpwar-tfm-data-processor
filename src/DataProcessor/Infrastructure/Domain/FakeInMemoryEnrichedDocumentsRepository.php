@@ -11,7 +11,7 @@ class FakeInMemoryEnrichedDocumentsRepository implements EnrichedDocumentsReposi
 
     public function save(EnrichedDocument $enrichedDocument): void
     {
-        echo '\nEnrichedDocument saved\n';
+        echo "EnrichedDocument saved\n";
         return;
     }
 

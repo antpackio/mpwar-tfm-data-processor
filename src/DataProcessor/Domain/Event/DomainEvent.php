@@ -12,5 +12,4 @@ namespace Mpwar\DataProcessor\Domain\Event;
 abstract class DomainEvent
 {
 
-
 }

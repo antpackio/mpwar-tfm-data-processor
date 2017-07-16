@@ -2,6 +2,7 @@
 
 namespace Mpwar\DataProcessor\Infrastructure\Ui;
 
+use Mpwar\DataProcessor\Infrastructure\AmazonSqsMessageBus;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 
@@ -20,8 +21,10 @@ class DataProcessorServiceProvider implements ServiceProviderInterface
                 new \Mpwar\DataProcessor\Infrastructure\EnrichedDocument\Service\Sentiment\GoogleSentiment()
             ]
         );
-
-        $app['message_bus'] = new \Mpwar\DataProcessor\Infrastructure\DefaultMessageBus();
+        $app['message_bus'] = new AmazonSqsMessageBus(
+            $app['aws']->createSqs(),
+            $app['mpwar.processor']['queue_url']
+        );
 
         $app['data_processor'] = new \Mpwar\DataProcessor\Application\Service\DataProcessor(
             $app['raw_document.repository'],
