@@ -34,18 +34,19 @@ class DataProcessor
 
     public function execute(): void
     {
-        $rawDocumentsCollection = $this->rawDocumentsRepository->all();
-
-        /** @var RawDocument $rawDocument */
-        foreach ($rawDocumentsCollection as $rawDocument) {
-            if ($this->enrichedDocumentsRepository->hasRawDocumentId($rawDocument->id()) !== null) {
-                continue;
-            }
-            $parser = $this->parserService->execute($rawDocument->source());
-            $enrichedDocument = $parser->parse($rawDocument);
-            $enrichedDocument = $this->enrichmentDocumentService->execute($enrichedDocument);
-            $this->enrichedDocumentsRepository->save($enrichedDocument);
-            $this->messageBus->dispatch(EnrichedDocumentWasProcessed::NAME, new EnrichedDocumentWasProcessed($enrichedDocument));
+        $rawDocument = $this->rawDocumentsRepository->first();
+        if ($rawDocument === null) {
+            return;
         }
+
+        if ($this->enrichedDocumentsRepository->hasRawDocumentId($rawDocument->id()) !== null) {
+            return;
+        }
+        $parser = $this->parserService->execute($rawDocument->source());
+        $enrichedDocument = $parser->parse($rawDocument);
+        $enrichedDocument = $this->enrichmentDocumentService->execute($enrichedDocument);
+        $this->enrichedDocumentsRepository->save($enrichedDocument);
+        $this->messageBus->dispatch(EnrichedDocumentWasProcessed::NAME, new EnrichedDocumentWasProcessed($enrichedDocument));
+
     }
 }

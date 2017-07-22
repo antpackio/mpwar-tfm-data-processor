@@ -12,11 +12,7 @@ class DoctrineEnrichedDocumentRepository extends EntityRepository implements Enr
     public function save(EnrichedDocument $enrichedDocument): void
     {
         $entityManager = $this->getEntityManager();
-
-        $entityManager->persist(
-            new DoctrineEnrichedDocument($enrichedDocument)
-        );
-
+        $entityManager->persist($enrichedDocument);
         $entityManager->flush();
     }
 
