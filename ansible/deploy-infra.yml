@@ -1,0 +1,8 @@
+- hosts: webservers
+  become: true
+  become_user: root
+  vars_files:
+    - vars/infra.yml
+  roles:
+    - { role: itcraftsmanpl.php7 }
+    - { role: geerlingguy.apache }

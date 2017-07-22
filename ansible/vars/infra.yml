@@ -1,0 +1,23 @@
+php_ppa: "ppa:ondrej/php"
+php_packages:
+  - php7.1-common
+  - php7.1-cli
+  - php7.1-intl
+  - php7.1-curl
+  - php7.1-cgi
+  - php7.1-fpm
+  - php7.1-mysql
+  - php7.1-gd
+  - php7.1-xml
+  - php7.1-mbstring
+  - php7.1-mcrypt
+  - libapache2-mod-php7.1
+php_timezone: Europe/Madrid
+php_upload_max_filesize: "1M"
+php_post_max_size: "1M"
+php_memory_limit: "1024M"
+php_max_execution_time: 60
+
+apache_remove_default_vhost: true
+#apache_vhosts:
+#  - {documentroot: "/var/www/html/mpwar-tfm-data-processor/current/web"}
