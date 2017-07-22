@@ -2,6 +2,6 @@
   become: true
   become_user: root
   vars_files:
-    - vars/main.yml
+    - vars/code.yml
   roles:
     - { role: carlosbuenosvinos.ansistrano-deploy }

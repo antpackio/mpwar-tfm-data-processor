@@ -1,0 +1,13 @@
+- hosts: webservers
+  become: true
+  become_user: root
+  vars_files:
+    - vars/infra.yml
+  tasks:
+   - name: 'mpwar-dataprocessor: start long polling'
+     supervisorctl:
+      name: mpwar-data-processor
+      state: stopped
+      config: /etc/supervisor/supervisord.conf
+      username: root
+      password: 123

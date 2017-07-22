@@ -6,3 +6,17 @@
   roles:
     - { role: itcraftsmanpl.php7 }
     - { role: geerlingguy.apache }
+    - { role: geerlingguy.pip }
+    - { role: geerlingguy.supervisor }
+
+  tasks:
+    - name: 'create supervisor group'
+      group:
+        name: supervisor
+        state: present
+
+    - name: 'create user'
+      user:
+        name: mpwar-tfm
+        group: supervisor
+        password: 123

@@ -18,6 +18,35 @@ php_post_max_size: "1M"
 php_memory_limit: "1024M"
 php_max_execution_time: 60
 
+supervisor_version: latest
+supervisor_started: true
+supervisor_enabled: true
+supervisor_config_path: /etc/supervisor
+supervisor_log_dir: /var/log/supervisor
+supervisor_user: root
+supervisor_password: 123
+supervisor_unix_http_server_enable: true
+supervisor_unix_http_server_socket_path: /var/run/supervisor.sock
+supervisor_programs:
+  - name: 'mpwar-data-processor'
+    command: "php bin/console queue:process"
+    configuration: |
+      autostart=true
+      autorestart=true
+      startretries=1
+      startsecs=1
+      redirect_stderr=true
+      stderr_logfile=/var/log/apache-err.log
+      stdout_logfile=/var/log/apache-out.log
+      user=root
+      killasgroup=true
+      stopasgroup=true
+      directory=/var/www/mpwar-tfm-data-processor/current
+supervisor_nodaemon: false
+
+
+
+
 apache_remove_default_vhost: true
 #apache_vhosts:
 #  - {documentroot: "/var/www/html/mpwar-tfm-data-processor/current/web"}

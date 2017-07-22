@@ -1,0 +1,6 @@
+- src: itcraftsmanpl.php7
+- src: geerlingguy.apache
+- src: carlosbuenosvinos.ansistrano-deploy
+- src: carlosbuenosvinos.ansistrano-rollback
+- src: geerlingguy.supervisor
+- src: geerlingguy.pip
