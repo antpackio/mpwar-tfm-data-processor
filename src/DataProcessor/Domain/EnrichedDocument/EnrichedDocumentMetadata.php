@@ -8,7 +8,7 @@
 
 namespace Mpwar\DataProcessor\Domain\EnrichedDocument;
 
-interface Metadata
+interface EnrichedDocumentMetadata
 {
     public function value();
 }

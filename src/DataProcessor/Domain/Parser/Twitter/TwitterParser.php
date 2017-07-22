@@ -2,13 +2,13 @@
 
 namespace Mpwar\DataProcessor\Domain\Parser\Twitter;
 
-use Mpwar\DataProcessor\Domain\EnrichedDocument\Author;
-use Mpwar\DataProcessor\Domain\EnrichedDocument\AuthorLocation;
-use Mpwar\DataProcessor\Domain\EnrichedDocument\Content;
-use Mpwar\DataProcessor\Domain\EnrichedDocument\CreatedAt;
+use Mpwar\DataProcessor\Domain\EnrichedDocument\EnrichedDocumentAuthor;
+use Mpwar\DataProcessor\Domain\EnrichedDocument\EnrichedDocumentAuthorLocation;
+use Mpwar\DataProcessor\Domain\EnrichedDocument\EnrichedDocumentContent;
+use Mpwar\DataProcessor\Domain\EnrichedDocument\EnrichedDocumentCreatedAt;
 use Mpwar\DataProcessor\Domain\EnrichedDocument\EnrichedDocument;
 use Mpwar\DataProcessor\Domain\EnrichedDocument\EnrichedDocumentFactory;
-use Mpwar\DataProcessor\Domain\EnrichedDocument\Language;
+use Mpwar\DataProcessor\Domain\EnrichedDocument\EnrichedDocumentLanguage;
 use Mpwar\DataProcessor\Domain\Parser\NotSupportedSourceException;
 use Mpwar\DataProcessor\Domain\Parser\Parser;
 use Mpwar\DataProcessor\Domain\RawDocument\EmptyRawDocumentException;
@@ -44,11 +44,11 @@ class TwitterParser implements Parser
 
         return $this->enrichedDocumentFactory->build(
             $rawDocument,
-            new Content($rawDocumentContentDecoded['text']),
-            new CreatedAt($rawDocumentContentDecoded['created_at']),
-            new Author($rawDocumentContentDecoded['user']['name'] ?: EnrichedDocument::UNDEFINED_TAG),
-            new AuthorLocation($rawDocumentContentDecoded['user']['location'] ?: EnrichedDocument::UNDEFINED_TAG),
-            new Language($rawDocumentContentDecoded['metadata']['iso_language_code'] ?: EnrichedDocument::UNDEFINED_TAG)
+            new EnrichedDocumentContent($rawDocumentContentDecoded['text']),
+            new EnrichedDocumentCreatedAt($rawDocumentContentDecoded['created_at']),
+            new EnrichedDocumentAuthor($rawDocumentContentDecoded['user']['name'] ?: EnrichedDocument::UNDEFINED_TAG),
+            new EnrichedDocumentAuthorLocation($rawDocumentContentDecoded['user']['location'] ?: EnrichedDocument::UNDEFINED_TAG),
+            new EnrichedDocumentLanguage($rawDocumentContentDecoded['metadata']['iso_language_code'] ?: EnrichedDocument::UNDEFINED_TAG)
         );
     }
 

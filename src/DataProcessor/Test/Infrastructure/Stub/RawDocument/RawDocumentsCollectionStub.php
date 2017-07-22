@@ -1,8 +1,10 @@
 <?php
 
-namespace Mpwar\DataProcessor\Test\Infrastructure\Stub;
+namespace Mpwar\DataProcessor\Test\Infrastructure\Stub\RawDocument;
 
 use Mpwar\DataProcessor\Domain\RawDocument\RawDocumentsCollection;
+use Mpwar\DataProcessor\Test\Infrastructure\Stub\RawDocument\RawDocumentStub;
+use Mpwar\DataProcessor\Test\Infrastructure\Stub\Stub;
 
 class RawDocumentsCollectionStub extends Stub
 {

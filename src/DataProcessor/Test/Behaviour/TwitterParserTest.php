@@ -8,17 +8,17 @@ use Mpwar\DataProcessor\Domain\Parser\NotSupportedSourceException;
 use Mpwar\DataProcessor\Domain\Parser\Twitter\NonWellFormedTweetException;
 use Mpwar\DataProcessor\Domain\Parser\Twitter\TwitterParser;
 use Mpwar\DataProcessor\Domain\RawDocument\EmptyRawDocumentException;
-use Mpwar\DataProcessor\Test\Infrastructure\Stub\EnrichedDocumentAuthorLocationStub;
-use Mpwar\DataProcessor\Test\Infrastructure\Stub\EnrichedDocumentAuthorStub;
-use Mpwar\DataProcessor\Test\Infrastructure\Stub\EnrichedDocumentContentStub;
-use Mpwar\DataProcessor\Test\Infrastructure\Stub\EnrichedDocumentCreatedAtStub;
-use Mpwar\DataProcessor\Test\Infrastructure\Stub\EnrichedDocumentLanguageStub;
-use Mpwar\DataProcessor\Test\Infrastructure\Stub\EnrichedDocumentStub;
-use Mpwar\DataProcessor\Test\Infrastructure\Stub\RawDocumentContentStub;
-use Mpwar\DataProcessor\Test\Infrastructure\Stub\RawDocumentIdStub;
-use Mpwar\DataProcessor\Test\Infrastructure\Stub\RawDocumentKeywordStub;
-use Mpwar\DataProcessor\Test\Infrastructure\Stub\RawDocumentSourceStub;
-use Mpwar\DataProcessor\Test\Infrastructure\Stub\RawDocumentStub;
+use Mpwar\DataProcessor\Test\Infrastructure\Stub\EnrichedDocument\EnrichedDocumentAuthorLocationStub;
+use Mpwar\DataProcessor\Test\Infrastructure\Stub\EnrichedDocument\EnrichedDocumentAuthorStub;
+use Mpwar\DataProcessor\Test\Infrastructure\Stub\EnrichedDocument\EnrichedDocumentContentStub;
+use Mpwar\DataProcessor\Test\Infrastructure\Stub\EnrichedDocument\EnrichedDocumentCreatedAtStub;
+use Mpwar\DataProcessor\Test\Infrastructure\Stub\EnrichedDocument\EnrichedDocumentLanguageStub;
+use Mpwar\DataProcessor\Test\Infrastructure\Stub\EnrichedDocument\EnrichedDocumentStub;
+use Mpwar\DataProcessor\Test\Infrastructure\Stub\RawDocument\RawDocumentContentStub;
+use Mpwar\DataProcessor\Test\Infrastructure\Stub\RawDocument\RawDocumentIdStub;
+use Mpwar\DataProcessor\Test\Infrastructure\Stub\RawDocument\RawDocumentKeywordStub;
+use Mpwar\DataProcessor\Test\Infrastructure\Stub\RawDocument\RawDocumentSourceStub;
+use Mpwar\DataProcessor\Test\Infrastructure\Stub\RawDocument\RawDocumentStub;
 use Mpwar\DataProcessor\Test\Infrastructure\UnitTestCase;
 
 class TwitterParserTest extends UnitTestCase
@@ -68,7 +68,9 @@ class TwitterParserTest extends UnitTestCase
     {
         $rawDocument = RawDocumentStub::validFromTwitter();
         $enrichedDocument = EnrichedDocumentStub::create(
-            $rawDocument,
+            $rawDocument->id(),
+            $rawDocument->keyword(),
+            $rawDocument->source(),
             EnrichedDocumentContentStub::create('Aggressive Ponytail #freebandnames'),
             EnrichedDocumentCreatedAtStub::create('Mon Sep 24 03:35:21 +0000 2012'),
             EnrichedDocumentAuthorStub::create('Sean Cummings'),
@@ -96,99 +98,38 @@ class TwitterParserTest extends UnitTestCase
     }
 
     /**
-    * @test
-    */
-    public function itShouldIdentifyProperlyCreationDate()
-    {
-        $rawDocument = RawDocumentStub::validFromTwitter();
-        $customCreatedAt = EnrichedDocumentCreatedAtStub::create(
-            'Mon Sep 24 03:35:21 +0000 2012'
-        );
-
-        $returnedEnrichedDocument = $this->parser->parse($rawDocument);
-        $this->assertEquals(
-            $customCreatedAt->value(),
-            $returnedEnrichedDocument->createdAt()->value()
-        );
-    }
-
-    /**
-    * @test
-    */
-    public function itShouldIdentifyProperlyAuthor()
-    {
-        $rawDocument = RawDocumentStub::validFromTwitter();
-
-        $returnedEnrichedDocument = $this->parser->parse($rawDocument);
-        $this->assertEquals(
-            'Sean Cummings',
-            $returnedEnrichedDocument->author()->value()
-        );
-    }
-
-    /**
-    * @test
-    */
-    public function itShouldIdentifyProperlyAuthorLocation()
-    {
-        $rawDocument = RawDocumentStub::validFromTwitter();
-
-        $returnedEnrichedDocument = $this->parser->parse($rawDocument);
-        $this->assertEquals(
-            'LA, CA',
-            $returnedEnrichedDocument->authorLocation()->value()
-        );
-    }
-
-    /**
-    * @test
-    */
-    public function itShouldSetUndefinedAuthorLocation()
-    {
-        $rawDocument = RawDocumentStub::create(
-            RawDocumentIdStub::random(),
-            RawDocumentSourceStub::twitter(),
-            RawDocumentKeywordStub::random(),
-            RawDocumentContentStub::validFromTwitterWithNullUserLocation()
-        );
-
-        $returnedEnrichedDocument = $this->parser->parse($rawDocument);
-        $this->assertEquals(
-            'undefined',
-            $returnedEnrichedDocument->authorLocation()->value()
-        );
-    }
-
-    /**
      * @test
      */
-    public function itShouldIdentifyProperlyLanguage()
-    {
-        $rawDocument = RawDocumentStub::validFromTwitter();
+    public function itShouldSetUndefinedWhenAttributesEqualNull(){
+        $rawDocument = RawDocumentStub::validFromTwitterWithNullLanguageAndAuthorFields();
+        $enrichedDocument = EnrichedDocumentStub::create(
+            $rawDocument->id(),
+            $rawDocument->keyword(),
+            $rawDocument->source(),
+            EnrichedDocumentContentStub::create('Aggressive Ponytail #freebandnames'),
+            EnrichedDocumentCreatedAtStub::create('Mon Sep 24 03:35:21 +0000 2012'),
+            EnrichedDocumentAuthorStub::create('undefined'),
+            EnrichedDocumentAuthorLocationStub::create('undefined'),
+            EnrichedDocumentLanguageStub::create('undefined')
+        );
 
-        $returnedEnrichedDocument = $this->parser->parse($rawDocument);
+        $this->enrichedDocumentFactory
+            ->shouldReceive('build')
+            ->with(
+                $rawDocument,
+                equalTo(EnrichedDocumentContentStub::create('Aggressive Ponytail #freebandnames')),
+                equalTo(EnrichedDocumentCreatedAtStub::create('Mon Sep 24 03:35:21 +0000 2012')),
+                equalTo(EnrichedDocumentAuthorStub::create('undefined')),
+                equalTo(EnrichedDocumentAuthorLocationStub::create('undefined')),
+                equalTo(EnrichedDocumentLanguageStub::create('undefined'))
+            )
+            ->once()
+            ->andReturn($enrichedDocument);
+
         $this->assertEquals(
-            'en',
-            $returnedEnrichedDocument->language()->value()
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function itShouldSetUndefinedLanguage()
-    {
-        $rawDocument = RawDocumentStub::create(
-            RawDocumentIdStub::random(),
-            RawDocumentSourceStub::twitter(),
-            RawDocumentKeywordStub::random(),
-            RawDocumentContentStub::validFromTwitterWithNullLanguage()
+            $enrichedDocument,
+            $this->parser->parse($rawDocument)
         );
 
-        $returnedEnrichedDocument = $this->parser->parse($rawDocument);
-        $this->assertEquals(
-            'undefined',
-            $returnedEnrichedDocument->language()
-        );
     }
 }

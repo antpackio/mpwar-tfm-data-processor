@@ -3,6 +3,7 @@
 namespace Mpwar\DataProcessor\Infrastructure\Ui;
 
 use Mpwar\DataProcessor\Infrastructure\Application\AmazonSqsMessageBus;
+use Mpwar\DataProcessor\Infrastructure\Domain\EnrichedDocument\DoctrineEnrichedDocumentFactory;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 
@@ -17,7 +18,7 @@ class DataProcessorServiceProvider implements ServiceProviderInterface
             $app['mpwar.miner']['queue_url']
         );
         $app['enriched_document.repository'] = $app['orm.em']->getRepository('Mpwar\DataProcessor\Infrastructure\Domain\EnrichedDocument\DoctrineEnrichedDocument');
-        $app['parser.service'] = new \Mpwar\DataProcessor\Domain\Parser\ConcreteParserService();
+        $app['parser.service'] = new \Mpwar\DataProcessor\Domain\Parser\ConcreteParserService( new DoctrineEnrichedDocumentFactory());
         $app['enriched_document.enrichment_service'] = new \Mpwar\DataProcessor\Domain\EnrichmentService\QueueOfEnrichmentDocumentServices(
             [
                 new \Mpwar\DataProcessor\Infrastructure\Domain\EnrichmentService\Category\InMemoryCategory(),

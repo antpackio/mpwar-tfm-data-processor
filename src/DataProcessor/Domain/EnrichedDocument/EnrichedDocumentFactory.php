@@ -8,10 +8,10 @@ interface EnrichedDocumentFactory
 {
     public function build(
         RawDocument $rawDocument,
-        Content $content,
-        CreatedAt $createdAt,
-        Author $author,
-        AuthorLocation $authorLocation,
-        Language $language
+        EnrichedDocumentContent $content,
+        EnrichedDocumentCreatedAt $createdAt,
+        EnrichedDocumentAuthor $author,
+        EnrichedDocumentAuthorLocation $authorLocation,
+        EnrichedDocumentLanguage $language
     ): EnrichedDocument;
 }

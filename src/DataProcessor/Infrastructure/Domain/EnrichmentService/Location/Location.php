@@ -8,9 +8,9 @@
 
 namespace Mpwar\DataProcessor\Infrastructure\Domain\EnrichmentService\Location;
 
-use Mpwar\DataProcessor\Domain\EnrichedDocument\Metadata;
+use Mpwar\DataProcessor\Domain\EnrichedDocument\EnrichedDocumentMetadata;
 
-class Location implements Metadata
+class Location implements EnrichedDocumentMetadata
 {
     public $value;
 

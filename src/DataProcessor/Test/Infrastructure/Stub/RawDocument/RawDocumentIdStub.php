@@ -1,8 +1,9 @@
 <?php
 
-namespace Mpwar\DataProcessor\Test\Infrastructure\Stub;
+namespace Mpwar\DataProcessor\Test\Infrastructure\Stub\RawDocument;
 
 use Mpwar\DataProcessor\Domain\RawDocument\RawDocumentId;
+use Mpwar\DataProcessor\Test\Infrastructure\Stub\Stub;
 
 class RawDocumentIdStub extends Stub
 {

@@ -4,7 +4,7 @@ namespace Mpwar\DataProcessor\Infrastructure\Domain\RawDocument;
 
 use Mpwar\DataProcessor\Domain\RawDocument\RawDocumentsCollection;
 use Mpwar\DataProcessor\Domain\RawDocument\RawDocumentsRepository;
-use Mpwar\DataProcessor\Test\Infrastructure\Stub\RawDocumentStub;
+use Mpwar\DataProcessor\Test\Infrastructure\Stub\RawDocument\RawDocumentStub;
 
 class EmptyInMemoryRawDocumentRepository implements RawDocumentsRepository
 {

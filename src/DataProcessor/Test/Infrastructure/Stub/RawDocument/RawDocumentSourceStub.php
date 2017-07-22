@@ -6,11 +6,12 @@
  * Time: 18:05
  */
 
-namespace Mpwar\DataProcessor\Test\Infrastructure\Stub;
+namespace Mpwar\DataProcessor\Test\Infrastructure\Stub\RawDocument;
 
 
 use Mpwar\DataProcessor\Domain\Parser\ConcreteParserService;
 use Mpwar\DataProcessor\Domain\RawDocument\RawDocumentSource;
+use Mpwar\DataProcessor\Test\Infrastructure\Stub\Stub;
 
 class RawDocumentSourceStub extends Stub
 {

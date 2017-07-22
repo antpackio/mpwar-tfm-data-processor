@@ -4,7 +4,7 @@ namespace Mpwar\DataProcessor\Domain\EnrichedDocument;
 
 use Carbon\Carbon;
 
-class CreatedAt
+class EnrichedDocumentCreatedAt
 {
     private $value;
 

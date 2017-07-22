@@ -1,8 +1,9 @@
 <?php
 
-namespace Mpwar\DataProcessor\Test\Infrastructure\Stub;
+namespace Mpwar\DataProcessor\Test\Infrastructure\Stub\RawDocument;
 
 use Mpwar\DataProcessor\Domain\RawDocument\RawDocumentContent;
+use Mpwar\DataProcessor\Test\Infrastructure\Stub\Stub;
 
 class RawDocumentContentStub extends Stub
 {
@@ -176,6 +177,17 @@ class RawDocumentContentStub extends Stub
     {
         $content = json_decode(self::tweetString(), true);
         $content['metadata']['iso_language_code'] = null;
+        return self::create(
+            json_encode($content)
+        );
+    }
+
+    public static function validFromTwitterWithNullLanguageAndAuthorFields()
+    {
+        $content = json_decode(self::tweetString(), true);
+        $content['metadata']['iso_language_code'] = null;
+        $content['user']['location'] = null;
+        $content['user']['name'] = null;
         return self::create(
             json_encode($content)
         );

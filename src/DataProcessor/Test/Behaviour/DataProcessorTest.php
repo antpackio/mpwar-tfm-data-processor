@@ -13,8 +13,8 @@ use Mpwar\DataProcessor\Domain\Parser\Parser;
 use Mpwar\DataProcessor\Domain\Parser\ParserService;
 use Mpwar\DataProcessor\Domain\RawDocument\RawDocumentSource;
 use Mpwar\DataProcessor\Domain\RawDocument\RawDocumentsRepository;
-use Mpwar\DataProcessor\Test\Infrastructure\Stub\EnrichedDocumentStub;
-use Mpwar\DataProcessor\Test\Infrastructure\Stub\RawDocumentsCollectionStub;
+use Mpwar\DataProcessor\Test\Infrastructure\Stub\EnrichedDocument\EnrichedDocumentStub;
+use Mpwar\DataProcessor\Test\Infrastructure\Stub\RawDocument\RawDocumentsCollectionStub;
 use Mpwar\DataProcessor\Test\Infrastructure\UnitTestCase;
 
 class DataProcessorTest extends UnitTestCase
@@ -53,7 +53,7 @@ class DataProcessorTest extends UnitTestCase
     /**
     * @test
     */
-    public function itShould()
+    public function itShouldProperlyCompleteTheDataProcessorProcess()
     {
         $rawDocumentsCollection = RawDocumentsCollectionStub::withTwoDocuments();
 
@@ -85,13 +85,13 @@ class DataProcessorTest extends UnitTestCase
             ->shouldReceive('parse')
             ->once()
             ->with($rawDocumentsCollection[0])
-            ->andReturn(EnrichedDocument::class);
+            ->andReturn(EnrichedDocumentStub::random());
 
         $this->parser
             ->shouldReceive('parse')
             ->once()
             ->with($rawDocumentsCollection[1])
-            ->andReturn(EnrichedDocument::class);
+            ->andReturn(EnrichedDocumentStub::random());
 
         $this->enrichmentDocumentService
             ->shouldReceive('execute')

@@ -8,9 +8,9 @@
 
 namespace Mpwar\DataProcessor\Infrastructure\Domain\EnrichmentService\Category;
 
-use Mpwar\DataProcessor\Domain\EnrichedDocument\Metadata;
+use Mpwar\DataProcessor\Domain\EnrichedDocument\EnrichedDocumentMetadata;
 
-class Category implements Metadata
+class Category implements EnrichedDocumentMetadata
 {
     public $value;
 

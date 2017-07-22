@@ -9,9 +9,9 @@
 namespace Mpwar\DataProcessor\Infrastructure\Domain\EnrichmentService\Sentiment;
 
 
-use Mpwar\DataProcessor\Domain\EnrichedDocument\Metadata;
+use Mpwar\DataProcessor\Domain\EnrichedDocument\EnrichedDocumentMetadata;
 
-class Sentiment implements Metadata
+class Sentiment implements EnrichedDocumentMetadata
 {
     public $value;
 

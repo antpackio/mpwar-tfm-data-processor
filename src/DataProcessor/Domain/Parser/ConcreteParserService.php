@@ -2,6 +2,7 @@
 
 namespace Mpwar\DataProcessor\Domain\Parser;
 
+use Mpwar\DataProcessor\Domain\EnrichedDocument\EnrichedDocumentFactory;
 use Mpwar\DataProcessor\Domain\Parser\Twitter\TwitterParser;
 use Mpwar\DataProcessor\Domain\RawDocument\RawDocumentSource;
 
@@ -10,6 +11,12 @@ class ConcreteParserService implements ParserService
     const SOURCE_SUPPORTED = [
         TwitterParser::SOURCE
     ];
+    private $enrichedDocumentFactory;
+
+    public function __construct(EnrichedDocumentFactory $enrichedDocumentFactory)
+    {
+        $this->enrichedDocumentFactory = $enrichedDocumentFactory;
+    }
 
     public function execute(RawDocumentSource $source): Parser
     {
@@ -23,7 +30,7 @@ class ConcreteParserService implements ParserService
         $parser = null;
         switch ($source->value()) {
             case "twitter":
-                $parser = new TwitterParser();
+                $parser = new TwitterParser($this->enrichedDocumentFactory);
                 break;
         }
 

@@ -20,15 +20,15 @@ class EnrichedDocument
     protected $language;
     protected $metadata;
 
-    protected function __construct(
+    public function __construct(
         RawDocumentId $rawDocumentId,
         RawDocumentKeyword $rawDocumentKeyword,
         RawDocumentSource $rawDocumentSource,
-        Content $content,
-        CreatedAt $createdAt,
-        Author $author,
-        AuthorLocation $authorLocation,
-        Language $language
+        EnrichedDocumentContent $content,
+        EnrichedDocumentCreatedAt $createdAt,
+        EnrichedDocumentAuthor $author,
+        EnrichedDocumentAuthorLocation $authorLocation,
+        EnrichedDocumentLanguage $language
     ) {
         $this->setRawDocumentId($rawDocumentId);
         $this->setKeyword($rawDocumentKeyword);
@@ -38,7 +38,7 @@ class EnrichedDocument
         $this->setAuthor($author);
         $this->setAuthorLocation($authorLocation);
         $this->setLanguage($language);
-        $this->metadata = new MetadataCollection();
+        $this->metadata = new EnrichedDocumentMetadataCollection();
     }
 
     public function source(): RawDocumentSource
@@ -51,22 +51,22 @@ class EnrichedDocument
         $this->source = $rawDocumentSource;
     }
 
-    public function content(): Content
+    public function content(): EnrichedDocumentContent
     {
         return $this->content;
     }
 
-    protected function setContent(Content $content): void
+    protected function setContent(EnrichedDocumentContent $content): void
     {
         $this->content = $content;
     }
 
-    public function createdAt(): CreatedAt
+    public function createdAt(): EnrichedDocumentCreatedAt
     {
         return $this->createdAt;
     }
 
-    protected function setCreatedAt(CreatedAt $createdAt): void
+    protected function setCreatedAt(EnrichedDocumentCreatedAt $createdAt): void
     {
         $this->createdAt = $createdAt;
     }
@@ -91,42 +91,42 @@ class EnrichedDocument
         $this->rawDocumentId = $rawDocumentId;
     }
 
-    public function author(): Author
+    public function author(): EnrichedDocumentAuthor
     {
         return $this->author;
     }
 
-    protected function setAuthor(Author $author): void
+    protected function setAuthor(EnrichedDocumentAuthor $author): void
     {
         $this->author = $author;
     }
 
-    public function authorLocation(): AuthorLocation
+    public function authorLocation(): EnrichedDocumentAuthorLocation
     {
         return $this->authorLocation;
     }
 
-    protected function setAuthorLocation(AuthorLocation $authorLocation): void
+    protected function setAuthorLocation(EnrichedDocumentAuthorLocation $authorLocation): void
     {
         $this->authorLocation = $authorLocation;
     }
 
-    public function language(): Language
+    public function language(): EnrichedDocumentLanguage
     {
         return $this->language;
     }
 
-    protected function setLanguage(Language $language)
+    protected function setLanguage(EnrichedDocumentLanguage $language)
     {
         $this->language = $language;
     }
 
-    public function metadata(): MetadataCollection
+    public function metadata(): EnrichedDocumentMetadataCollection
     {
         return $this->metadata;
     }
 
-    public function addMetadata(Metadata $metadata)
+    public function addMetadata(EnrichedDocumentMetadata $metadata)
     {
         $this->metadata()->add($metadata);
     }

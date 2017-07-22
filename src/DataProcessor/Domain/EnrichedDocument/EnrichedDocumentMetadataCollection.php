@@ -11,7 +11,7 @@ namespace Mpwar\DataProcessor\Domain\EnrichedDocument;
 
 use Mpwar\DataProcessor\Domain\DataType\Collection;
 
-class MetadataCollection extends Collection
+class EnrichedDocumentMetadataCollection extends Collection
 {
 
     /**
@@ -19,10 +19,10 @@ class MetadataCollection extends Collection
      */
     protected function typeOfCollection(): string
     {
-        return Metadata::class;
+        return EnrichedDocumentMetadata::class;
     }
 
-    public function filterByType(string $className) : ?Metadata
+    public function filterByType(string $className) : ?EnrichedDocumentMetadata
     {
         $itemsFiltered = array_filter(
             $this->items,
