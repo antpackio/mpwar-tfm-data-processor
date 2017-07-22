@@ -2,18 +2,18 @@
 
 namespace Mpwar\DataProcessor\Domain\Parser;
 
-use Mpwar\DataProcessor\Domain\EnrichedDocument\EnrichedDocument;
-use Mpwar\DataProcessor\Domain\Exception\NotSupportedSourceException;
-use Mpwar\DataProcessor\Domain\ValueObject\RawDocumentSource;
+use Mpwar\DataProcessor\Domain\Parser\Twitter\TwitterParser;
+use Mpwar\DataProcessor\Domain\RawDocument\RawDocumentSource;
 
 class ConcreteParserService implements ParserService
 {
-    const SOURCE_SUPPORTED = ["twitter"];
+    const SOURCE_SUPPORTED = [
+        TwitterParser::SOURCE
+    ];
 
-    public function execute(EnrichedDocument $enrichedDocument): EnrichedDocument
+    public function execute(RawDocumentSource $source): Parser
     {
-        $parserService = $this->getParserFromSource($enrichedDocument->source());
-        return $parserService->parse($enrichedDocument);
+        return $this->getParserFromSource($source);
     }
 
     private function getParserFromSource(RawDocumentSource $source): Parser

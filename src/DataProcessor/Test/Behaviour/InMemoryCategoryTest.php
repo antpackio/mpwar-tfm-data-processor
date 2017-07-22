@@ -8,7 +8,7 @@
 
 namespace Mpwar\DataProcessor\Test\Behaviour;
 
-use Mpwar\DataProcessor\Infrastructure\EnrichedDocument\Service\Category\InMemoryCategory;
+use Mpwar\DataProcessor\Infrastructure\Domain\EnrichmentService\Category\InMemoryCategory;
 use Mpwar\DataProcessor\Test\Infrastructure\Stub\EnrichedDocumentStub;
 use Mpwar\DataProcessor\Test\Infrastructure\Stub\RawDocumentStub;
 use Mpwar\DataProcessor\Test\Infrastructure\UnitTestCase;

@@ -10,8 +10,9 @@ namespace Mpwar\DataProcessor\Domain\Parser;
 
 
 use Mpwar\DataProcessor\Domain\EnrichedDocument\EnrichedDocument;
+use Mpwar\DataProcessor\Domain\RawDocument\RawDocument;
 
 interface Parser
 {
-    public function parse(EnrichedDocument $enrichedDocument): EnrichedDocument;
+    public function parse(RawDocument $rawDocument): EnrichedDocument;
 }

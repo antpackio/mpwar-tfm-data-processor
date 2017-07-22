@@ -2,9 +2,9 @@
 
 namespace Mpwar\DataProcessor\Test\Infrastructure\Stub;
 
-use Mpwar\DataProcessor\Domain\EnrichedDocument\EnrichedDocument;
-use Mpwar\DataProcessor\Domain\Entity\RawDocument;
 use Mpwar\DataProcessor\Domain\EnrichedDocument\Content;
+use Mpwar\DataProcessor\Domain\EnrichedDocument\EnrichedDocument;
+use Mpwar\DataProcessor\Domain\RawDocument\RawDocument;
 
 class EnrichedDocumentStub extends Stub
 {
@@ -14,9 +14,18 @@ class EnrichedDocumentStub extends Stub
         return self::create(RawDocumentStub::random());
     }
 
-    public static function create(RawDocument $rawDocument)
+    public static function create(
+        RawDocument $rawDocument,
+        EnrichedDocumentContent $content,
+        EnrichedDocumentCreatedAt $createdAt,
+        EnrichedDocumentAuthor $author,
+        EnrichedDocumentAuthorLocation $authorLocation,
+        EnrichedDocumentLanguage $language
+    )
     {
-        return EnrichedDocument::fromRawDocument($rawDocument);
+        return new EnrichedDocument(
+
+        );
     }
 
     public static function customContent(RawDocument $rawDocument, Content $content)

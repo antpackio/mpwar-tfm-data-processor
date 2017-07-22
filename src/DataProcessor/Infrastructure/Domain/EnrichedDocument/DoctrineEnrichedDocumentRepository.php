@@ -4,8 +4,8 @@ namespace Mpwar\DataProcessor\Infrastructure\Domain\EnrichedDocument;
 
 use Doctrine\ORM\EntityRepository;
 use Mpwar\DataProcessor\Domain\EnrichedDocument\EnrichedDocument;
-use Mpwar\DataProcessor\Domain\Repository\EnrichedDocumentsRepository;
-use Mpwar\DataProcessor\Domain\ValueObject\RawDocumentId;
+use Mpwar\DataProcessor\Domain\EnrichedDocument\EnrichedDocumentsRepository;
+use Mpwar\DataProcessor\Domain\RawDocument\RawDocumentId;
 
 class DoctrineEnrichedDocumentRepository extends EntityRepository implements EnrichedDocumentsRepository
 {

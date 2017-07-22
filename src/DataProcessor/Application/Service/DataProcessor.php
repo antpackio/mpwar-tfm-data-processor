@@ -2,13 +2,13 @@
 
 namespace Mpwar\DataProcessor\Application\Service;
 
-use Mpwar\DataProcessor\Domain\EnrichedDocument\EnrichedDocument;
-use Mpwar\DataProcessor\Domain\Event\EnrichedDocumentWasProcessed;
-use Mpwar\DataProcessor\Domain\MessageBus;
-use Mpwar\DataProcessor\Domain\Repository\EnrichedDocumentsRepository;
-use Mpwar\DataProcessor\Domain\Repository\RawDocumentsRepository;
-use Mpwar\DataProcessor\Domain\EnrichedDocument\Service\EnrichmentDocumentService;
+use Mpwar\DataProcessor\Application\Event\EnrichedDocumentWasProcessed;
+use Mpwar\DataProcessor\Application\MessageBus;
+use Mpwar\DataProcessor\Domain\EnrichedDocument\EnrichedDocumentsRepository;
+use Mpwar\DataProcessor\Domain\EnrichmentService\EnrichmentDocumentService;
 use Mpwar\DataProcessor\Domain\Parser\ParserService;
+use Mpwar\DataProcessor\Domain\RawDocument\RawDocument;
+use Mpwar\DataProcessor\Domain\RawDocument\RawDocumentsRepository;
 
 class DataProcessor
 {
@@ -36,12 +36,13 @@ class DataProcessor
     {
         $rawDocumentsCollection = $this->rawDocumentsRepository->all();
 
+        /** @var RawDocument $rawDocument */
         foreach ($rawDocumentsCollection as $rawDocument) {
             if ($this->enrichedDocumentsRepository->hasRawDocumentId($rawDocument->id()) !== null) {
                 continue;
             }
-            $enrichedDocument = EnrichedDocument::fromRawDocument($rawDocument);
-            $enrichedDocument = $this->parserService->execute($enrichedDocument);
+            $parser = $this->parserService->execute($rawDocument->source());
+            $enrichedDocument = $parser->parse($rawDocument);
             $enrichedDocument = $this->enrichmentDocumentService->execute($enrichedDocument);
             $this->enrichedDocumentsRepository->save($enrichedDocument);
             $this->messageBus->dispatch(EnrichedDocumentWasProcessed::NAME, new EnrichedDocumentWasProcessed($enrichedDocument));

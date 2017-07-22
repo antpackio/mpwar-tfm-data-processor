@@ -10,26 +10,26 @@ namespace Mpwar\DataProcessor\Test\Infrastructure\Stub;
 
 
 use Mpwar\DataProcessor\Domain\Parser\ConcreteParserService;
-use Mpwar\DataProcessor\Domain\ValueObject\RawDocumentSource;
+use Mpwar\DataProcessor\Domain\RawDocument\RawDocumentSource;
 
 class RawDocumentSourceStub extends Stub
 {
-    public static function random()
+    public static function random(): RawDocumentSource
     {
         return self::create(self::factory()->randomElement(ConcreteParserService::SOURCE_SUPPORTED));
     }
 
-    public static function create(String $source)
+    public static function create(String $source): RawDocumentSource
     {
         return new RawDocumentSource($source);
     }
 
-    public static function twitter()
+    public static function twitter(): RawDocumentSource
     {
         return self::create('twitter');
     }
 
-    public static function invalid()
+    public static function invalid(): RawDocumentSource
     {
         do {
             $word = self::factory()->word;

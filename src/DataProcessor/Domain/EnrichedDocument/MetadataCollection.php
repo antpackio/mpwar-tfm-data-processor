@@ -9,7 +9,7 @@
 namespace Mpwar\DataProcessor\Domain\EnrichedDocument;
 
 
-use Mpwar\DataProcessor\Domain\ValueObject\Collection;
+use Mpwar\DataProcessor\Domain\DataType\Collection;
 
 class MetadataCollection extends Collection
 {

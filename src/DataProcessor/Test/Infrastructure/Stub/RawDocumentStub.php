@@ -2,11 +2,11 @@
 
 namespace Mpwar\DataProcessor\Test\Infrastructure\Stub;
 
-use Mpwar\DataProcessor\Domain\Entity\RawDocument;
-use Mpwar\DataProcessor\Domain\ValueObject\RawDocumentContent;
-use Mpwar\DataProcessor\Domain\ValueObject\RawDocumentId;
-use Mpwar\DataProcessor\Domain\ValueObject\RawDocumentKeyword;
-use Mpwar\DataProcessor\Domain\ValueObject\RawDocumentSource;
+use Mpwar\DataProcessor\Domain\RawDocument\RawDocument;
+use Mpwar\DataProcessor\Domain\RawDocument\RawDocumentContent;
+use Mpwar\DataProcessor\Domain\RawDocument\RawDocumentId;
+use Mpwar\DataProcessor\Domain\RawDocument\RawDocumentKeyword;
+use Mpwar\DataProcessor\Domain\RawDocument\RawDocumentSource;
 
 class RawDocumentStub extends Stub
 {

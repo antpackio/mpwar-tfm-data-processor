@@ -12,17 +12,16 @@ class DoctrineEnrichedDocument extends EnrichedDocument
     {
         parent::__construct(
             $enrichedDocument->rawDocumentId(),
-            $enrichedDocument->rawDocumentContent(),
             $enrichedDocument->keyword(),
             $enrichedDocument->source(),
             $enrichedDocument->content(),
             $enrichedDocument->createdAt(),
             $enrichedDocument->author(),
             $enrichedDocument->authorLocation(),
-            $enrichedDocument->language(),
-            $enrichedDocument->metadata()
+            $enrichedDocument->language()
         );
 
         $this->id = null;
+        $this->metadata = $enrichedDocument->metadata();
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Mpwar\DataProcessor\Test\Infrastructure\Stub;
 
-use Mpwar\DataProcessor\Domain\ValueObject\RawDocumentId;
+use Mpwar\DataProcessor\Domain\RawDocument\RawDocumentId;
 
 class RawDocumentIdStub extends Stub
 {

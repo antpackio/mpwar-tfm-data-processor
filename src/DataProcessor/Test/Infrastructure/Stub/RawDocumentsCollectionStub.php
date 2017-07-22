@@ -2,7 +2,7 @@
 
 namespace Mpwar\DataProcessor\Test\Infrastructure\Stub;
 
-use Mpwar\DataProcessor\Domain\ValueObject\RawDocumentsCollection;
+use Mpwar\DataProcessor\Domain\RawDocument\RawDocumentsCollection;
 
 class RawDocumentsCollectionStub extends Stub
 {
