@@ -83,6 +83,13 @@ class AmazonSqsRawDocumentRepository implements RawDocumentsRepository
 
         $messageDecoded = json_decode($messages['Messages'][0]['Body']);
 
+        $rawDocument = new RawDocument(
+            RawDocumentId::fromString($messageDecoded->rawDocument->id),
+            new RawDocumentSource($messageDecoded->rawDocument->source),
+            new RawDocumentKeyword($messageDecoded->rawDocument->keyword),
+            new RawDocumentContent(json_encode($messageDecoded->rawDocument->content))
+        );
+
         $this->client->deleteMessage(
             [
                 'QueueUrl' => $this->queueUrl,
@@ -90,12 +97,7 @@ class AmazonSqsRawDocumentRepository implements RawDocumentsRepository
             ]
         );
 
-        return new RawDocument(
-            RawDocumentId::fromString($messageDecoded->rawDocument->id),
-            new RawDocumentSource($messageDecoded->rawDocument->source),
-            new RawDocumentKeyword($messageDecoded->rawDocument->keyword),
-            new RawDocumentContent(json_encode($messageDecoded->rawDocument->content))
-        );
+        return $rawDocument;
     }
 
     private function shouldStop(): bool

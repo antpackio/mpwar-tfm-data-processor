@@ -33,7 +33,7 @@ supervisor_programs:
     configuration: |
       autostart=true
       autorestart=true
-      startretries=1
+      startretries=10
       startsecs=1
       redirect_stderr=true
       stderr_logfile=/var/log/apache-err.log

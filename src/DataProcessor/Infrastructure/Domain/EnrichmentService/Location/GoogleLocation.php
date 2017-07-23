@@ -1,14 +1,9 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Carles
- * Date: 12/07/2017
- * Time: 18:48
- */
 
 namespace Mpwar\DataProcessor\Infrastructure\Domain\EnrichmentService\Location;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\TransferException;
 use Mpwar\DataProcessor\Domain\EnrichedDocument\EnrichedDocument;
 use Mpwar\DataProcessor\Domain\EnrichmentService\EnrichmentDocumentService;
 
@@ -24,9 +19,15 @@ class GoogleLocation implements EnrichmentDocumentService
         $this->apiKey = 'AIzaSyAHOWIk4w3rRhAEcaW_n56kS4MztlkMT5k';
     }
 
-    public function execute(EnrichedDocument $enrichedDocument): EnrichedDocument
-    {
-        if ($enrichedDocument->authorLocation()->value() !== EnrichedDocument::UNDEFINED_TAG) {
+    public function execute(EnrichedDocument $enrichedDocument
+    ): EnrichedDocument {
+        if ($enrichedDocument->authorLocation()->value(
+            ) === EnrichedDocument::UNDEFINED_TAG
+        ) {
+            return $enrichedDocument;
+        }
+
+        try {
             $response = $this->client->request(
                 'GET',
                 sprintf(
@@ -35,12 +36,27 @@ class GoogleLocation implements EnrichmentDocumentService
                     $enrichedDocument->authorLocation()->value()
                 )
             );
-            $decodedResponse = json_decode($response->getBody()->getContents(), true);
-            $location = new Location();
-            $filteredAddressComponents = $this->filterCountry($decodedResponse);
-            $location->value = array_shift($filteredAddressComponents);
-            $enrichedDocument->addMetadata($location);
+        } catch (TransferException $exception) {
+            echo $exception->getMessage();
+            return $enrichedDocument;
         }
+
+
+        $decodedResponse = json_decode(
+            $response->getBody()->getContents(),
+            true
+        );
+
+        if (empty($decodedResponse['results'])) {
+            return $enrichedDocument;
+        }
+
+        $location = new Location();
+        $filteredAddressComponents = $this->filterCountry($decodedResponse);
+        $location->value = array_shift($filteredAddressComponents);
+
+        $enrichedDocument->addMetadata($location);
+
         return $enrichedDocument;
     }
 
@@ -54,6 +70,7 @@ class GoogleLocation implements EnrichmentDocumentService
             $decodedResponse["results"][0]['address_components'],
             function ($element) {
                 return ($element['types'] === ["country", "political"]);
-            });
+            }
+        );
     }
 }

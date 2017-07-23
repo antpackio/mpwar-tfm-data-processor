@@ -21,13 +21,14 @@ class ProcessQueue extends Command
     {
         $this
             ->setName('queue:process')
-            ->setDescription('Consume messages from bus and process raw documents');
+            ->setDescription(
+                'Consume messages from bus and process raw documents'
+            );
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $output->writeln('Start message consumer task');
-
+        echo 'Start process queue' . "\n";
         $this->dataProcessor->execute();
     }
 }

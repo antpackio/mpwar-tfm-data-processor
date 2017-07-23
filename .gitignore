@@ -1,3 +1,4 @@
 /vendor/
 /resources/config
 *.pem
+*.retry

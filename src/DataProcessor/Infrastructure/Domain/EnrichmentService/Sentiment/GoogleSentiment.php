@@ -3,6 +3,7 @@
 namespace Mpwar\DataProcessor\Infrastructure\Domain\EnrichmentService\Sentiment;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\TransferException;
 use Mpwar\DataProcessor\Domain\EnrichedDocument\EnrichedDocument;
 use Mpwar\DataProcessor\Domain\EnrichmentService\EnrichmentDocumentService;
 
@@ -18,11 +19,33 @@ class GoogleSentiment implements EnrichmentDocumentService
         $this->apiKey = 'AIzaSyAHOWIk4w3rRhAEcaW_n56kS4MztlkMT5k';
     }
 
-    public function execute(EnrichedDocument $enrichedDocument) :EnrichedDocument
-    {
-        $body = ['document' => ['type'=>'PLAIN_TEXT','content'=> $enrichedDocument->content()->value()], 'encodingType' =>'UTF8'];
-        $response = $this->client->request('POST', sprintf(self::GOOGLE_ANALYZE_SENTIMENT,$this->apiKey), ['json' => $body]);
-        $decodedResponse = json_decode($response->getBody()->getContents(), true);
+    public function execute(EnrichedDocument $enrichedDocument
+    ): EnrichedDocument {
+        $body = [
+            'document' => [
+                'type' => 'PLAIN_TEXT',
+                'content' => $enrichedDocument->content()->value()
+            ],
+            'encodingType' => 'UTF8'
+        ];
+        try{
+            $response = $this->client->request(
+                'POST',
+                sprintf(
+                    self::GOOGLE_ANALYZE_SENTIMENT,
+                    $this->apiKey
+                ),
+                ['json' => $body]
+            );
+        } catch (TransferException $exception) {
+            echo $exception->getMessage();
+            return $enrichedDocument;
+        }
+
+        $decodedResponse = json_decode(
+            $response->getBody()->getContents(),
+            true
+        );
         $sentiment = new Sentiment();
         $sentiment->value = $decodedResponse["documentSentiment"];
         $enrichedDocument->addMetadata($sentiment);
