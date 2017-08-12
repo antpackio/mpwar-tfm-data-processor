@@ -15,6 +15,7 @@ use Mpwar\DataProcessor\Domain\RawDocument\RawDocumentSource;
 use Mpwar\DataProcessor\Domain\RawDocument\RawDocumentsRepository;
 use Mpwar\DataProcessor\Test\Infrastructure\Stub\EnrichedDocument\EnrichedDocumentStub;
 use Mpwar\DataProcessor\Test\Infrastructure\Stub\RawDocument\RawDocumentsCollectionStub;
+use Mpwar\DataProcessor\Test\Infrastructure\Stub\RawDocument\RawDocumentStub;
 use Mpwar\DataProcessor\Test\Infrastructure\UnitTestCase;
 
 class DataProcessorTest extends UnitTestCase
@@ -55,59 +56,48 @@ class DataProcessorTest extends UnitTestCase
     */
     public function itShouldProperlyCompleteTheDataProcessorProcess()
     {
-        $rawDocumentsCollection = RawDocumentsCollectionStub::withTwoDocuments();
+        $rawDocument = RawDocumentStub::validFromTwitter();
 
         $this->rawDocumentsRepository
-            ->shouldReceive('all')
+            ->shouldReceive('first')
             ->once()
             ->withNoArgs()
-            ->andReturn($rawDocumentsCollection);
+            ->andReturn($rawDocument);
 
         $this->enrichedDocumentsRepository
             ->shouldReceive('hasRawDocumentId')
             ->once()
-            ->with($rawDocumentsCollection[0]->id())
-            ->andReturn(null);
-
-        $this->enrichedDocumentsRepository
-            ->shouldReceive('hasRawDocumentId')
-            ->once()
-            ->with($rawDocumentsCollection[1]->id())
+            ->with($rawDocument->id())
             ->andReturn(null);
         
         $this->parserService
             ->shouldReceive('execute')
-            ->twice()
+            ->once()
             ->with(RawDocumentSource::class)
             ->andReturn($this->parser);
 
         $this->parser
             ->shouldReceive('parse')
             ->once()
-            ->with($rawDocumentsCollection[0])
+            ->with($rawDocument)
             ->andReturn(EnrichedDocumentStub::random());
 
-        $this->parser
-            ->shouldReceive('parse')
-            ->once()
-            ->with($rawDocumentsCollection[1])
-            ->andReturn(EnrichedDocumentStub::random());
 
         $this->enrichmentDocumentService
             ->shouldReceive('execute')
-            ->twice()
+            ->once()
             ->with(EnrichedDocument::class)
             ->andReturn(EnrichedDocumentStub::random());
 
         $this->enrichedDocumentsRepository
             ->shouldReceive('save')
-            ->twice()
+            ->once()
             ->with(EnrichedDocument::class)
             ->andReturnNull();
 
         $this->messageBus
             ->shouldReceive('dispatch')
-            ->twice()
+            ->once()
             ->with('EnrichedDocumentWasProcessed', EnrichedDocumentWasProcessed::class)
             ->andReturn();
 

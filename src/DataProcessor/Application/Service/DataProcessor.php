@@ -41,17 +41,11 @@ class DataProcessor
         if ($this->enrichedDocumentsRepository->hasRawDocumentId($rawDocument->id()) !== null) {
             return;
         }
-        echo 'Processing id: ' . $rawDocument->id() . "\n";
+
         $parser = $this->parserService->execute($rawDocument->source());
-        echo 'Parser Service retrieved. ' . "\n";
         $enrichedDocument = $parser->parse($rawDocument);
-        echo 'Parser done. ' . "\n";
         $enrichedDocument = $this->enrichmentDocumentService->execute($enrichedDocument);
-        echo 'Enrichment services done. ' . "\n";
         $this->enrichedDocumentsRepository->save($enrichedDocument);
-        echo 'Saved document. ' . "\n";
         $this->messageBus->dispatch(EnrichedDocumentWasProcessed::NAME, new EnrichedDocumentWasProcessed($enrichedDocument));
-        echo 'Dispatched. ' . "\n";
-        echo '------------------. ' . "\n\n\n";
     }
 }
