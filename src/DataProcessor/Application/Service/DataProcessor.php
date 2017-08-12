@@ -34,6 +34,7 @@ class DataProcessor
     public function execute(): void
     {
         $rawDocument = $this->rawDocumentsRepository->first();
+
         if ($rawDocument === null) {
             return;
         }
