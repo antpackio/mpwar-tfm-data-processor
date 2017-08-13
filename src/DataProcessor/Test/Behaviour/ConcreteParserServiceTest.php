@@ -3,7 +3,7 @@
 namespace Mpwar\DataProcessor\Test\Behaviour;
 
 use Mockery\Mock;
-use Mpwar\DataProcessor\Domain\EnrichedDocument\EnrichedDocument;
+use Mpwar\DataProcessor\Domain\EnrichedDocument\EnrichDocument;
 use Mpwar\DataProcessor\Domain\EnrichedDocument\EnrichedDocumentFactory;
 use Mpwar\DataProcessor\Domain\Parser\ConcreteParserService;
 use Mpwar\DataProcessor\Domain\Parser\NotSupportedSourceException;

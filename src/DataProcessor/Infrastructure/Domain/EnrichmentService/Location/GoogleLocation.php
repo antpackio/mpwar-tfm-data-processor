@@ -20,12 +20,12 @@ class GoogleLocation implements EnrichmentDocumentService
         $this->apiKey = 'AIzaSyAHOWIk4w3rRhAEcaW_n56kS4MztlkMT5k';
     }
 
-    public function execute(Document $enrichedDocument
+    public function execute(Document $document
     ): EnrichedDocument {
-        if ($enrichedDocument->authorLocation()->value(
+        if ($document->authorLocation()->value(
             ) === EnrichedDocument::UNDEFINED_TAG
         ) {
-            return $enrichedDocument;
+            return $document;
         }
 
         try {
@@ -34,12 +34,12 @@ class GoogleLocation implements EnrichmentDocumentService
                 sprintf(
                     self::GOOGLE_GEOCODE,
                     $this->apiKey,
-                    $enrichedDocument->authorLocation()->value()
+                    $document->authorLocation()->value()
                 )
             );
         } catch (TransferException $exception) {
             echo $exception->getMessage();
-            return $enrichedDocument;
+            return $document;
         }
 
 
@@ -49,16 +49,16 @@ class GoogleLocation implements EnrichmentDocumentService
         );
 
         if (empty($decodedResponse['results'])) {
-            return $enrichedDocument;
+            return $document;
         }
 
         $location = new Location();
         $filteredAddressComponents = $this->filterCountry($decodedResponse);
         $location->value = array_shift($filteredAddressComponents);
 
-        $enrichedDocument->addMetadata($location);
+        $document->addMetadata($location);
 
-        return $enrichedDocument;
+        return $document;
     }
 
     /**

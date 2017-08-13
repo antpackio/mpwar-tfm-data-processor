@@ -6,7 +6,7 @@ use Mockery\Mock;
 use Mpwar\DataProcessor\Application\Event\EnrichedDocumentWasProcessed;
 use Mpwar\DataProcessor\Application\MessageBus;
 use Mpwar\DataProcessor\Application\Service\DataProcessor;
-use Mpwar\DataProcessor\Domain\EnrichedDocument\EnrichedDocument;
+use Mpwar\DataProcessor\Domain\EnrichedDocument\EnrichDocument;
 use Mpwar\DataProcessor\Domain\EnrichedDocument\EnrichedDocumentsRepository;
 use Mpwar\DataProcessor\Domain\EnrichmentService\EnrichmentDocumentService;
 use Mpwar\DataProcessor\Domain\Parser\Parser;
@@ -84,13 +84,13 @@ class DataProcessorTest extends UnitTestCase
         $this->enrichmentDocumentService
             ->shouldReceive('execute')
             ->once()
-            ->with(EnrichedDocument::class)
+            ->with(EnrichDocument::class)
             ->andReturn(EnrichedDocumentStub::random());
 
         $this->enrichedDocumentsRepository
             ->shouldReceive('save')
             ->once()
-            ->with(EnrichedDocument::class)
+            ->with(EnrichDocument::class)
             ->andReturnNull();
 
         $this->messageBus

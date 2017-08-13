@@ -20,12 +20,12 @@ class GoogleSentiment implements EnrichmentDocumentService
         $this->apiKey = 'AIzaSyAHOWIk4w3rRhAEcaW_n56kS4MztlkMT5k';
     }
 
-    public function execute(Document $enrichedDocument
+    public function execute(Document $document
     ): EnrichedDocument {
         $body = [
             'document' => [
                 'type' => 'PLAIN_TEXT',
-                'content' => $enrichedDocument->content()->value()
+                'content' => $document->content()->value()
             ],
             'encodingType' => 'UTF8'
         ];
@@ -40,7 +40,7 @@ class GoogleSentiment implements EnrichmentDocumentService
             );
         } catch (TransferException $exception) {
             echo $exception->getMessage();
-            return $enrichedDocument;
+            return $document;
         }
 
         $decodedResponse = json_decode(
@@ -49,7 +49,7 @@ class GoogleSentiment implements EnrichmentDocumentService
         );
         $sentiment = new Sentiment();
         $sentiment->value = $decodedResponse["documentSentiment"];
-        $enrichedDocument->addMetadata($sentiment);
-        return $enrichedDocument;
+        $document->addMetadata($sentiment);
+        return $document;
     }
 }

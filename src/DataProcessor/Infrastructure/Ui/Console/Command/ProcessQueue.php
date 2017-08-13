@@ -9,12 +9,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class ProcessQueue extends Command
 {
-    private $dataProcessor;
+    private $applicationService;
 
-    public function __construct(DataProcessor $dataProcessor)
+    public function __construct(\Mpwar\DataProcessor\Application\ProcessQueue $applicationService)
     {
         parent::__construct();
-        $this->dataProcessor = $dataProcessor;
+        $this->applicationService = $applicationService;
     }
 
     protected function configure()
@@ -28,7 +28,6 @@ class ProcessQueue extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        echo 'Start process queue' . "\n";
-        $this->dataProcessor->execute();
+        $this->applicationService->execute();
     }
 }

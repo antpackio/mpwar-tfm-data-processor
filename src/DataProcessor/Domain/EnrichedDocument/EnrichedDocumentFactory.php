@@ -13,5 +13,5 @@ interface EnrichedDocumentFactory
         EnrichedDocumentAuthor $author,
         EnrichedDocumentAuthorLocation $authorLocation,
         EnrichedDocumentLanguage $language
-    ): EnrichedDocument;
+    ): EnrichDocument;
 }

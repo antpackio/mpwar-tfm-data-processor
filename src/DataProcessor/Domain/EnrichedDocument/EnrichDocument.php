@@ -6,7 +6,7 @@ use Mpwar\DataProcessor\Domain\RawDocument\RawDocumentId;
 use Mpwar\DataProcessor\Domain\RawDocument\RawDocumentKeyword;
 use Mpwar\DataProcessor\Domain\RawDocument\RawDocumentSource;
 
-class EnrichedDocument
+class EnrichDocument
 {
     const UNDEFINED_TAG = 'undefined';
 

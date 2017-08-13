@@ -7,5 +7,5 @@ use Mpwar\DataProcessor\Domain\EnrichedDocument;
 
 interface EnrichmentDocumentService
 {
-    public function execute(Document $document): EnrichedDocument;
+    public function execute(Document $documentdocument): EnrichedDocument;
 }

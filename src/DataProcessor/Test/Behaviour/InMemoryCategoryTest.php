@@ -8,7 +8,7 @@
 
 namespace Mpwar\DataProcessor\Test\Behaviour;
 
-use Mpwar\DataProcessor\Infrastructure\Domain\EnrichmentService\Category\InMemoryCategory;
+use Mpwar\DataProcessor\Infrastructure\Domain\EnrichmentService\InMemoryCategory;
 use Mpwar\DataProcessor\Test\Infrastructure\Stub\EnrichedDocument\EnrichedDocumentAuthorLocationStub;
 use Mpwar\DataProcessor\Test\Infrastructure\Stub\EnrichedDocument\EnrichedDocumentAuthorStub;
 use Mpwar\DataProcessor\Test\Infrastructure\Stub\EnrichedDocument\EnrichedDocumentContentStub;

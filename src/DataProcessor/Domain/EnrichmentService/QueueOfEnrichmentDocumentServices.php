@@ -17,13 +17,13 @@ class QueueOfEnrichmentDocumentServices implements EnrichmentDocumentService
         }
     }
 
-    public function execute(Document $document): EnrichedDocument
+    public function execute(Document $documentdocument): EnrichedDocument
     {
         foreach ($this->queue as $service){
-            $document = $service->execute($document);
+            $documentdocument = $service->execute($documentdocument);
         }
 
-        return $document;
+        return $documentdocument;
     }
 
     private function addService(EnrichmentDocumentService $service)

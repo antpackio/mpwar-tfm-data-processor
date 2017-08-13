@@ -4,7 +4,7 @@
 namespace Mpwar\DataProcessor\Infrastructure\Domain\EnrichedDocument;
 
 
-use Mpwar\DataProcessor\Domain\EnrichedDocument\EnrichedDocument;
+use Mpwar\DataProcessor\Domain\EnrichedDocument\EnrichDocument;
 use Mpwar\DataProcessor\Domain\EnrichedDocument\EnrichedDocumentAuthor;
 use Mpwar\DataProcessor\Domain\EnrichedDocument\EnrichedDocumentAuthorLocation;
 use Mpwar\DataProcessor\Domain\EnrichedDocument\EnrichedDocumentContent;
@@ -23,9 +23,9 @@ class DoctrineEnrichedDocumentFactory implements EnrichedDocumentFactory
         EnrichedDocumentAuthor $author,
         EnrichedDocumentAuthorLocation $authorLocation,
         EnrichedDocumentLanguage $language
-    ): EnrichedDocument
+    ): EnrichDocument
     {
-        return new DoctrineEnrichedDocument(
+        return new DoctrineEnrichDocument(
             $rawDocument->id(),
             $rawDocument->keyword(),
             $rawDocument->source(),

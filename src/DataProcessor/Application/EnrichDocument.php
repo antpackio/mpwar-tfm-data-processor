@@ -26,11 +26,15 @@ class EnrichDocument
         $this->enrichedDocumentsRepository = $enrichedDocumentsRepository;
     }
 
-    public function execute(Document $document, EnrichedDocumentDataTransformer $dataTransformer)
+    public function execute(Document $document, ?EnrichedDocumentDataTransformer $dataTransformer)
     {
         $enrichedDocument = $this->enrichmentService->execute($document);
         $this->enrichedDocumentsRepository->save($enrichedDocument);
 
-        return $dataTransformer->transform($enrichedDocument);
+        if ($dataTransformer){
+            return $dataTransformer->transform($enrichedDocument);
+        }
+
+        return $enrichedDocument;
     }
 }

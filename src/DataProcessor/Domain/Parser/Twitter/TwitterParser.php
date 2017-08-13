@@ -6,7 +6,7 @@ use Mpwar\DataProcessor\Domain\EnrichedDocument\EnrichedDocumentAuthor;
 use Mpwar\DataProcessor\Domain\EnrichedDocument\EnrichedDocumentAuthorLocation;
 use Mpwar\DataProcessor\Domain\EnrichedDocument\EnrichedDocumentContent;
 use Mpwar\DataProcessor\Domain\EnrichedDocument\EnrichedDocumentCreatedAt;
-use Mpwar\DataProcessor\Domain\EnrichedDocument\EnrichedDocument;
+use Mpwar\DataProcessor\Domain\EnrichedDocument\EnrichDocument;
 use Mpwar\DataProcessor\Domain\EnrichedDocument\EnrichedDocumentFactory;
 use Mpwar\DataProcessor\Domain\EnrichedDocument\EnrichedDocumentLanguage;
 use Mpwar\DataProcessor\Domain\Parser\NotSupportedSourceException;
@@ -30,7 +30,7 @@ class TwitterParser implements Parser
         $this->enrichedDocumentFactory = $enrichedDocumentFactory;
     }
 
-    public function parse(RawDocument $rawDocument): EnrichedDocument
+    public function parse(RawDocument $rawDocument): EnrichDocument
     {
         $this->checkIfSourceIsTwitter($rawDocument->source());
         $this->checkIfEmptyContent($rawDocument->content());
@@ -46,9 +46,9 @@ class TwitterParser implements Parser
             $rawDocument,
             new EnrichedDocumentContent($rawDocumentContentDecoded['text']),
             new EnrichedDocumentCreatedAt($rawDocumentContentDecoded['created_at']),
-            new EnrichedDocumentAuthor($rawDocumentContentDecoded['user']['name'] ?: EnrichedDocument::UNDEFINED_TAG),
-            new EnrichedDocumentAuthorLocation($rawDocumentContentDecoded['user']['location'] ?: EnrichedDocument::UNDEFINED_TAG),
-            new EnrichedDocumentLanguage($rawDocumentContentDecoded['metadata']['iso_language_code'] ?: EnrichedDocument::UNDEFINED_TAG)
+            new EnrichedDocumentAuthor($rawDocumentContentDecoded['user']['name'] ?: EnrichDocument::UNDEFINED_TAG),
+            new EnrichedDocumentAuthorLocation($rawDocumentContentDecoded['user']['location'] ?: EnrichDocument::UNDEFINED_TAG),
+            new EnrichedDocumentLanguage($rawDocumentContentDecoded['metadata']['iso_language_code'] ?: EnrichDocument::UNDEFINED_TAG)
         );
     }
 

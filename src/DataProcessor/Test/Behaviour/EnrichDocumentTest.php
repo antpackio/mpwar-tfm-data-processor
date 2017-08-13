@@ -5,6 +5,7 @@ namespace Mpwar\DataProcessor\Test\Behaviour;
 use Mockery\Mock;
 use Mpwar\DataProcessor\Application\ArrayDataTransformer;
 use Mpwar\DataProcessor\Application\EnrichDocument;
+use Mpwar\DataProcessor\Application\EnrichedDocumentDataTransformer;
 use Mpwar\DataProcessor\Domain\EnrichedDocument\EnrichedDocumentsRepository;
 use Mpwar\DataProcessor\Domain\EnrichmentService\EnrichmentDocumentService;
 use Mpwar\DataProcessor\Test\Infrastructure\Stub\AuthorLocationStub;
@@ -25,7 +26,7 @@ class EnrichDocumentTest extends UnitTestCase
     private $enrichmentDocumentService;
     /** @var  Mock|EnrichedDocumentsRepository */
     private $enrichedDocumentsRepository;
-    /** @var  Mock|ArrayDataTransformer */
+    /** @var  Mock|EnrichedDocumentDataTransformer */
     private $dataTransformer;
     /** @var  EnrichDocument */
     private $applicationService;
@@ -36,7 +37,7 @@ class EnrichDocumentTest extends UnitTestCase
 
         $this->enrichmentDocumentService   = $this->mock(EnrichmentDocumentService::class);
         $this->enrichedDocumentsRepository = $this->mock(EnrichedDocumentsRepository::class);
-        $this->dataTransformer             = $this->mock(ArrayDataTransformer::class);
+        $this->dataTransformer             = $this->mock(EnrichedDocumentDataTransformer::class);
 
         $this->applicationService = new EnrichDocument(
             $this->enrichmentDocumentService, $this->enrichedDocumentsRepository

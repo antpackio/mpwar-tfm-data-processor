@@ -17,7 +17,7 @@ $console->setHelperSet(
 $console->addCommands(
     [
         new \Mpwar\DataProcessor\Infrastructure\Ui\Console\Command\ProcessQueue(
-            $app['data_processor']
+            $app['application.service.process_queue']
         ),
         new \Doctrine\ORM\Tools\Console\Command\ClearCache\MetadataCommand,
         new \Doctrine\ORM\Tools\Console\Command\ClearCache\QueryCommand,

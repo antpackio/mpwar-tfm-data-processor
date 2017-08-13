@@ -6,7 +6,7 @@ use Mpwar\DataProcessor\Domain\EnrichedDocument\EnrichedDocumentAuthor;
 use Mpwar\DataProcessor\Domain\EnrichedDocument\EnrichedDocumentAuthorLocation;
 use Mpwar\DataProcessor\Domain\EnrichedDocument\EnrichedDocumentContent;
 use Mpwar\DataProcessor\Domain\EnrichedDocument\EnrichedDocumentCreatedAt;
-use Mpwar\DataProcessor\Domain\EnrichedDocument\EnrichedDocument;
+use Mpwar\DataProcessor\Domain\EnrichedDocument\EnrichDocument;
 use Mpwar\DataProcessor\Domain\EnrichedDocument\EnrichedDocumentLanguage;
 use Mpwar\DataProcessor\Domain\RawDocument\RawDocumentId;
 use Mpwar\DataProcessor\Domain\RawDocument\RawDocumentKeyword;
@@ -44,7 +44,7 @@ class EnrichedDocumentStub extends Stub
         EnrichedDocumentLanguage $language
     )
     {
-        return new EnrichedDocument(
+        return new EnrichDocument(
             $rawDocumentId,
             $rawDocumentKeyword,
             $rawDocumentSource,
