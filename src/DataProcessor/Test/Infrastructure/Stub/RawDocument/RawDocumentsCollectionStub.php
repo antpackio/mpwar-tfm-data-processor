@@ -2,7 +2,7 @@
 
 namespace Mpwar\DataProcessor\Test\Infrastructure\Stub\RawDocument;
 
-use Mpwar\DataProcessor\Domain\RawDocument\RawDocumentsCollection;
+use Mpwar\DataProcessor\Domain\RawDocument\RawDocumentsArrayCollection;
 use Mpwar\DataProcessor\Test\Infrastructure\Stub\RawDocument\RawDocumentStub;
 use Mpwar\DataProcessor\Test\Infrastructure\Stub\Stub;
 
@@ -16,7 +16,7 @@ class RawDocumentsCollectionStub extends Stub
 
     public static function create(...$documents)
     {
-        return new RawDocumentsCollection(...$documents);
+        return new RawDocumentsArrayCollection(...$documents);
     }
 
     public static function withTwoDocuments()

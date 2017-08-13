@@ -4,7 +4,8 @@ namespace Mpwar\DataProcessor\Infrastructure\Domain\EnrichmentService\Sentiment;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\TransferException;
-use Mpwar\DataProcessor\Domain\EnrichedDocument\EnrichedDocument;
+use Mpwar\DataProcessor\Domain\Document;
+use Mpwar\DataProcessor\Domain\EnrichedDocument;
 use Mpwar\DataProcessor\Domain\EnrichmentService\EnrichmentDocumentService;
 
 class GoogleSentiment implements EnrichmentDocumentService
@@ -19,7 +20,7 @@ class GoogleSentiment implements EnrichmentDocumentService
         $this->apiKey = 'AIzaSyAHOWIk4w3rRhAEcaW_n56kS4MztlkMT5k';
     }
 
-    public function execute(EnrichedDocument $enrichedDocument
+    public function execute(Document $enrichedDocument
     ): EnrichedDocument {
         $body = [
             'document' => [

@@ -4,7 +4,7 @@ namespace Mpwar\DataProcessor\Test\Infrastructure\Stub;
 
 use Faker\Factory;
 
-class Stub
+abstract class Stub
 {
     public static function factory()
     {

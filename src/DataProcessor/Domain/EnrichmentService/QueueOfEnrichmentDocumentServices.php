@@ -1,15 +1,9 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Carles
- * Date: 11/07/2017
- * Time: 19:16
- */
 
 namespace Mpwar\DataProcessor\Domain\EnrichmentService;
 
-
-use Mpwar\DataProcessor\Domain\EnrichedDocument\EnrichedDocument;
+use Mpwar\DataProcessor\Domain\Document;
+use Mpwar\DataProcessor\Domain\EnrichedDocument;
 
 class QueueOfEnrichmentDocumentServices implements EnrichmentDocumentService
 {
@@ -23,11 +17,12 @@ class QueueOfEnrichmentDocumentServices implements EnrichmentDocumentService
         }
     }
 
-    public function execute(EnrichedDocument $document): EnrichedDocument
+    public function execute(Document $document): EnrichedDocument
     {
         foreach ($this->queue as $service){
             $document = $service->execute($document);
         }
+
         return $document;
     }
 

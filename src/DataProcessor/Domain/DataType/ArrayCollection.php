@@ -7,7 +7,7 @@ use Countable;
 use InvalidArgumentException;
 use Iterator;
 
-abstract class Collection implements Countable, ArrayAccess, Iterator
+abstract class ArrayCollection implements Countable, ArrayAccess, Iterator
 {
     protected $items;
 

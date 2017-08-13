@@ -45,6 +45,7 @@ class DataProcessor
 
         $parser = $this->parserService->execute($rawDocument->source());
         $enrichedDocument = $parser->parse($rawDocument);
+
         $enrichedDocument = $this->enrichmentDocumentService->execute($enrichedDocument);
         $this->enrichedDocumentsRepository->save($enrichedDocument);
         $this->messageBus->dispatch(EnrichedDocumentWasProcessed::NAME, new EnrichedDocumentWasProcessed($enrichedDocument));

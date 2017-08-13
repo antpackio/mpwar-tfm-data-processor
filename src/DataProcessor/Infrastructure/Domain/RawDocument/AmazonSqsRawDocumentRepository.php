@@ -8,7 +8,7 @@ use Mpwar\DataProcessor\Domain\RawDocument\RawDocument;
 use Mpwar\DataProcessor\Domain\RawDocument\RawDocumentContent;
 use Mpwar\DataProcessor\Domain\RawDocument\RawDocumentId;
 use Mpwar\DataProcessor\Domain\RawDocument\RawDocumentKeyword;
-use Mpwar\DataProcessor\Domain\RawDocument\RawDocumentsCollection;
+use Mpwar\DataProcessor\Domain\RawDocument\RawDocumentsArrayCollection;
 use Mpwar\DataProcessor\Domain\RawDocument\RawDocumentSource;
 use Mpwar\DataProcessor\Domain\RawDocument\RawDocumentsRepository;
 
@@ -30,13 +30,13 @@ class AmazonSqsRawDocumentRepository implements RawDocumentsRepository
     }
 
 
-    public function all(): RawDocumentsCollection
+    public function all(): RawDocumentsArrayCollection
     {
         $messages = $this->client->receiveMessage(
             ['QueueUrl' => $this->queueUrl]
         );
 
-        $collection = new RawDocumentsCollection();
+        $collection = new RawDocumentsArrayCollection();
 
         if ($messages['Messages'] == null) {
             return $collection;

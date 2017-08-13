@@ -2,7 +2,7 @@
 
 namespace Mpwar\DataProcessor\Infrastructure\Domain\EnrichedDocument;
 
-use Mpwar\DataProcessor\Domain\EnrichedDocument\EnrichedDocument;
+use Mpwar\DataProcessor\Domain\EnrichedDocument;
 use Mpwar\DataProcessor\Domain\EnrichedDocument\EnrichedDocumentsRepository;
 use Mpwar\DataProcessor\Domain\RawDocument\RawDocumentId;
 

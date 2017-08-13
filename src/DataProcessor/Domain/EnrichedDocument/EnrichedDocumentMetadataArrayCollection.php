@@ -9,9 +9,9 @@
 namespace Mpwar\DataProcessor\Domain\EnrichedDocument;
 
 
-use Mpwar\DataProcessor\Domain\DataType\Collection;
+use Mpwar\DataProcessor\Domain\DataType\ArrayCollection;
 
-class EnrichedDocumentMetadataCollection extends Collection
+class EnrichedDocumentMetadataArrayCollection extends ArrayCollection
 {
 
     /**

@@ -9,7 +9,7 @@ abstract class StringValueObject
 
     public function __construct(string $value)
     {
-        $this->value = $value;
+        $this->setValue($value);
     }
 
     public function value(): string
@@ -20,5 +20,9 @@ abstract class StringValueObject
     public function __toString()
     {
         return $this->value();
+    }
+
+    protected function setValue(string $value){
+        $this->value = $value;
     }
 }

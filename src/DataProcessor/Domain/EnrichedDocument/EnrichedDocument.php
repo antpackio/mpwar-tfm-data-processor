@@ -38,7 +38,7 @@ class EnrichedDocument
         $this->setAuthor($author);
         $this->setAuthorLocation($authorLocation);
         $this->setLanguage($language);
-        $this->metadata = new EnrichedDocumentMetadataCollection();
+        $this->metadata = new EnrichedDocumentMetadataArrayCollection();
     }
 
     public function source(): RawDocumentSource
@@ -121,7 +121,7 @@ class EnrichedDocument
         $this->language = $language;
     }
 
-    public function metadata(): EnrichedDocumentMetadataCollection
+    public function metadata(): EnrichedDocumentMetadataArrayCollection
     {
         return $this->metadata;
     }

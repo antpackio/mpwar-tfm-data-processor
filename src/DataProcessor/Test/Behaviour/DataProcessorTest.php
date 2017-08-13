@@ -38,8 +38,6 @@ class DataProcessorTest extends UnitTestCase
     public function setUp()
     {
         $this->rawDocumentsRepository = $this->mock(RawDocumentsRepository::class);
-        $this->parserService = $this->mock(ParserService::class);
-        $this->parser = $this->mock(Parser::class);
         $this->enrichmentDocumentService = $this->mock(EnrichmentDocumentService::class);
         $this->enrichedDocumentsRepository = $this->mock(EnrichedDocumentsRepository::class);
         $this->messageBus = $this->mock(MessageBus::class);
