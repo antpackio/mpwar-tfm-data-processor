@@ -34,9 +34,8 @@ class GoogleSentiment implements EnrichmentService
 
         $decodedResponse   = json_decode($response->getBody()->getContents(), true);
         $documentSentiment = $decodedResponse["documentSentiment"];
-        $elements          = array_map(function($key) use ($documentSentiment) { return $key .": ". $documentSentiment[$key];}, array_keys($documentSentiment));
-        $normalizedValue = implode(',', $elements);
-        $metadataCollection->add(new Metadata('sentiment', $normalizedValue));
+
+        $metadataCollection->add(new Metadata('sentiment', $documentSentiment['score']));
         $metadataCollection->add(new Metadata('language', $decodedResponse["language"]));
 
         return $metadataCollection;
