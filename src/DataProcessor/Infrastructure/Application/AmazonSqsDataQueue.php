@@ -53,7 +53,7 @@ class AmazonSqsDataQueue implements DataQueue
         } while (!$this->shouldStop());
 
         if (!is_a($messages, Result::class) || $messages['Messages'] === null) {
-            return null;
+            return [];
         }
 
         $messageDecoded = json_decode($messages['Messages'][0]['Body'], true);
