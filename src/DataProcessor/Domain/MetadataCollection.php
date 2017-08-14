@@ -13,6 +13,16 @@ class MetadataCollection extends ArrayCollection
         return array_shift($itemsFound);
     }
 
+    public function merge(MetadataCollection $metadataCollection)
+    {
+        $this->items = array_merge($this->items, $metadataCollection->toArray());
+    }
+
+    public function toArray(): array
+    {
+        return $this->items;
+    }
+
     /**
      * @return string Type of Objects inside collection FQN
      */

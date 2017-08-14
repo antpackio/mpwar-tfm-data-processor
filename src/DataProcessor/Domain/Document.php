@@ -4,41 +4,43 @@ namespace Mpwar\DataProcessor\Domain;
 
 class Document
 {
+
+    protected $metadataCollection;
     /**
-     * @var SourceDocumentId
+     * @var SourceId
      */
-    private $sourceDocumentId;
+    protected $sourceDocumentId;
     /**
      * @var SourceKeyword
      */
-    private $sourceKeyword;
+    protected $sourceKeyword;
     /**
      * @var SourceName
      */
-    private $sourceName;
+    protected $sourceName;
     /**
      * @var Content
      */
-    private $content;
+    protected $content;
     /**
      * @var CreatedAt
      */
-    private $createdAt;
+    protected $createdAt;
     /**
      * @var Author
      */
-    private $author;
+    protected $author;
     /**
      * @var AuthorLocation
      */
-    private $authorLocation;
+    protected $authorLocation;
     /**
      * @var Language
      */
-    private $language;
+    protected $language;
 
     public function __construct(
-        SourceDocumentId $sourceDocumentId,
+        SourceId $sourceDocumentId,
         SourceKeyword $sourceKeyword,
         SourceName $sourceName,
         Content $content,
@@ -47,6 +49,7 @@ class Document
         AuthorLocation $authorLocation,
         Language $language
     ) {
+
         $this->setSourceDocumentId($sourceDocumentId);
         $this->setSourceKeyword($sourceKeyword);
         $this->setSourceName($sourceName);
@@ -55,12 +58,13 @@ class Document
         $this->setAuthor($author);
         $this->setAuthorLocation($authorLocation);
         $this->setLanguage($language);
+        $this->metadataCollection = new MetadataCollection();
     }
 
     /**
-     * @param SourceDocumentId $sourceDocumentId
+     * @param SourceId $sourceDocumentId
      */
-    protected function setSourceDocumentId(SourceDocumentId $sourceDocumentId)
+    protected function setSourceDocumentId(SourceId $sourceDocumentId)
     {
         $this->sourceDocumentId = $sourceDocumentId;
     }
@@ -122,9 +126,9 @@ class Document
     }
 
     /**
-     * @return SourceDocumentId
+     * @return SourceId
      */
-    public function sourceDocumentId(): SourceDocumentId
+    public function sourceDocumentId(): SourceId
     {
         return $this->sourceDocumentId;
     }
@@ -184,4 +188,13 @@ class Document
     {
         return $this->language;
     }
+
+    /**
+     * @return MetadataCollection
+     */
+    public function metadataCollection(): MetadataCollection
+    {
+        return $this->metadataCollection;
+    }
+
 }

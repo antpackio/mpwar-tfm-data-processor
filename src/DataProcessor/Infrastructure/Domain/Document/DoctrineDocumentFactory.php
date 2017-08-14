@@ -1,34 +1,23 @@
 <?php
 
-namespace Mpwar\DataProcessor\Test\Infrastructure\Stub;
+
+namespace Mpwar\DataProcessor\Infrastructure\Domain\Document;
 
 use Mpwar\DataProcessor\Domain\Author;
 use Mpwar\DataProcessor\Domain\AuthorLocation;
 use Mpwar\DataProcessor\Domain\Content;
 use Mpwar\DataProcessor\Domain\CreatedAt;
 use Mpwar\DataProcessor\Domain\Document;
+use Mpwar\DataProcessor\Domain\DocumentFactory;
 use Mpwar\DataProcessor\Domain\Language;
 use Mpwar\DataProcessor\Domain\SourceId;
 use Mpwar\DataProcessor\Domain\SourceKeyword;
 use Mpwar\DataProcessor\Domain\SourceName;
 
-class DocumentStub extends Stub
+class DoctrineDocumentFactory implements DocumentFactory
 {
-    public static function random()
-    {
-        return self::create(
-            SourceDocumentIdStub::random(),
-            SourceKeywordStub::random(),
-            SourceNameStub::random(),
-            ContentStub::random(),
-            CreatedAtStub::random(),
-            AuthorStub::random(),
-            AuthorLocationStub::random(),
-            LanguageStub::random()
-        );
-    }
 
-    public static function create(
+    public function build(
         SourceId $sourceDocumentId,
         SourceKeyword $sourceKeyword,
         SourceName $sourceName,
@@ -37,8 +26,9 @@ class DocumentStub extends Stub
         Author $author,
         AuthorLocation $authorLocation,
         Language $language
-    ) {
-        return new Document(
+    ): Document
+    {
+        return new DoctrineDocument(
             $sourceDocumentId,
             $sourceKeyword,
             $sourceName,

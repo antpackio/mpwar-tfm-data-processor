@@ -3,38 +3,30 @@
 namespace Mpwar\DataProcessor\Application;
 
 use Mpwar\DataProcessor\Domain\Document;
-use Mpwar\DataProcessor\Domain\EnrichedDocument\EnrichedDocumentsRepository;
-use Mpwar\DataProcessor\Domain\EnrichmentService\EnrichmentDocumentService;
+use Mpwar\DataProcessor\Domain\DocumentRepository;
+use Mpwar\DataProcessor\Domain\EnrichmentService\EnrichmentService;
 
 class EnrichDocument
 {
     /**
-     * @var EnrichmentDocumentService
+     * @var EnrichmentService
      */
     private $enrichmentService;
     /**
-     * @var EnrichedDocumentsRepository
+     * @var DocumentRepository
      */
-    private $enrichedDocumentsRepository;
+    private $documentRepository;
 
-    public function __construct(
-        EnrichmentDocumentService $enrichmentService,
-        EnrichedDocumentsRepository $enrichedDocumentsRepository
-    )
+    public function __construct(EnrichmentService $enrichmentService, DocumentRepository $documentRepository)
     {
         $this->enrichmentService = $enrichmentService;
-        $this->enrichedDocumentsRepository = $enrichedDocumentsRepository;
+        $this->documentRepository = $documentRepository;
     }
 
-    public function execute(Document $document, ?EnrichedDocumentDataTransformer $dataTransformer)
+    public function execute(Document $document): Document
     {
-        $enrichedDocument = $this->enrichmentService->execute($document);
-        $this->enrichedDocumentsRepository->save($enrichedDocument);
-
-        if ($dataTransformer){
-            return $dataTransformer->transform($enrichedDocument);
-        }
-
-        return $enrichedDocument;
+        $document->metadataCollection()->merge($this->enrichmentService->execute($document));
+        $this->documentRepository->save($document);
+        return $document;
     }
 }

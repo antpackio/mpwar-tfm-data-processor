@@ -1,0 +1,36 @@
+Mpwar\DataProcessor\Infrastructure\Domain\Document\DoctrineDocument:
+  type: entity
+  repositoryClass: \Mpwar\DataProcessor\Infrastructure\Domain\Document\DoctrineDocumentRepository
+  table: enriched_document
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    sourceDocumentId:
+      type: string
+      length: 36
+    sourceKeyword:
+      type: string
+      length: 255
+    sourceName:
+      type: string
+      length: 255
+    content:
+      type: text
+    createdAt:
+      column: created_at
+      type: string
+    author:
+      type: string
+      length: 255
+    authorLocation:
+      column: author_location
+      type: string
+      length: 2
+    language:
+      type: string
+      length: 2
+    metadataCollection:
+      type: array

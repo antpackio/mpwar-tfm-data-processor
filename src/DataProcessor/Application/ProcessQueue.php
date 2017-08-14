@@ -3,56 +3,57 @@
 namespace Mpwar\DataProcessor\Application;
 
 use Mpwar\DataProcessor\Application\Event\EnrichedDocumentWasProcessed;
+use Mpwar\DataProcessor\Domain\Author;
+use Mpwar\DataProcessor\Domain\AuthorLocation;
+use Mpwar\DataProcessor\Domain\Content;
+use Mpwar\DataProcessor\Domain\CreatedAt;
+use Mpwar\DataProcessor\Domain\Language;
+use Mpwar\DataProcessor\Domain\SourceId;
+use Mpwar\DataProcessor\Domain\SourceKeyword;
+use Mpwar\DataProcessor\Domain\SourceName;
 
 class ProcessQueue
 {
     /**
-     * @var EnrichDocument
+     * @var CreateDocument
      */
-    private $enrichDocument;
+    private $createDocument;
     /**
-     * @var DocumentReader
+     * @var DataQueue
      */
-    private $reader;
+    private $dataQueue;
     /**
      * @var MessageBus
      */
     private $messageBus;
-    /**
-     * @var EnrichedDocumentDataTransformer
-     */
-    private $dataTransformer;
 
     public function __construct(
+        DataQueue $dataQueue,
+        CreateDocument $createDocument,
         EnrichDocument $enrichDocument,
-        DocumentReader $reader,
-        MessageBus $messageBus,
-        EnrichedDocumentDataTransformer $dataTransformer
+        MessageBus $messageBus
     ) {
 
-        $this->enrichDocument  = $enrichDocument;
-        $this->reader          = $reader;
-        $this->messageBus      = $messageBus;
-        $this->dataTransformer = $dataTransformer;
+        $this->dataQueue      = $dataQueue;
+        $this->createDocument = $createDocument;
+        $this->enrichDocument = $enrichDocument;
+        $this->messageBus     = $messageBus;
     }
 
     public function execute()
     {
-        $applicationService = $this->enrichDocument;
-        $dataTransformer = $this->dataTransformer;
-        $enrichedDocument = $this->reader->next($this->enrichDocumentCallback($applicationService, $dataTransformer));
-        $this->messageBus->dispatch(EnrichedDocumentWasProcessed::NAME, new EnrichedDocumentWasProcessed($enrichedDocument));
-    }
-
-    /**
-     * @param $applicationService
-     * @param $dataTransformer
-     * @return \Closure
-     */
-    private function enrichDocumentCallback(EnrichDocument $applicationService, $dataTransformer): \Closure
-    {
-        return function ($document) use ($applicationService, $dataTransformer) {
-            return $applicationService->execute($document, $dataTransformer);
-        };
+        $data = $this->dataQueue->next();
+        $document = $this->createDocument->execute(
+            new SourceId($data['source_id']),
+            new SourceKeyword($data['keyword']),
+            new SourceName($data['source']),
+            new Content($data['content']),
+            new CreatedAt($data['created_at']),
+            new Author($data['author']),
+            new AuthorLocation($data['author_location']),
+            new Language($data['metadata']['language'])
+        );
+        $document = $this->enrichDocument->execute($document);
+        $this->messageBus->dispatch(EnrichedDocumentWasProcessed::NAME, new EnrichedDocumentWasProcessed($document));
     }
 }

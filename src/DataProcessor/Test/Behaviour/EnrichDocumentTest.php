@@ -3,17 +3,14 @@
 namespace Mpwar\DataProcessor\Test\Behaviour;
 
 use Mockery\Mock;
-use Mpwar\DataProcessor\Application\ArrayDataTransformer;
-use Mpwar\DataProcessor\Application\EnrichDocument;
-use Mpwar\DataProcessor\Application\EnrichedDocumentDataTransformer;
-use Mpwar\DataProcessor\Domain\EnrichedDocument\EnrichedDocumentsRepository;
-use Mpwar\DataProcessor\Domain\EnrichmentService\EnrichmentDocumentService;
+use Mpwar\DataProcessor\Application\CreateDocument;
+use Mpwar\DataProcessor\Domain\DocumentFactory;
+use Mpwar\DataProcessor\Domain\DocumentRepository;
 use Mpwar\DataProcessor\Test\Infrastructure\Stub\AuthorLocationStub;
 use Mpwar\DataProcessor\Test\Infrastructure\Stub\AuthorStub;
 use Mpwar\DataProcessor\Test\Infrastructure\Stub\ContentStub;
 use Mpwar\DataProcessor\Test\Infrastructure\Stub\CreatedAtStub;
 use Mpwar\DataProcessor\Test\Infrastructure\Stub\DocumentStub;
-use Mpwar\DataProcessor\Test\Infrastructure\Stub\EnrichedDocumentStub;
 use Mpwar\DataProcessor\Test\Infrastructure\Stub\LanguageStub;
 use Mpwar\DataProcessor\Test\Infrastructure\Stub\SourceDocumentIdStub;
 use Mpwar\DataProcessor\Test\Infrastructure\Stub\SourceKeywordStub;
@@ -22,26 +19,21 @@ use Mpwar\DataProcessor\Test\Infrastructure\UnitTestCase;
 
 class EnrichDocumentTest extends UnitTestCase
 {
-    /** @var  Mock|EnrichmentDocumentService */
-    private $enrichmentDocumentService;
-    /** @var  Mock|EnrichedDocumentsRepository */
-    private $enrichedDocumentsRepository;
-    /** @var  Mock|EnrichedDocumentDataTransformer */
-    private $dataTransformer;
-    /** @var  EnrichDocument */
+    /** @var  Mock|DocumentFactory */
+    private $documentFactory;
+    /** @var  Mock|DocumentRepository */
+    private $documentRepository;
+    /** @var  CreateDocument */
     private $applicationService;
 
     public function setUp()
     {
         parent::setUp();
 
-        $this->enrichmentDocumentService   = $this->mock(EnrichmentDocumentService::class);
-        $this->enrichedDocumentsRepository = $this->mock(EnrichedDocumentsRepository::class);
-        $this->dataTransformer             = $this->mock(EnrichedDocumentDataTransformer::class);
+        $this->documentFactory    = $this->mock(DocumentFactory::class);
+        $this->documentRepository = $this->mock(DocumentRepository::class);
 
-        $this->applicationService = new EnrichDocument(
-            $this->enrichmentDocumentService, $this->enrichedDocumentsRepository
-        );
+        $this->applicationService = new CreateDocument($this->documentFactory, $this->documentRepository);
     }
 
     /**
@@ -49,84 +41,72 @@ class EnrichDocumentTest extends UnitTestCase
      */
     public function processDocument()
     {
-        $expectedResult = [
-            'sourceId' => 'wiki/Star_Wars',
-            'source' => 'wiki',
-            'keyword' => 'force',
-            'content' => 'May the Force be with you',
-            'created_at' => '1977-05-25T00:00:00+00:00',
-            'author_name' => 'George Lucas',
-            'author_location' => 'US',
-            'language' => 'en',
-            'metadata' => []
-        ];
-
-        $document = DocumentStub::create(
-            SourceDocumentIdStub::create($expectedResult['sourceId']),
-            SourceKeywordStub::create($expectedResult['keyword']),
-            SourceNameStub::create($expectedResult['source']),
-            ContentStub::create($expectedResult['content']),
-            CreatedAtStub::create($expectedResult['created_at']),
-            AuthorStub::create($expectedResult['author_name']),
-            AuthorLocationStub::create($expectedResult['author_location']),
-            LanguageStub::create($expectedResult['language'])
-        );
-        $enrichedDocument = EnrichedDocumentStub::create(
-            $document
+        $sourceDocumentId = SourceDocumentIdStub::create('wiki/Star_Wars');
+        $sourceKeyword    = SourceKeywordStub::create('wiki');
+        $sourceName       = SourceNameStub::create('force');
+        $content          = ContentStub::create('May the Force be with you');
+        $createdAt        = CreatedAtStub::create('1977-05-25T00:00:00+00:00');
+        $author           = AuthorStub::create('George Lucas');
+        $authorLocation   = AuthorLocationStub::create('US');
+        $language         = LanguageStub::create('en');
+        $document         = DocumentStub::create(
+            $sourceDocumentId,
+            $sourceKeyword,
+            $sourceName,
+            $content,
+            $createdAt,
+            $author,
+            $authorLocation,
+            $language
         );
 
-        $this->enrichmentDocumentService()
-             ->shouldReceive('execute')
-             ->once()
-             ->with($document)
-             ->andReturn($enrichedDocument);
+        $this->documentFactory()->shouldReceive('build')->once()->with(
+                equalTo($sourceDocumentId),
+                equalTo($sourceKeyword),
+                equalTo($sourceName),
+                equalTo($content),
+                equalTo($createdAt),
+                equalTo($author),
+                equalTo($authorLocation),
+                equalTo($language)
+            )->andReturn($document);
 
-        $this->enrichedDocumentsRepository()
-             ->shouldReceive('save')
-             ->once()
-             ->with(equalTo($enrichedDocument))
-             ->andReturn();
+        $this->documentRepository()->shouldReceive('save')->once()->with(equalTo($document))->andReturn();
 
-        $this->dataTransformer()
-             ->shouldReceive('transform')
-             ->once()
-             ->with(equalTo($enrichedDocument))
-             ->andReturn($expectedResult);
+        $result = $this->applicationService()->execute(
+                $sourceDocumentId,
+                $sourceKeyword,
+                $sourceName,
+                $content,
+                $createdAt,
+                $author,
+                $authorLocation,
+                $language
+            );
 
-        $result = $this->applicationService()
-             ->execute($document, $this->dataTransformer());
-
-        $this->assertEquals($expectedResult, $result);
+        $this->assertEquals($document, $result);
     }
 
     /**
-     * @return Mock|EnrichmentDocumentService
+     * @return Mock|DocumentFactory
      */
-    public function enrichmentDocumentService()
+    public function documentFactory()
     {
-        return $this->enrichmentDocumentService;
+        return $this->documentFactory;
     }
 
     /**
-     * @return Mock|EnrichedDocumentsRepository
+     * @return Mock|DocumentRepository
      */
-    public function enrichedDocumentsRepository()
+    public function documentRepository()
     {
-        return $this->enrichedDocumentsRepository;
+        return $this->documentRepository;
     }
 
     /**
-     * @return Mock|ArrayDataTransformer
+     * @return CreateDocument
      */
-    public function dataTransformer()
-    {
-        return $this->dataTransformer;
-    }
-
-    /**
-     * @return EnrichDocument
-     */
-    public function applicationService(): EnrichDocument
+    public function applicationService(): CreateDocument
     {
         return $this->applicationService;
     }

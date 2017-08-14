@@ -1,34 +1,39 @@
 <?php
 
-namespace Mpwar\DataProcessor\Test\Infrastructure\Stub;
+namespace Mpwar\DataProcessor\Application;
 
 use Mpwar\DataProcessor\Domain\Author;
 use Mpwar\DataProcessor\Domain\AuthorLocation;
 use Mpwar\DataProcessor\Domain\Content;
 use Mpwar\DataProcessor\Domain\CreatedAt;
-use Mpwar\DataProcessor\Domain\Document;
+use Mpwar\DataProcessor\Domain\DocumentFactory;
+use Mpwar\DataProcessor\Domain\DocumentRepository;
 use Mpwar\DataProcessor\Domain\Language;
 use Mpwar\DataProcessor\Domain\SourceId;
 use Mpwar\DataProcessor\Domain\SourceKeyword;
 use Mpwar\DataProcessor\Domain\SourceName;
 
-class DocumentStub extends Stub
+class CreateDocument
 {
-    public static function random()
+    /**
+     * @var DocumentRepository
+     */
+    private $enrichedDocumentsRepository;
+    /**
+     * @var DocumentFactory
+     */
+    private $factory;
+
+    public function __construct(
+        DocumentFactory $factory,
+        DocumentRepository $enrichedDocumentsRepository
+    )
     {
-        return self::create(
-            SourceDocumentIdStub::random(),
-            SourceKeywordStub::random(),
-            SourceNameStub::random(),
-            ContentStub::random(),
-            CreatedAtStub::random(),
-            AuthorStub::random(),
-            AuthorLocationStub::random(),
-            LanguageStub::random()
-        );
+        $this->factory = $factory;
+        $this->enrichedDocumentsRepository = $enrichedDocumentsRepository;
     }
 
-    public static function create(
+    public function execute(
         SourceId $sourceDocumentId,
         SourceKeyword $sourceKeyword,
         SourceName $sourceName,
@@ -38,7 +43,7 @@ class DocumentStub extends Stub
         AuthorLocation $authorLocation,
         Language $language
     ) {
-        return new Document(
+        $document = $this->factory->build(
             $sourceDocumentId,
             $sourceKeyword,
             $sourceName,
@@ -48,5 +53,8 @@ class DocumentStub extends Stub
             $authorLocation,
             $language
         );
+        $this->enrichedDocumentsRepository->save($document);
+
+        return $document;
     }
 }

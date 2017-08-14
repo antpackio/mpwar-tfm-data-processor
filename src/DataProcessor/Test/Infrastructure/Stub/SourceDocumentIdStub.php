@@ -2,7 +2,7 @@
 
 namespace Mpwar\DataProcessor\Test\Infrastructure\Stub;
 
-use Mpwar\DataProcessor\Domain\SourceDocumentId;
+use Mpwar\DataProcessor\Domain\SourceId;
 
 class SourceDocumentIdStub extends Stub
 {
@@ -13,6 +13,6 @@ class SourceDocumentIdStub extends Stub
 
     public static function create($value)
     {
-        return new SourceDocumentId($value);
+        return new SourceId($value);
     }
 }

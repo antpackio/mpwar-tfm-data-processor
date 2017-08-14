@@ -8,3 +8,15 @@ Finalmente, por una parte, estos documentos son guardados en base de datos. Por 
 de la manera adecuada para ser conusmida por el front end y se colocan en cola, donde esperan ser consumidos por el 
 front end.
 
+Installing dependencies
+`composer install`
+Running Tests
+`./vendor/bin/phpunit`
+Create Database
+`./bin/console doctrine:schema-tool:create`
+Process Queue
+`./bin/console queue:process`
+Install required roles
+`ansible-galaxy install -r ansible/requirements.yml -p ansible/roles`
+Deploy code
+`ansible-playbook -i ansible/inventories/hosts --private-key {{private_key}} ansible/deploy-code.yml`

@@ -1,24 +1,17 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Carles
- * Date: 05/07/2017
- * Time: 18:42
- */
 
 namespace Mpwar\DataProcessor\Test\Behaviour;
 
 use Mpwar\DataProcessor\Infrastructure\Domain\EnrichmentService\InMemoryCategory;
-use Mpwar\DataProcessor\Test\Infrastructure\Stub\EnrichedDocument\EnrichedDocumentAuthorLocationStub;
-use Mpwar\DataProcessor\Test\Infrastructure\Stub\EnrichedDocument\EnrichedDocumentAuthorStub;
-use Mpwar\DataProcessor\Test\Infrastructure\Stub\EnrichedDocument\EnrichedDocumentContentStub;
-use Mpwar\DataProcessor\Test\Infrastructure\Stub\EnrichedDocument\EnrichedDocumentCreatedAtStub;
-use Mpwar\DataProcessor\Test\Infrastructure\Stub\EnrichedDocument\EnrichedDocumentLanguageStub;
-use Mpwar\DataProcessor\Test\Infrastructure\Stub\EnrichedDocument\EnrichedDocumentStub;
-use Mpwar\DataProcessor\Test\Infrastructure\Stub\RawDocument\RawDocumentIdStub;
-use Mpwar\DataProcessor\Test\Infrastructure\Stub\RawDocument\RawDocumentKeywordStub;
-use Mpwar\DataProcessor\Test\Infrastructure\Stub\RawDocument\RawDocumentSourceStub;
-use Mpwar\DataProcessor\Test\Infrastructure\Stub\RawDocument\RawDocumentStub;
+use Mpwar\DataProcessor\Test\Infrastructure\Stub\AuthorLocationStub;
+use Mpwar\DataProcessor\Test\Infrastructure\Stub\AuthorStub;
+use Mpwar\DataProcessor\Test\Infrastructure\Stub\ContentStub;
+use Mpwar\DataProcessor\Test\Infrastructure\Stub\CreatedAtStub;
+use Mpwar\DataProcessor\Test\Infrastructure\Stub\DocumentStub;
+use Mpwar\DataProcessor\Test\Infrastructure\Stub\LanguageStub;
+use Mpwar\DataProcessor\Test\Infrastructure\Stub\SourceDocumentIdStub;
+use Mpwar\DataProcessor\Test\Infrastructure\Stub\SourceKeywordStub;
+use Mpwar\DataProcessor\Test\Infrastructure\Stub\SourceNameStub;
 use Mpwar\DataProcessor\Test\Infrastructure\UnitTestCase;
 
 class InMemoryCategoryTest extends UnitTestCase
@@ -35,38 +28,36 @@ class InMemoryCategoryTest extends UnitTestCase
     /** @test */
     public function itShouldReturnAnEmptyMetadataCollectionWhenNoValidKeyword()
     {
-        $enrichedDocument = EnrichedDocumentStub::create(
-            RawDocumentIdStub::random(),
-            RawDocumentKeywordStub::random(),
-            RawDocumentSourceStub::twitter(),
-            EnrichedDocumentContentStub::random(),
-            EnrichedDocumentCreatedAtStub::random(),
-            EnrichedDocumentAuthorStub::random(),
-            EnrichedDocumentAuthorLocationStub::random(),
-            EnrichedDocumentLanguageStub::random()
+        $enrichedDocument = DocumentStub::create(
+            SourceDocumentIdStub::random(),
+            SourceKeywordStub::create('notValid'),
+            SourceNameStub::random(),
+            ContentStub::random(),
+            CreatedAtStub::random(),
+            AuthorStub::random(),
+            AuthorLocationStub::random(),
+            LanguageStub::random()
         );
 
-        $resultEnrichedDocument = $this->inMemoryCategory->execute($enrichedDocument);
-        $this->assertEquals(0, $resultEnrichedDocument->metadata()->count());
+        $metadataCollection = $this->inMemoryCategory->execute($enrichedDocument);
+        $this->assertEquals(null, $metadataCollection->get('category'));
     }
 
     /** @test */
     public function itShouldAddCategoryMetadataIntoEnrichedDocumentMetadataWhenValidKeyword()
     {
-        $category = ["health", "summer", "skin"];
-        $enrichedDocument = EnrichedDocumentStub::create(
-            RawDocumentIdStub::random(),
-            RawDocumentKeywordStub::create('sunscreen'),
-            RawDocumentSourceStub::twitter(),
-            EnrichedDocumentContentStub::random(),
-            EnrichedDocumentCreatedAtStub::random(),
-            EnrichedDocumentAuthorStub::random(),
-            EnrichedDocumentAuthorLocationStub::random(),
-            EnrichedDocumentLanguageStub::random()
+        $enrichedDocument = DocumentStub::create(
+            SourceDocumentIdStub::random(),
+            SourceKeywordStub::create('sunscreen'),
+            SourceNameStub::random(),
+            ContentStub::random(),
+            CreatedAtStub::random(),
+            AuthorStub::random(),
+            AuthorLocationStub::random(),
+            LanguageStub::random()
         );
 
-        $resultEnrichedDocument = $this->inMemoryCategory->execute($enrichedDocument);
-        $this->assertEquals($category, $resultEnrichedDocument->metadata()->current()->value);
+        $metadataCollection = $this->inMemoryCategory->execute($enrichedDocument);
+        $this->assertEquals('health, summer, skin', $metadataCollection->get('category')->value());
     }
-
 }

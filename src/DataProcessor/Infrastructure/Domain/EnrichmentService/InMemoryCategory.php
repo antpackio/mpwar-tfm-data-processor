@@ -2,30 +2,26 @@
 
 namespace Mpwar\DataProcessor\Infrastructure\Domain\EnrichmentService;
 
-
 use Mpwar\DataProcessor\Domain\Document;
-use Mpwar\DataProcessor\Domain\EnrichedDocument;
-use Mpwar\DataProcessor\Domain\EnrichmentService\EnrichmentDocumentService;
+use Mpwar\DataProcessor\Domain\EnrichmentService\EnrichmentService;
 use Mpwar\DataProcessor\Domain\Metadata;
+use Mpwar\DataProcessor\Domain\MetadataCollection;
 
-class InMemoryCategory implements EnrichmentDocumentService
+class InMemoryCategory implements EnrichmentService
 {
 
-    public function execute(Document $document): EnrichedDocument
+    public function execute(Document $document): MetadataCollection
     {
-        if(!is_a($document, EnrichedDocument::class)){
-            $document = EnrichedDocument::fromDocument($document);
-        }
-
+        $metadataCollection = new MetadataCollection();
         $category = $this->selectCategory($document->sourceKeyword()->value());
 
         if ($category) {
-            $document->metadataCollection()->add(
+            $metadataCollection->add(
                 new Metadata('category', $category)
             );
         }
 
-        return $document;
+        return $metadataCollection;
     }
 
     private function selectCategory(string $keyword): ?string

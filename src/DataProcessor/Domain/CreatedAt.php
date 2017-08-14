@@ -15,7 +15,8 @@ class CreatedAt extends StringValueObject
     protected function setValue(string $value)
     {
         if (!preg_match(self::ATOM_DATE_PATTERN, $value)) {
-            throw new \InvalidArgumentException();
+            throw new \InvalidArgumentException(
+                sprintf("Created at value provided is not valid: %s. Supported yyyy-mm-ddT00:00:00+00:00", $value));
         }
 
         parent::setValue($value);
