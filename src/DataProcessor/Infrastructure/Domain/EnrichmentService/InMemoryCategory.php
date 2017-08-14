@@ -24,11 +24,13 @@ class InMemoryCategory implements EnrichmentService
         return $metadataCollection;
     }
 
-    private function selectCategory(string $keyword): ?string
+    private function selectCategory(string $keyword)
     {
         switch($keyword){
             case "sunscreen":
-                return 'health, summer, skin';
+                return [
+                    'health', 'summer', 'skin'
+                ];
                 break;
         }
 

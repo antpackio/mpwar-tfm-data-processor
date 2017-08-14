@@ -8,12 +8,9 @@ class Metadata
      * @var string
      */
     private $name;
-    /**
-     * @var string
-     */
     private $value;
 
-    public function __construct(string $name, string $value)
+    public function __construct(string $name, $value)
     {
         $this->name  = $name;
         $this->value = $value;
@@ -30,7 +27,7 @@ class Metadata
     /**
      * @return string
      */
-    public function value(): string
+    public function value()
     {
         return $this->value;
     }
