@@ -2,7 +2,7 @@
 
 namespace Mpwar\DataProcessor\Test\Infrastructure\Stub;
 
-use Mpwar\DataProcessor\Domain\Language;
+use Mpwar\DataProcessor\Domain\Document\Language;
 
 class LanguageStub extends Stub
 {

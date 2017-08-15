@@ -4,10 +4,10 @@ namespace Mpwar\DataProcessor\Infrastructure\Domain\EnrichmentService;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\TransferException;
-use Mpwar\DataProcessor\Domain\Document;
+use Mpwar\DataProcessor\Domain\Document\Document;
 use Mpwar\DataProcessor\Domain\EnrichmentService\EnrichmentService;
-use Mpwar\DataProcessor\Domain\Metadata;
-use Mpwar\DataProcessor\Domain\MetadataCollection;
+use Mpwar\DataProcessor\Domain\Document\Metadata;
+use Mpwar\DataProcessor\Domain\Document\MetadataCollection;
 
 class GoogleSentiment implements EnrichmentService
 {

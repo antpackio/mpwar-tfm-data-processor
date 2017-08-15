@@ -2,7 +2,7 @@
 
 namespace Mpwar\DataProcessor\Test\Infrastructure\Stub;
 
-use Mpwar\DataProcessor\Domain\Content;
+use Mpwar\DataProcessor\Domain\Document\Content;
 
 class ContentStub extends Stub
 {

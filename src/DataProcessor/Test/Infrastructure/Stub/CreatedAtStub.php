@@ -2,7 +2,7 @@
 
 namespace Mpwar\DataProcessor\Test\Infrastructure\Stub;
 
-use Mpwar\DataProcessor\Domain\CreatedAt;
+use Mpwar\DataProcessor\Domain\Document\CreatedAt;
 
 class CreatedAtStub extends Stub
 {

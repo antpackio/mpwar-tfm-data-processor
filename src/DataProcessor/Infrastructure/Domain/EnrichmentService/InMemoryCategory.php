@@ -2,10 +2,10 @@
 
 namespace Mpwar\DataProcessor\Infrastructure\Domain\EnrichmentService;
 
-use Mpwar\DataProcessor\Domain\Document;
+use Mpwar\DataProcessor\Domain\Document\Document;
 use Mpwar\DataProcessor\Domain\EnrichmentService\EnrichmentService;
-use Mpwar\DataProcessor\Domain\Metadata;
-use Mpwar\DataProcessor\Domain\MetadataCollection;
+use Mpwar\DataProcessor\Domain\Document\Metadata;
+use Mpwar\DataProcessor\Domain\Document\MetadataCollection;
 
 class InMemoryCategory implements EnrichmentService
 {

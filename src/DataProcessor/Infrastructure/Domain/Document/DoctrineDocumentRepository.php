@@ -3,8 +3,8 @@
 namespace Mpwar\DataProcessor\Infrastructure\Domain\Document;
 
 use Doctrine\ORM\EntityRepository;
-use Mpwar\DataProcessor\Domain\Document;
-use Mpwar\DataProcessor\Domain\DocumentRepository;
+use Mpwar\DataProcessor\Domain\Document\Document;
+use Mpwar\DataProcessor\Domain\Document\DocumentRepository;
 
 class DoctrineDocumentRepository extends EntityRepository implements DocumentRepository
 {

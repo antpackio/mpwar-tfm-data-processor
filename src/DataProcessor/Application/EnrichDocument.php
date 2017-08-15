@@ -2,8 +2,8 @@
 
 namespace Mpwar\DataProcessor\Application;
 
-use Mpwar\DataProcessor\Domain\Document;
-use Mpwar\DataProcessor\Domain\DocumentRepository;
+use Mpwar\DataProcessor\Domain\Document\Document;
+use Mpwar\DataProcessor\Domain\Document\DocumentRepository;
 use Mpwar\DataProcessor\Domain\EnrichmentService\EnrichmentService;
 
 class EnrichDocument

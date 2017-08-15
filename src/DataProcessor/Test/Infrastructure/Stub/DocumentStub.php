@@ -2,15 +2,15 @@
 
 namespace Mpwar\DataProcessor\Test\Infrastructure\Stub;
 
-use Mpwar\DataProcessor\Domain\Author;
-use Mpwar\DataProcessor\Domain\AuthorLocation;
-use Mpwar\DataProcessor\Domain\Content;
-use Mpwar\DataProcessor\Domain\CreatedAt;
-use Mpwar\DataProcessor\Domain\Document;
-use Mpwar\DataProcessor\Domain\Language;
-use Mpwar\DataProcessor\Domain\SourceId;
-use Mpwar\DataProcessor\Domain\SourceKeyword;
-use Mpwar\DataProcessor\Domain\SourceName;
+use Mpwar\DataProcessor\Domain\Document\Author;
+use Mpwar\DataProcessor\Domain\Document\AuthorLocation;
+use Mpwar\DataProcessor\Domain\Document\Content;
+use Mpwar\DataProcessor\Domain\Document\CreatedAt;
+use Mpwar\DataProcessor\Domain\Document\Document;
+use Mpwar\DataProcessor\Domain\Document\Language;
+use Mpwar\DataProcessor\Domain\Document\SourceId;
+use Mpwar\DataProcessor\Domain\Document\SourceKeyword;
+use Mpwar\DataProcessor\Domain\Document\SourceName;
 
 class DocumentStub extends Stub
 {

@@ -2,7 +2,7 @@
 
 namespace Mpwar\DataProcessor\Test\Infrastructure\Stub;
 
-use Mpwar\DataProcessor\Domain\Author;
+use Mpwar\DataProcessor\Domain\Document\Author;
 
 class AuthorStub extends Stub
 {

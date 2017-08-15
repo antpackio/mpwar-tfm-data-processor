@@ -2,8 +2,8 @@
 
 namespace Mpwar\DataProcessor\Domain\EnrichmentService;
 
-use Mpwar\DataProcessor\Domain\Document;
-use Mpwar\DataProcessor\Domain\MetadataCollection;
+use Mpwar\DataProcessor\Domain\Document\Document;
+use Mpwar\DataProcessor\Domain\Document\MetadataCollection;
 
 class QueueOfEnrichmentServices implements EnrichmentService
 {

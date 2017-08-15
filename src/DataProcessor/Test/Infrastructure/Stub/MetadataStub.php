@@ -2,7 +2,7 @@
 
 namespace Mpwar\DataProcessor\Test\Infrastructure\Stub;
 
-use Mpwar\DataProcessor\Domain\Metadata;
+use Mpwar\DataProcessor\Domain\Document\Metadata;
 
 class MetadataStub extends Stub
 {

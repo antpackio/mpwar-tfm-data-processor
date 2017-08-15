@@ -1,6 +1,6 @@
 <?php
 
-namespace Mpwar\DataProcessor\Domain;
+namespace Mpwar\DataProcessor\Domain\Document;
 
 class Metadata
 {

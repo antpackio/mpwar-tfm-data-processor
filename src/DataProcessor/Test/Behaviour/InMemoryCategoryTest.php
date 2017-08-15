@@ -58,6 +58,6 @@ class InMemoryCategoryTest extends UnitTestCase
         );
 
         $metadataCollection = $this->inMemoryCategory->execute($enrichedDocument);
-        $this->assertEquals('health, summer, skin', $metadataCollection->get('category')->value());
+        $this->assertEquals(['health', 'summer', 'skin'], $metadataCollection->get('category')->value());
     }
 }

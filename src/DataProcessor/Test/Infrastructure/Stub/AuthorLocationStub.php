@@ -2,7 +2,7 @@
 
 namespace Mpwar\DataProcessor\Test\Infrastructure\Stub;
 
-use Mpwar\DataProcessor\Domain\AuthorLocation;
+use Mpwar\DataProcessor\Domain\Document\AuthorLocation;
 
 class AuthorLocationStub extends Stub
 {

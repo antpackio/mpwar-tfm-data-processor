@@ -5,22 +5,6 @@ namespace Mpwar\DataProcessor\Infrastructure\Application;
 use Aws\Result;
 use Aws\Sqs\SqsClient;
 use Mpwar\DataProcessor\Application\DataQueue;
-use Mpwar\DataProcessor\Domain\Author;
-use Mpwar\DataProcessor\Domain\AuthorLocation;
-use Mpwar\DataProcessor\Domain\Content;
-use Mpwar\DataProcessor\Domain\CreatedAt;
-use Mpwar\DataProcessor\Domain\Document;
-use Mpwar\DataProcessor\Domain\Language;
-use Mpwar\DataProcessor\Domain\RawDocument\RawDocument;
-use Mpwar\DataProcessor\Domain\RawDocument\RawDocumentContent;
-use Mpwar\DataProcessor\Domain\RawDocument\RawDocumentId;
-use Mpwar\DataProcessor\Domain\RawDocument\RawDocumentKeyword;
-use Mpwar\DataProcessor\Domain\RawDocument\RawDocumentsArrayCollection;
-use Mpwar\DataProcessor\Domain\RawDocument\RawDocumentSource;
-use Mpwar\DataProcessor\Domain\RawDocument\RawDocumentsRepository;
-use Mpwar\DataProcessor\Domain\SourceId;
-use Mpwar\DataProcessor\Domain\SourceKeyword;
-use Mpwar\DataProcessor\Domain\SourceName;
 
 class AmazonSqsDataQueue implements DataQueue
 {

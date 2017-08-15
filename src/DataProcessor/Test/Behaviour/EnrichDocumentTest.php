@@ -4,8 +4,8 @@ namespace Mpwar\DataProcessor\Test\Behaviour;
 
 use Mockery\Mock;
 use Mpwar\DataProcessor\Application\CreateDocument;
-use Mpwar\DataProcessor\Domain\DocumentFactory;
-use Mpwar\DataProcessor\Domain\DocumentRepository;
+use Mpwar\DataProcessor\Domain\Document\DocumentFactory;
+use Mpwar\DataProcessor\Domain\Document\DocumentRepository;
 use Mpwar\DataProcessor\Test\Infrastructure\Stub\AuthorLocationStub;
 use Mpwar\DataProcessor\Test\Infrastructure\Stub\AuthorStub;
 use Mpwar\DataProcessor\Test\Infrastructure\Stub\ContentStub;

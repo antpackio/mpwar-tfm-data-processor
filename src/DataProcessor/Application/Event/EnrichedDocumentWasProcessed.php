@@ -2,7 +2,7 @@
 
 namespace Mpwar\DataProcessor\Application\Event;
 
-use Mpwar\DataProcessor\Domain\Document;
+use Mpwar\DataProcessor\Domain\Document\Document;
 
 class EnrichedDocumentWasProcessed implements \JsonSerializable
 {
