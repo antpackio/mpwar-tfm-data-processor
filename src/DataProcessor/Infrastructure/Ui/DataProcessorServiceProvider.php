@@ -30,16 +30,16 @@ class DataProcessorServiceProvider implements ServiceProviderInterface
             $app['mpwar.processor']['queue_url']
         );
         $app['enriched_document.factory'] = new \Mpwar\DataProcessor\Infrastructure\Domain\Document\DoctrineDocumentFactory();
-        $app['application.service.create_document'] = new \Mpwar\DataProcessor\Application\CreateDocument(
+        $app['application.service.create_document'] = new \Mpwar\DataProcessor\Application\Service\CreateDocument(
             $app['enriched_document.factory'],
             $app['enriched_document.repository']
         );
-        $app['application.service.enrich_document'] = new \Mpwar\DataProcessor\Application\EnrichDocument(
+        $app['application.service.enrich_document'] = new \Mpwar\DataProcessor\Application\Service\EnrichDocument(
             $app['enriched_document.enrichment_service'],
             $app['enriched_document.repository']
         );
 
-        $app['application.service.process_queue'] = new \Mpwar\DataProcessor\Application\ProcessQueue(
+        $app['application.service.process_queue'] = new \Mpwar\DataProcessor\Application\Service\ProcessQueue(
             $app['document.reader'],
             $app['application.service.create_document'],
             $app['application.service.enrich_document'],

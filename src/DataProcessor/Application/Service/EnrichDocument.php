@@ -1,6 +1,6 @@
 <?php
 
-namespace Mpwar\DataProcessor\Application;
+namespace Mpwar\DataProcessor\Application\Service;
 
 use Mpwar\DataProcessor\Domain\Document\Document;
 use Mpwar\DataProcessor\Domain\Document\DocumentRepository;

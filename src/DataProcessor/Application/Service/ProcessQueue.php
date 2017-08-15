@@ -1,8 +1,11 @@
 <?php
 
-namespace Mpwar\DataProcessor\Application;
+namespace Mpwar\DataProcessor\Application\Service;
 
+use Mpwar\DataProcessor\Application\DataQueue;
+use Mpwar\DataProcessor\Application\DataRequest;
 use Mpwar\DataProcessor\Application\Event\EnrichedDocumentWasProcessed;
+use Mpwar\DataProcessor\Application\MessageBus;
 use Mpwar\DataProcessor\Domain\Document\Author;
 use Mpwar\DataProcessor\Domain\Document\AuthorLocation;
 use Mpwar\DataProcessor\Domain\Document\Content;
@@ -42,16 +45,17 @@ class ProcessQueue
 
     public function execute()
     {
-        $data = $this->dataQueue->next();
+        /** @var DataRequest $dataRequest */
+        $dataRequest = $this->dataQueue->next();
         $document = $this->createDocument->execute(
-            new SourceId($data['source_id']),
-            new SourceKeyword($data['keyword']),
-            new SourceName($data['source']),
-            new Content($data['content']),
-            new CreatedAt($data['created_at']),
-            new Author($data['author']),
-            new AuthorLocation($data['author_location']),
-            new Language($data['metadata']['language'])
+            new SourceId($dataRequest->sourceId()),
+            new SourceKeyword($dataRequest->keyword()),
+            new SourceName($dataRequest->source()),
+            new Content($dataRequest->content()),
+            new CreatedAt($dataRequest->createdAt()),
+            new Author($dataRequest->author()),
+            new AuthorLocation($dataRequest->authorLocation()),
+            new Language($dataRequest->language())
         );
         $document = $this->enrichDocument->execute($document);
         $this->messageBus->dispatch(EnrichedDocumentWasProcessed::NAME, new EnrichedDocumentWasProcessed($document));

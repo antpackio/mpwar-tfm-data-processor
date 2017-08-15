@@ -3,7 +3,7 @@
 namespace Mpwar\DataProcessor\Test\Behaviour;
 
 use Mockery\Mock;
-use Mpwar\DataProcessor\Application\CreateDocument;
+use Mpwar\DataProcessor\Application\Service\CreateDocument;
 use Mpwar\DataProcessor\Domain\Document\DocumentFactory;
 use Mpwar\DataProcessor\Domain\Document\DocumentRepository;
 use Mpwar\DataProcessor\Test\Infrastructure\Stub\AuthorLocationStub;

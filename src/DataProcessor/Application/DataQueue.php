@@ -4,5 +4,5 @@ namespace Mpwar\DataProcessor\Application;
 
 interface DataQueue
 {
-    public function next(): array;
+    public function next(): DataRequest;
 }

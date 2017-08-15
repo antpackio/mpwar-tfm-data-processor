@@ -10,7 +10,7 @@ class ProcessQueue extends Command
 {
     private $applicationService;
 
-    public function __construct(\Mpwar\DataProcessor\Application\ProcessQueue $applicationService)
+    public function __construct(\Mpwar\DataProcessor\Application\Service\ProcessQueue $applicationService)
     {
         parent::__construct();
         $this->applicationService = $applicationService;
