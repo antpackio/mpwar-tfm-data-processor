@@ -21,19 +21,28 @@ class EnrichedDocumentWasProcessed implements \JsonSerializable
     {
         $metadataCollection = $this->document->metadataCollection();
 
+        $category = $metadataCollection->get('category') ?
+            $metadataCollection->get('category')->value() : self::UNDEFINED_TAG;
+
+        $authorLocation = $metadataCollection->get('location') ?
+            $metadataCollection->get('location')->value() : self::UNDEFINED_TAG;
+
+        $sentiment = $metadataCollection->get('sentiment') ?
+            $metadataCollection->get('sentiment')->value() : self::UNDEFINED_TAG;
+
         return [
             'eventName' => self::NAME,
             'occurredOn' => $this->occurredOn()->format(DATE_ATOM),
             'enrichedDocument' => [
                 'source' => $this->document->sourceName()->value(),
                 'keyword' => $this->document->sourceKeyword()->value(),
-                'category' => $metadataCollection->get('category')? $metadataCollection->get('category')->value() : self::UNDEFINED_TAG,
+                'category' => $category,
                 'content' => $this->document->content()->value(),
                 'created_at' => $this->document->createdAt()->value(),
                 'author_name' => $this->document->author()->value(),
-                'author_location' => $metadataCollection->get('location')? $metadataCollection->get('location')->value() : self::UNDEFINED_TAG,
+                'author_location' => $authorLocation,
                 'language' => $this->document->language()->value(),
-                'sentiment' => $metadataCollection->get('sentiment')? $metadataCollection->get('sentiment')->value() : self::UNDEFINED_TAG,
+                'sentiment' => $sentiment,
             ]
         ];
     }
